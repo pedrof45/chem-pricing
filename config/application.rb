@@ -14,7 +14,7 @@ module ChemPricing
           methods: [:get, :post, :delete, :put, :options]
       end
     end
-    config.i18n.default_locale = 'es-CL'
+    config.i18n.default_locale = 'en'
     config.i18n.fallbacks = [:es, :en]
 
     config.assets.paths << Rails.root.join('node_modules')

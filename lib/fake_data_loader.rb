@@ -34,7 +34,7 @@ module FakeDataLoader
   def self.load_admin
     email = "admin@example.com"
     pass = "password"
-    admin = AdminUser.find_by(email: email)
-    AdminUser.create!(email: email, password: pass, password_confirmation: pass) unless admin
+    admin = User.find_by(email: email)
+    User.create!(email: email, password: pass, password_confirmation: pass) unless admin
   end
 end

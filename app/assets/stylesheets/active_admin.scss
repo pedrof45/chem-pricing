@@ -7,16 +7,17 @@
 //
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
-
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
-$skinActiveColor: #001CEE;
-$skinHeaderBck: #002744;
-$panelHeaderBck: #002744;
+$skinLogo: image-url("logo.png") no-repeat 0 0;
+$skinActiveColor: #777777;
+$skinHeaderBck: #155284;
+$panelHeaderBck: #2289dd;
 //$skinLogo: $skinHeaderBck image-url("logo_admin.png") no-repeat center center;
 
 @import "active_skin";
+
 
 
 // Overriding any non-variable SASS must be done after the fact.
