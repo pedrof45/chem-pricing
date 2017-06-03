@@ -1,0 +1,2 @@
+class DistCenterPolicy < ApplicationPolicy
+end
