@@ -8,12 +8,13 @@
 // For example, to change the sidebar width:
 // $sidebar-width: 242px;
 // Active Admin's got SASS!
+$quantiqColor: #e3136a;
 @import "active_admin/mixins";
 @import "active_admin/base";
-$skinLogo: image-url("logo.png") no-repeat 0 0;
-$skinActiveColor: #777777;
-$skinHeaderBck: #155284;
-$panelHeaderBck: #2289dd;
+$skinLogo: $quantiqColor image-url("logo_transp.png") no-repeat 14px/123px;
+$skinActiveColor: #888;
+$skinHeaderBck: $quantiqColor;
+//$panelHeaderBck: #2289dd;
 //$skinLogo: $skinHeaderBck image-url("logo_admin.png") no-repeat center center;
 
 @import "active_skin";

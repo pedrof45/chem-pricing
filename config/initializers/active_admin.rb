@@ -1,7 +1,7 @@
 class CustomFooter < ActiveAdmin::Component
   def build _arg
     super(id: "footer")
-    para "FelBa © 2017"
+    para "Quantiq Pricing - Powered by FelBa © 2017"
   end
 end
 
