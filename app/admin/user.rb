@@ -1,6 +1,7 @@
 ActiveAdmin.register User do
   menu label: 'Users'
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation,
+    :first_name, :last_name, :position, :business_unit, :role, :active
 
   index do
     selectable_column
