@@ -5,6 +5,14 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def to_s
+    email
+  end
+
+  def name
+    email
+  end
+
   def full_name
     [first_name, last_name].join ' '
   end

@@ -1,0 +1,13 @@
+pt-BR:
+  hello: "Olá mundo"
+  activerecord:
+        models:
+          user:
+            one: "Usuario"
+            other: Usuarios
+          product:
+            one: "Produto"
+            other: "Produtos"
+        attributes:
+          product:
+            name: "Nome"
