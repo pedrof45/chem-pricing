@@ -1,0 +1,2 @@
+class OptimalMarkupPolicy < ApplicationPolicy
+end

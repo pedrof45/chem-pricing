@@ -2,6 +2,8 @@ class OptimalMarkup < ApplicationRecord
   belongs_to :product
   belongs_to :customer
   belongs_to :dist_center
+
+  validates_presence_of :customer_id, :product_id, :dist_center_id, :value
 end
 
 # == Schema Information
