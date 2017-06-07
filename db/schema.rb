@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605001731) do
+ActiveRecord::Schema.define(version: 20170607025344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "costs", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "dist_center_id"
+    t.decimal "base_price"
+    t.string "currency"
+    t.decimal "suggested_markup"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dist_center_id"], name: "index_costs_on_dist_center_id"
+    t.index ["product_id"], name: "index_costs_on_product_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "code"
@@ -30,6 +42,26 @@ ActiveRecord::Schema.define(version: 20170605001731) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "icms_taxes", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "optimal_markups", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "customer_id"
+    t.bigint "dist_center_id"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_optimal_markups_on_customer_id"
+    t.index ["dist_center_id"], name: "index_optimal_markups_on_dist_center_id"
+    t.index ["product_id"], name: "index_optimal_markups_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "sku"
     t.string "name"
@@ -39,6 +71,32 @@ ActiveRecord::Schema.define(version: 20170605001731) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "density"
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "customer_id"
+    t.bigint "product_id"
+    t.datetime "quote_date"
+    t.string "payment_term"
+    t.boolean "icms_padrao"
+    t.decimal "icms"
+    t.decimal "ipi"
+    t.boolean "pis_confins_padrao"
+    t.decimal "pis_confins"
+    t.string "freight_condition"
+    t.decimal "brl_usd"
+    t.decimal "brl_eur"
+    t.decimal "quantity"
+    t.string "unit"
+    t.decimal "unit_price"
+    t.decimal "markup"
+    t.boolean "fixed_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_quotes_on_customer_id"
+    t.index ["product_id"], name: "index_quotes_on_product_id"
+    t.index ["user_id"], name: "index_quotes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,4 +122,12 @@ ActiveRecord::Schema.define(version: 20170605001731) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "costs", "dist_centers"
+  add_foreign_key "costs", "products"
+  add_foreign_key "optimal_markups", "customers"
+  add_foreign_key "optimal_markups", "dist_centers"
+  add_foreign_key "optimal_markups", "products"
+  add_foreign_key "quotes", "customers"
+  add_foreign_key "quotes", "products"
+  add_foreign_key "quotes", "users"
 end

@@ -1,4 +1,6 @@
 class DistCenter < ApplicationRecord
+  has_many :costs
+  has_many :optimal_markups
 end
 
 # == Schema Information

@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  has_many :optimal_markups
+  has_many :quotes
 end
 
 # == Schema Information
