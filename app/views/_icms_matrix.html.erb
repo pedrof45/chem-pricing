@@ -1,0 +1,24 @@
+<table class="index_table icms-matrix">
+  <tr>
+    <th class="col">
+      ORIG/DEST
+    </th>
+    <% @destinations.each do |dest| %>
+      <th class="col">
+        <%= dest %>
+      </th>
+    <% end %>
+  </tr>
+  <% @origins.each do |orig| %>
+    <tr>
+      <th class="col">
+        <%= orig %>
+      </th>
+      <% @destinations.each do |dest| %>
+        <td class="<%= 'diagonal-icms-cell' if orig == dest%>">
+          <%= @icms[orig][dest].try(:round, 3) || 'N/A'%>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

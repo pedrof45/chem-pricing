@@ -1,0 +1,2 @@
+class IcmsTaxPolicy < ApplicationPolicy
+end
