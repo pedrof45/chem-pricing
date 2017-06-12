@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :quotes
+  belongs_to :business_unit
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -38,12 +39,13 @@ end
 #  first_name             :string
 #  last_name              :string
 #  position               :string
-#  business_unit          :string
 #  role                   :string
 #  active                 :boolean
+#  business_unit_id       :integer
 #
 # Indexes
 #
+#  index_users_on_business_unit_id      (business_unit_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #

@@ -10,14 +10,26 @@ end
 #
 # Table name: costs
 #
-#  id               :integer          not null, primary key
-#  product_id       :integer
-#  dist_center_id   :integer
-#  base_price       :decimal(, )
-#  currency         :string
-#  suggested_markup :decimal(, )
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                     :integer          not null, primary key
+#  product_id             :integer
+#  dist_center_id         :integer
+#  base_price             :decimal(, )
+#  currency               :string
+#  suggested_markup       :decimal(, )
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  unit                   :string
+#  amount_for_price       :decimal(, )
+#  updated_cost           :boolean
+#  last_month_base_price  :decimal(, )
+#  last_month_fob_net     :decimal(, )
+#  product_analyst        :string
+#  lead_time              :integer
+#  min_order_quantity     :decimal(, )
+#  frac_emb               :string
+#  source_adjustment      :decimal(, )
+#  competition_adjustment :decimal(, )
+#  commentary             :string
 #
 # Indexes
 #

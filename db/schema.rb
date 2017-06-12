@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607030242) do
+ActiveRecord::Schema.define(version: 20170612024934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_units", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "costs", force: :cascade do |t|
     t.bigint "product_id"
@@ -23,8 +37,27 @@ ActiveRecord::Schema.define(version: 20170607030242) do
     t.decimal "suggested_markup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unit"
+    t.decimal "amount_for_price"
+    t.boolean "updated_cost"
+    t.decimal "last_month_base_price"
+    t.decimal "last_month_fob_net"
+    t.string "product_analyst"
+    t.integer "lead_time"
+    t.decimal "min_order_quantity"
+    t.string "frac_emb"
+    t.decimal "source_adjustment"
+    t.decimal "competition_adjustment"
+    t.string "commentary"
     t.index ["dist_center_id"], name: "index_costs_on_dist_center_id"
     t.index ["product_id"], name: "index_costs_on_product_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -33,6 +66,12 @@ ActiveRecord::Schema.define(version: 20170607030242) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "country_id"
+    t.bigint "city_id"
+    t.string "cnpj"
+    t.string "contact"
+    t.index ["city_id"], name: "index_customers_on_city_id"
+    t.index ["country_id"], name: "index_customers_on_country_id"
   end
 
   create_table "dist_centers", force: :cascade do |t|
@@ -40,6 +79,8 @@ ActiveRecord::Schema.define(version: 20170607030242) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_dist_centers_on_city_id"
   end
 
   create_table "icms_taxes", force: :cascade do |t|
@@ -57,6 +98,9 @@ ActiveRecord::Schema.define(version: 20170607030242) do
     t.decimal "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "table_value"
+    t.bigint "business_unit_id"
+    t.index ["business_unit_id"], name: "index_optimal_markups_on_business_unit_id"
     t.index ["customer_id"], name: "index_optimal_markups_on_customer_id"
     t.index ["dist_center_id"], name: "index_optimal_markups_on_dist_center_id"
     t.index ["product_id"], name: "index_optimal_markups_on_product_id"
@@ -118,9 +162,10 @@ ActiveRecord::Schema.define(version: 20170607030242) do
     t.string "first_name"
     t.string "last_name"
     t.string "position"
-    t.string "business_unit"
     t.string "role"
     t.boolean "active"
+    t.bigint "business_unit_id"
+    t.index ["business_unit_id"], name: "index_users_on_business_unit_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

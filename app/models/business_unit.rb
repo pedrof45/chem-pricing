@@ -1,21 +1,15 @@
-class DistCenter < ApplicationRecord
-  has_many :costs
+class BusinessUnit < ApplicationRecord
+  has_many :users
   has_many :optimal_markups
-  belongs_to :city
 end
 
 # == Schema Information
 #
-# Table name: dist_centers
+# Table name: business_units
 #
 #  id         :integer          not null, primary key
-#  code       :string
 #  name       :string
+#  code       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  city_id    :integer
-#
-# Indexes
-#
-#  index_dist_centers_on_city_id  (city_id)
 #
