@@ -4,12 +4,13 @@ ActiveAdmin.register OptimalMarkup do
   actions :all
 
   index title: 'Markups por Cliente e Produto' do
-    column("Nome Cliente") { |m| m.customer.name }
     column("Codigo Cliente") { |m| m.customer.code }
-    column("Producto") { |m| m.product.name }
+    column("Nome Cliente") { |m| m.customer.name }
     column("SKU") { |m| m.product.sku }
-    column("UN") { |m| m.product.unit }
-    column("CD de Origem") { |m| m.dist_center.code }
-    column("Mark-Up") { |m| m.value }
+    column("Nome Produto") { |m| m.product.name }
+    column("Unidade Negocio") { |m| m.business_unit.code if m.business_unit }
+    column("CD Origem") { |m| m.dist_center.code }
+    column :value
+    column :table_value
   end
 end

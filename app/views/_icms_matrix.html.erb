@@ -16,7 +16,13 @@
       </th>
       <% @destinations.each do |dest| %>
         <td class="<%= 'diagonal-icms-cell' if orig == dest%>">
-          <%= @icms[orig][dest].try(:round, 3) || 'N/A'%>
+          <% if(icms_tax = @icms[orig][dest]) %>
+            <%= link_to edit_icms_tax_path(icms_tax) do %>
+              <%= icms_tax.value.try(:round, 3) %>
+            <% end %>
+          <% else %>
+                'N/A'
+          <% end %>
         </td>
       <% end %>
     </tr>

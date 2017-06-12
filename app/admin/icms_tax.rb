@@ -1,5 +1,6 @@
 ActiveAdmin.register IcmsTax do
   permit_params :origin, :destination, :value
+  actions :all, except: :show
 
 
   controller do
@@ -9,7 +10,7 @@ ActiveAdmin.register IcmsTax do
       @destinations = IcmsTax.destinations
       @icms = @origins.map { |orig| [orig, {} ] }.to_h
       IcmsTax.all.each do |i_tax|
-        @icms[i_tax.origin][i_tax.destination] = i_tax.value
+        @icms[i_tax.origin][i_tax.destination] = i_tax
       end
       super
     end

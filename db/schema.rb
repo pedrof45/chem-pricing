@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612024934) do
+ActiveRecord::Schema.define(version: 20170612042952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20170612024934) do
     t.boolean "resolution13"
     t.integer "origin"
     t.boolean "commodity"
+    t.string "ncm"
   end
 
   create_table "quotes", force: :cascade do |t|

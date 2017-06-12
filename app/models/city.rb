@@ -1,4 +1,9 @@
 class City < ApplicationRecord
+
+  def state
+    code[0..1] if code
+  end
+
 end
 
 # == Schema Information

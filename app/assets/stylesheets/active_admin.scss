@@ -28,11 +28,19 @@ $panelHeaderBck: #555;
 
 .diagonal-icms-cell {
   background-color: whitesmoke;
+
+  a {
   color: black !important;
+  }
 }
 
-.icms-matrix td, th {
-  border-right: 1px solid #e8e8e8;
-  padding: 2px !important;
-  text-align: center !important;
+.icms-matrix {
+  td, th {
+    border-right: 1px solid #e8e8e8;
+    padding: 2px !important;
+    text-align: center !important;
+    a {
+    text-decoration: none !important;
+    }
+  }
 }

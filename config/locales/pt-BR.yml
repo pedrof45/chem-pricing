@@ -1,13 +1,175 @@
 pt-BR:
-  hello: "Olá mundo"
   activerecord:
-        models:
-          user:
-            one: "Usuario"
-            other: Usuarios
-          product:
-            one: "Produto"
-            other: "Produtos"
-        attributes:
-          product:
-            name: "Nome"
+    models:
+      user:
+        one: Usuario
+        other: Usuarios
+      customer:
+        one: Cliente
+        other: Clientes
+      product:
+        one: Produto
+        other: Produtos
+      cost:
+        one: Preço Piso
+        other: Preço Pisos
+      optimal_markup:
+        one: Politica de Mark-Up
+        other: Politica de Mark-Ups
+      dist_center:
+        one: CD
+        other: CDs
+      icms_tax:
+        one: ICMS
+        other: ICMSs
+      freight:
+        one: Frete
+        other: Fretes
+      quote:
+        one: Cotaçao
+        other: Cotaçaos
+      city:
+        one: Municipio
+        other: Municipios
+      country:
+        one: País
+        other: Paíss
+      sale:
+        one: Venda
+        other: Vendas
+      vehicle:
+        one: Vehiculo
+        other: Vehiculos
+      packaging:
+        one: Embalagem
+        other: Embalagems
+      bussiness _unit:
+        one: Unidade de Negocio
+        other: Unidade de Negocios
+      system_variable:
+        one: Variável do Sistema
+        other: Variável do Sistemas
+    attributes:
+      user:
+        email: Email
+        password: Senha
+        first_name: Nome
+        last_name: Sobrenome
+        position: Cargo
+        business_unit: Unidade de Negocio
+        role: Permisso
+        active: Ativo
+      customer:
+        code: Codigo Cliente
+        name: Nome Cliente
+        cnpj: CNPJ
+        country: Pais
+        city: Cidade
+        email: Email
+        contact: Contacto
+      product:
+        name: nome
+        sku: SKU
+        unit: unidade
+        currency: moeda
+        ipi: ipi
+        density: peso especifico
+        resolucion13: Resolução 13
+        origin: Origem R13
+        commodity?: Commodity?
+        'ncm ': NCM
+      cost:
+        product: produto
+        dist_center: Centro de Distribução
+        base_price: Preço Piso
+        currency: Moeda
+        suggested_markup: Politica de MarkUp
+        unit: unidade
+        amount_for_price: Por
+        updated_cost: Custo Atualizado
+        last_month_base_price: Preço Piso Mês Anterior
+        last_month_fob_net: FOB NET Mês Anterior
+        product_analyst: Analista de Produto
+        lead_time: Lead Time
+        min_order_quantity: Quantidade Minima de Compra
+        frac_emb: Fracionado/Embalado
+        source_adjustment: Reajuste Fonte
+        competition_adjustment: Reajuste concorrencia
+        commentary: Comentario
+      optimal_markup:
+        product: produto
+        customer: cliente
+        business_unit: Unidade de Negocio
+        dist_center: centro de distribução
+        value: Mark-up Meta
+        table_value: Mark-up Tabela
+      dist_center:
+        code: codigo
+        name: nome
+        Origem: origem
+        state: UF
+        city: cidade
+      icms_tax:
+        origin: origem
+        destination: destino
+        value: valor
+      freight: {}
+      quote:
+        user: usuario
+        customer: cliente
+        product: produto
+        payment_term: Prazo de Pagamento
+        icms_padrao: ICMS padrao
+        icms: ICMS
+        ipi: IPI
+        pis_confins_padrao: Pis/Confins
+        pis_confins: Pis/Confins
+        freight_condition: Condiçoes de Frete
+        brl_usd: BRL/USD
+        brl_eur: BRL/EUR
+        quantity: Quantidade
+        unit: Unidade
+        unit_price: Preço Unitario
+        markup-tablea: Mark-up Calculado
+        fixed_price: ''
+        quote_date: Data
+        precio_fob_neto: Preço Fob Neto
+        freight_table: Tabela Frete
+        comentario: Comentario
+        markup-meta: Mark-up Sugerido
+      city:
+        name: nome
+        state: estado
+        country: pais
+        code: itinerario
+      country:
+        name: nome
+        code: codigo
+      sale:
+        quote_date: ''
+        customer: ''
+        product: ''
+        distr_center: ''
+        user: ''
+        business_unit: ''
+        moneda: ''
+        unit: ''
+        volume: ''
+        Last_base_price: ''
+        last_unit_price: ''
+        calculated markup: ''
+        comentario: ''
+      vehicle:
+        name: nome
+        capacity: capacidade
+      packaging:
+        code: Codigo
+        name: nome
+        capacity: capacidade
+        weight: peso
+      bussiness _unit:
+        name: nome
+        code: codigo
+      system_variable:
+        name: nome
+        value: valor

@@ -20,4 +20,5 @@ end
 #  resolution13 :boolean
 #  origin       :integer
 #  commodity    :boolean
+#  ncm          :string
 #
