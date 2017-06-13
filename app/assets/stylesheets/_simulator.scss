@@ -1,0 +1,30 @@
+.simulator-form {
+
+  .left-side {
+    width: 70%;
+    float: left;
+  }
+
+  .right-side {
+    width: 25%;
+    background-color: lightgray !important;
+    float: right;
+    min-height: 400px;
+  }
+
+  .left-bottom {
+
+    .term-taxes-fields {
+      width: 49%;
+      float: left;
+    }
+
+    .freight-conditions-fields {
+      width: 49%;
+      float: right;
+    }
+
+
+  }
+
+}

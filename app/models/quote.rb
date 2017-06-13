@@ -1,7 +1,14 @@
 class Quote < ApplicationRecord
+  extend Enumerize
+
   belongs_to :user
   belongs_to :customer
   belongs_to :product
+  belongs_to :dist_center
+  belongs_to :city
+
+  enumerize :freight_condition, in: [:cib, :fob, :redispatch]
+
 end
 
 # == Schema Information
@@ -29,12 +36,16 @@ end
 #  fixed_price        :boolean
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  dist_center_id     :integer
+#  city_id            :integer
 #
 # Indexes
 #
-#  index_quotes_on_customer_id  (customer_id)
-#  index_quotes_on_product_id   (product_id)
-#  index_quotes_on_user_id      (user_id)
+#  index_quotes_on_city_id         (city_id)
+#  index_quotes_on_customer_id     (customer_id)
+#  index_quotes_on_dist_center_id  (dist_center_id)
+#  index_quotes_on_product_id      (product_id)
+#  index_quotes_on_user_id         (user_id)
 #
 # Foreign Keys
 #

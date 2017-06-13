@@ -1,0 +1,30 @@
+<div class="simulator-form">
+  <%= semantic_form_for quote do |f| %>
+      <div class="left-side">
+        <div class="base-data left-top">
+          <%= f.inputs name: 'Dados Básicos' do %>
+              <%= f.input :dist_center %>
+              <%= f.input :customer%>
+              <%= f.input :product %>
+          <% end %>
+        </div>
+        <div class="left-bottom">
+          <div class="term-taxes-fields">
+            <%= f.inputs name: '' do %>
+                <%= f.input :payment_term %>
+                <%= f.input :quantity%>
+            <% end %>
+          </div>
+          <div class="freight-conditions-fields">
+            <%= f.inputs name: "Condiçao de Entrega" do %>
+                <%= f.input :freight_condition, as: :radio  %>
+                <%= f.input :city  %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="right-side">
+        [TODO: Exchange Rates / Freight Fields]
+      </div>
+  <% end %>
+</div>
