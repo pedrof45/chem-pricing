@@ -18,26 +18,29 @@
       float: left;
     }
 
-    .details-fields {
+    .freight-conditions-fields {
       width: 28%;
       float: right;
     }
+      #quote_freight_condition_input {
+        margin-top: -7px;
+      }
   }
 
   .left-bottom {
     display: inline-block;
     width: 100%;
 
+    .details-fields {
+      width: 31%;
+      float: left;
+    }
     .taxes-fields {
       width: 35%;
       float: left;
-    }
-
-    .freight-conditions-fields {
-      width: 31%;
-      float: left;
       margin-left: 3%;
     }
+
 
     .exchange-rate-fields {
       width: 28%;
@@ -104,6 +107,35 @@
   }
 }
 
-.freight-fieldset {
-  height: 320px;
+.price-markup-fieldset {
+
+  legend.label {
+    border: none;
+  }
+
+  li.input {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  li.choice {
+    margin-top: 1px;
+    margin-bottom: 27px;
+  }
+
+  #quote_fixed_price_input {
+    float: left;
+    width: 50%;
+  }
+
+  #quote_unit_price_input, #quote_markup_input {
+    float: left;
+    width: 40%;
+    font-size: 15px;
+  }
+
+  .make-quote-button {
+    float: right;
+    margin-right: calc(50% - 60px);
+  }
 }

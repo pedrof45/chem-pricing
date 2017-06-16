@@ -2,21 +2,27 @@
   <%= semantic_form_for quote do |f| %>
       <div class="left-side">
         <div class="left-top">
-          <div class="basic-fields">
+          <div class="basic-fields fields-box">
             <%= f.inputs name: 'Dados Básicos' do %>
                 <%= f.input :dist_center %>
                 <%= f.input :customer %>
                 <%= f.input :product %>
             <% end %>
           </div>
-          <div class="details-fields">
+          <div class="freight-conditions-fields fields-box">
+            <%= f.inputs name: "Condiçao de Entrega" do %>
+                <%= f.input :freight_condition, as: :radio  %>
+                <%= f.input :city  %>
+            <% end %>
+          </div>
+        </div>
+        <div class="left-bottom">
+          <div class="details-fields fields-box">
             <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
                 <%= f.input :payment_term %>
                 <%= f.input :quantity %>
             <% end %>
           </div>
-        </div>
-        <div class="left-bottom">
           <div class="taxes-fields fields-box">
             <%= f.inputs name: 'Impostos' do %>
                 <div class="icms-box tax-box">
@@ -31,12 +37,6 @@
                 </div>
             <% end %>
           </div>
-          <div class="freight-conditions-fields fields-box">
-            <%= f.inputs name: "Condiçao de Entrega" do %>
-                <%= f.input :freight_condition, as: :radio  %>
-                <%= f.input :city  %>
-            <% end %>
-          </div>
           <div class="exchange-rate-fields fields-box">
             <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
                 <%= f.input :brl_usd %>
@@ -46,9 +46,12 @@
         </div>
       </div>
       <div class="right-side">
-        <div class="freight-fields fields-box">
-          <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
-
+        <div class="price-markup-fields fields-box">
+          <%= f.inputs name: 'Fixar Preço/Markup', class: 'inputs price-markup-fieldset' do %>
+              <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario" => true, "Markup" => false }  %>
+              <%= f.input :unit_price, label: false %>
+              <%= f.input :markup, label: false %>
+              <%= f.submit class: "make-quote-button" %>
           <% end %>
         </div>
       </div>
