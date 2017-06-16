@@ -11,15 +11,36 @@
     min-height: 400px;
   }
 
-  .left-bottom {
+  .left-top {
 
-    .term-taxes-fields {
-      width: 49%;
+    .basic-fields {
+      width: 68%;
+      float: left;
+    }
+
+    .details-fields {
+      width: 28%;
+      float: right;
+    }
+  }
+
+  .left-bottom {
+    display: inline-block;
+    width: 100%;
+
+    .taxes-fields {
+      width: 35%;
       float: left;
     }
 
     .freight-conditions-fields {
-      width: 49%;
+      width: 31%;
+      float: left;
+      margin-left: 3%;
+    }
+
+    .exchange-rate-fields {
+      width: 28%;
       float: right;
     }
   }
