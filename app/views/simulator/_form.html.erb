@@ -54,6 +54,9 @@
               <%= f.submit class: "make-quote-button" %>
           <% end %>
         </div>
+        <div class="result-box inputs">
+          <%= render partial: '/quote_result', locals: { quote: quote }%>
+        </div>
       </div>
   <% end %>
 </div>

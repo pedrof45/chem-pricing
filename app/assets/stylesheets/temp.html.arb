@@ -1,0 +1,57 @@
+columns do
+  column class: "column small-column" do
+    panel t('admin.report.date') do
+      render 'report_filter'
+    end
+
+    panel t('admin.report.title_stats') do
+      if report.respond_to? :total_distance
+        attributes_table_for report do
+          row :percentage do
+            if report.respond_to?(:cleaned_percentage) && !report.cleaned_percentage.nil?
+              "#{report.cleaned_percentage.to_i}%"
+            end
+          end
+
+          row :efficiency do
+            report.cleaning_efficiency if report.respond_to? :cleaning_efficiency
+          end
+
+          row :area do
+            if report.respond_to?(:cleaned_area) && !report.cleaned_area.nil?
+              "#{number_with_delimiter(report.cleaned_area.to_i, delimiter: '.')} m²"
+            end
+          end
+
+          row :distance do
+            "#{report.total_distance.round(2)} km" if report.respond_to? :total_distance
+          end
+
+          row :max_speed do
+            "#{report.max_speed.round(1)} m/min" if report.respond_to? :max_speed
+          end
+
+          row :avg_speed do
+            "#{report.avg_speed.round(1)} m/min" if report.respond_to? :avg_speed
+          end
+
+          row :total_time
+          row :start_time
+          row :end_time
+        end
+      else
+        div t('admin.report.no_data')
+      end
+    end
+
+    panel t('admin.report.lagoon_legend') do
+      render "speed_legend"
+    end
+  end
+
+  column class: "column big-column" do
+    panel t('admin.report.title_snapshot') do
+      render 'cleaning_sessions'
+    end
+  end
+end

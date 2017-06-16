@@ -9,6 +9,9 @@ class Quote < ApplicationRecord
 
   enumerize :freight_condition, in: [:cib, :fob, :redispatch]
 
+  def total_price
+    unit_price.to_i * quantity.to_i
+  end
 end
 
 # == Schema Information

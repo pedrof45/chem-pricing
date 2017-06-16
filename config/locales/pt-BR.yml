@@ -21,7 +21,7 @@ pt-BR:
         other: CDs
       icms_tax:
         one: ICMS
-        other: ICMSs
+        other: ICMS
       freight:
         one: Frete
         other: Fretes
@@ -38,8 +38,8 @@ pt-BR:
         one: Venda
         other: Vendas
       vehicle:
-        one: Vehiculo
-        other: Vehiculos
+        one: Veiculo
+        other: Veiculos
       packaging:
         one: Embalagem
         other: Embalagems
@@ -68,23 +68,23 @@ pt-BR:
         email: Email
         contact: Contacto
       product:
-        name: nome
+        name: Nome
         sku: SKU
-        unit: unidade
+        unit: Unidade
         currency: moeda
-        ipi: ipi
-        density: peso especifico
+        ipi: IPI
+        density: Peso Especifico
         resolucion13: Resolução 13
         origin: Origem R13
         commodity?: Commodity?
         'ncm ': NCM
       cost:
-        product: produto
+        product: Produto
         dist_center: Centro de Distribução
         base_price: Preço Piso
         currency: Moeda
-        suggested_markup: Politica de MarkUp
-        unit: unidade
+        suggested_markup: Politica Sugerida %
+        unit: Unidade
         amount_for_price: Por
         updated_cost: Custo Atualizado
         last_month_base_price: Preço Piso Mês Anterior
@@ -94,30 +94,55 @@ pt-BR:
         min_order_quantity: Quantidade Minima de Compra
         frac_emb: Fracionado/Embalado
         source_adjustment: Reajuste Fonte
-        competition_adjustment: Reajuste concorrencia
+        competition_adjustment: Reajuste Concorrencia
         commentary: Comentario
+        on_demand: Apoio Sobre Demanda
       optimal_markup:
-        product: produto
-        customer: cliente
+        product: Produto
+        customer: Cliente
         business_unit: Unidade de Negocio
-        dist_center: centro de distribução
+        dist_center: Centro de Distribução
         value: Mark-up Meta
         table_value: Mark-up Tabela
       dist_center:
-        code: codigo
-        name: nome
-        Origem: origem
+        code: Codigo
+        name: Nome
+        Origem: Origem
         state: UF
-        city: cidade
+        city: Cidade
       icms_tax:
-        origin: origem
-        destination: destino
-        value: valor
-      freight: {}
+        origin: Origem
+        destination: Destino
+        value: Valor
+      freight:
+        freight_table: Tabela de Frete
+        origin: Origem
+        destination: Destination
+        vehicle: Veiculo
+        value: Montante
+        toll: Pedagio
+        operation: Operação Picado
+        produto: Produto
+        insurance: Seguro
+        GRIS: GRIS
+        CT-e: CT-e
+        min: Minimo
+        tipo_frete_embalado: Embalado?
+        tipo_frete_granel: Granel?
+        freight_condition: FOB/CIF/REDESPACHO
+        customer: Cliente
+        frete_granel: Tipo Frete Granel
+        veiculo_granel: Veiculo
+        frete_embalado: Tipo Frete Embalado
+        farma_quimico: Farma ou Quimico
+        veiculo_embalado: Veiculo
+        frete_unitario: Frete em $R/KG ou L
+        frete_en_BRL: Frete em Unidade de Produto
+        frete_final: Frete em Moeda Produto
       quote:
-        user: usuario
-        customer: cliente
-        product: produto
+        user: Usuario
+        customer: Cliente
+        product: Produto
         payment_term: Prazo de Pagamento
         icms_padrao: ICMS padrao
         icms: ICMS
@@ -130,46 +155,51 @@ pt-BR:
         quantity: Quantidade
         unit: Unidade
         unit_price: Preço Unitario
-        markup-tablea: Mark-up Calculado
+        markup: Mark-up Calculado
+        table_value: Mark-up Tabela
         fixed_price: ''
         quote_date: Data
-        precio_fob_neto: Preço Fob Neto
+        fob_net_price: Preço Fob Neto
         freight_table: Tabela Frete
-        comentario: Comentario
-        markup-meta: Mark-up Sugerido
+        final_freight: Frete Final
+        comment: Comentario
+        dist_center: Centro de Distribução
+        city: Cidade Redespacho
+        frete_unitatio: Frete Unitario
+        total_price: Receita
       city:
-        name: nome
-        state: estado
+        name: Nome
+        state: Estado
         country: pais
-        code: itinerario
+        code: Itinerario
       country:
-        name: nome
-        code: codigo
+        name: Nome
+        code: Codigo
       sale:
-        quote_date: ''
-        customer: ''
-        product: ''
-        distr_center: ''
-        user: ''
-        business_unit: ''
-        moneda: ''
-        unit: ''
-        volume: ''
-        Last_base_price: ''
-        last_unit_price: ''
-        calculated markup: ''
-        comentario: ''
+        quote_date: Data
+        customer: Cliente
+        product: Produto
+        distr_center: Centro de Distribução
+        user: Usuario
+        business_unit: Unidade de Negocio
+        moneda: Moeda
+        unit: Unidade
+        volume: Volume
+        Last_base_price: Ultimo Preço Piso
+        last_unit_price: Ultimo Preço Unitario
+        calculated markup: Mark-Up Calculado
+        comentario: Comentario
       vehicle:
-        name: nome
-        capacity: capacidade
+        name: Nome
+        capacity: Capacidade
       packaging:
         code: Codigo
-        name: nome
-        capacity: capacidade
-        weight: peso
+        name: Nome
+        capacity: Capacidade
+        weight: Peso (kg)
       bussiness _unit:
-        name: nome
-        code: codigo
+        name: Nome
+        code: Codigo
       system_variable:
-        name: nome
-        value: valor
+        name: Nome
+        value: Valor

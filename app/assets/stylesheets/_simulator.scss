@@ -1,3 +1,5 @@
+$darkerAAbackgroundGray: #d3dcde;
+
 .simulator-form {
 
   .left-side {
@@ -6,20 +8,23 @@
   }
 
   .right-side {
+    background-color: $darkerAAbackgroundGray;
     width: 25%;
     float: right;
     min-height: 400px;
+    padding: 26px 22px;
+    margin-top: -23px;
   }
 
   .left-top {
 
     .basic-fields {
-      width: 68%;
+      width: 58%;
       float: left;
     }
 
     .freight-conditions-fields {
-      width: 28%;
+      width: 38%;
       float: right;
     }
       #quote_freight_condition_input {
@@ -96,14 +101,19 @@
 
   legend.label {
     border: none;
+  }
 
-    label {
-      width: 60% !important;
-    }
+  label {
+    width: 55% !important;
+    margin-right: -35px;
   }
 
   .choices-group {
     margin-left: 82px;
+  }
+
+  #s2id_quote_city_id {
+    width: 45% !important;
   }
 }
 
