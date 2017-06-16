@@ -4,27 +4,49 @@
         <div class="base-data left-top">
           <%= f.inputs name: 'Dados Básicos' do %>
               <%= f.input :dist_center %>
-              <%= f.input :customer%>
+              <%= f.input :customer %>
               <%= f.input :product %>
           <% end %>
         </div>
         <div class="left-bottom">
           <div class="term-taxes-fields">
-            <%= f.inputs name: '' do %>
+            <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
                 <%= f.input :payment_term %>
-                <%= f.input :quantity%>
+                <%= f.input :quantity %>
+            <% end %>
+            <%= f.inputs name: 'Impostos' do %>
+                <div class="icms-box tax-box">
+                  <%= f.label 'ICMS' %>
+                  <%= f.input :icms_padrao, label: "Padrao?" %>
+                  <%= f.input :icms, label: false %>
+                </div>
+                <div class="pis-confins-box tax-box">
+                  <%= f.label 'Pis/Confins' %>
+                  <%= f.input :pis_confins_padrao, label: "Padrao?" %>
+                  <%= f.input :pis_confins, label: false %>
+                </div>
             <% end %>
           </div>
           <div class="freight-conditions-fields">
             <%= f.inputs name: "Condiçao de Entrega" do %>
                 <%= f.input :freight_condition, as: :radio  %>
                 <%= f.input :city  %>
-          <% end %>
+            <% end %>
           </div>
         </div>
       </div>
       <div class="right-side">
-        [TODO: Exchange Rates / Freight Fields]
+        <div class="exchange-rate-fields">
+          <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
+              <%= f.input :brl_usd %>
+              <%= f.input :brl_eur %>
+          <% end %>
+        </div>
+        <div class="freight-fields">
+          <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
+
+          <% end %>
+        </div>
       </div>
   <% end %>
 </div>

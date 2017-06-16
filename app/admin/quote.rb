@@ -4,7 +4,5 @@ ActiveAdmin.register Quote do
   #               :icms, :ipi, :pis_confins_padrao, :pis_confins, :freight_condition,
   #               :brl_usd, :brl_eur, :quantity, :unit, :unit_price, :markup, :fixed_price
 
-  index title: 'Histórico Cotaçoes' do
 
-  end
 end

@@ -7,7 +7,6 @@
 
   .right-side {
     width: 25%;
-    background-color: lightgray !important;
     float: right;
     min-height: 400px;
   }
@@ -23,8 +22,67 @@
       width: 49%;
       float: right;
     }
-
-
   }
 
+  fieldset.inputs {
+    margin-top: -7px;
+    padding-top: 42px;
+    padding-bottom: 8px;
+  }
+}
+
+.details-fieldset {
+
+  label {
+    width: 60% !important;
+  }
+  input {
+    width: 30% !important;
+  }
+}
+
+.tax-box {
+
+  li {
+    display: inline-block;
+    margin: 5px
+  }
+
+  label {
+    font-size: 1.0em;
+    font-weight: bold;
+    color: #5E6469;
+    text-transform: uppercase;
+    margin: 0 14px 0 18px
+  }
+
+  input#quote_icms, input#quote_pis_confins {
+    width: 40px;
+  }
+
+  input#quote_icms_padrao {
+    margin: 0 8px 0 37px;
+  }
+  input#quote_pis_confins_padrao {
+    margin: 0 8px 0 -3px;
+  }
+}
+
+.freight-conditions-fields {
+
+  legend.label {
+    border: none;
+
+    label {
+      width: 60% !important;
+    }
+  }
+
+  .choices-group {
+    margin-left: 82px;
+  }
+}
+
+.freight-fieldset {
+  height: 320px;
 }
