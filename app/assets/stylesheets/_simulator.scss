@@ -103,7 +103,12 @@ $darkerAAbackgroundGray: #d3dcde;
     border: none;
   }
 
-  label {
+  #quote_freight_condition_input label {
+    width: 35% !important;
+    margin-right: -35px;
+  }
+
+  #quote_city_input label {
     width: 55% !important;
     margin-right: -35px;
   }
