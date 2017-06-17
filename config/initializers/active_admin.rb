@@ -113,7 +113,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  config.root_to = 'simulator#index'
+  config.root_to = 'quotes#new'
 
   # == Admin Comments
   #

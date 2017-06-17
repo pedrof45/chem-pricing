@@ -1,11 +1,15 @@
 panel 'Resultado da Cotação', class: 'quote-results-panel' do
   attributes_table_for quote do
-    row :base_price
-    row :optimal_markup
-    row :final_freight
-    row :fob_net_price
-    row :total_price
-    row :mcb
+    if quote.new_record?
+      para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'
+    else
+      row :base_price
+      row :optimal_markup
+      row :final_freight
+      row :fob_net_price
+      row :total_price
+      row :mcb
+    end
   end
 end
 panel 'Ultima Venta', class: 'last-sale-panel' do

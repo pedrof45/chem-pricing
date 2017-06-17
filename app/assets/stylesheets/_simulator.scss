@@ -156,13 +156,24 @@ $darkerAAbackgroundGray: #d9d9d9;
 
 .results-section {
 
-  .quote-results-panel {
+  .panel {
     width: 48%;
+    min-height: 390px;
+  }
+
+  .quote-results-panel {
     float: left;
   }
 
   .last-sale-panel {
-    width: 48%;
     float: right;
+  }
+
+  .simulate-msg {
+    font-size: 14px;
+    text-align: center;
+    color: #5E6469;
+    margin-top: 10%;
+    padding: 10px;
   }
 }

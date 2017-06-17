@@ -1,6 +1,7 @@
 ActiveAdmin.register Quote do
   menu priority: 2
-  # before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:create]
+  actions :index, :new, :create, :edit, :update
 
   permit_params :user_id, :customer_id, :product_id, :quote_date, :payment_term, :icms_padrao,
                 :icms, :ipi, :pis_confins_padrao, :pis_confins, :freight_condition,
@@ -9,4 +10,22 @@ ActiveAdmin.register Quote do
                 :final_freight, :comment, :dist_center_id, :city_id, :unit_freight
 
   form partial: 'form', title: 'Simulador de Preço'
+
+  controller do
+    def create
+      create! do |format|
+        format.html do
+          if resource.errors.any?
+            super
+          else
+            redirect_to edit_quote_path(resource)
+          end
+        end
+      end
+    end
+
+    def set_user
+      params[:quote][:user_id]= current_user.id
+    end
+  end
 end

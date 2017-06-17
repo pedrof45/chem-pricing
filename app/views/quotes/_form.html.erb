@@ -1,5 +1,5 @@
 <div class="simulator-form">
-  <%= semantic_form_for resource do |f| %>
+  <%= semantic_form_for resource, url: quotes_path, html: { method: :post }  do |f| %>
       <div class="inputs-side">
         <div class="inputs-top">
           <div class="basic-fields fields-box">
@@ -51,7 +51,7 @@
                   <br/>
                   <br/>
                   <br/>
-                  <%= f.input :city, label: "TODO"  %>
+                  <%= f.input :comment, label: "TODO", as: :select  %>
                 <% end %>
             <% end %>
           </div>
