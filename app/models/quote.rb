@@ -12,6 +12,18 @@ class Quote < ApplicationRecord
   def total_price
     unit_price.to_i * quantity.to_i
   end
+
+  def optimal_markup
+    if product && customer
+      product.optimal_markups.where(customer: customer).last.try :value
+    elsif product
+      product.optimal_markups.where(customer: nil).last.try :value
+    end
+  end
+
+  def mcb
+    "123"
+  end
 end
 
 # == Schema Information

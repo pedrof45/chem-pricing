@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613052144) do
+ActiveRecord::Schema.define(version: 20170617041126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,30 @@ ActiveRecord::Schema.define(version: 20170613052144) do
     t.index ["user_id"], name: "index_quotes_on_user_id"
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.datetime "sale_date"
+    t.bigint "customer_id"
+    t.bigint "product_id"
+    t.bigint "dist_center_id"
+    t.bigint "user_id"
+    t.bigint "business_unit_id"
+    t.string "moneda"
+    t.string "unit"
+    t.decimal "volume"
+    t.decimal "base_price"
+    t.decimal "unit_price"
+    t.string "calculated"
+    t.decimal "markup"
+    t.string "comentario"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_unit_id"], name: "index_sales_on_business_unit_id"
+    t.index ["customer_id"], name: "index_sales_on_customer_id"
+    t.index ["dist_center_id"], name: "index_sales_on_dist_center_id"
+    t.index ["product_id"], name: "index_sales_on_product_id"
+    t.index ["user_id"], name: "index_sales_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -183,4 +207,8 @@ ActiveRecord::Schema.define(version: 20170613052144) do
   add_foreign_key "quotes", "customers"
   add_foreign_key "quotes", "products"
   add_foreign_key "quotes", "users"
+  add_foreign_key "sales", "business_units"
+  add_foreign_key "sales", "customers"
+  add_foreign_key "sales", "dist_centers"
+  add_foreign_key "sales", "products"
 end

@@ -1,20 +1,21 @@
 panel 'Resultado da Cotação', class: 'quote-results-panel' do
   attributes_table_for quote do
-    row :dist_center
-    row :customer
-    row :product
+    row :base_price
+    row :optimal_markup
     row :final_freight
-    row :markup
-    row :unit_price
+    row :fob_net_price
+    row :total_price
+    row :mcb
   end
 end
 panel 'Ultima Venta', class: 'last-sale-panel' do
-  attributes_table_for quote do
-    row :dist_center
-    row :customer
-    row :product
-    row :final_freight
+  attributes_table_for Sale.new do
+    row :base_price
     row :markup
     row :unit_price
+    row :quantity
+    row :total_price
+    row :sales_date
+    row :dist_center
   end
 end
