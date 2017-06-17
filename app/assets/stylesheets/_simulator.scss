@@ -2,29 +2,29 @@ $darkerAAbackgroundGray: #d3dcde;
 
 .simulator-form {
 
-  .left-side {
-    width: 70%;
+  .inputs-side {
+    width: 52%;
     float: left;
   }
 
-  .right-side {
+  .outputs-side {
     background-color: $darkerAAbackgroundGray;
-    width: 25%;
+    width: 43%;
     float: right;
     min-height: 400px;
     padding: 26px 22px;
     margin-top: -23px;
   }
 
-  .left-top {
+  .inputs-top {
 
     .basic-fields {
-      width: 58%;
+      width: 55%;
       float: left;
     }
 
     .freight-conditions-fields {
-      width: 38%;
+      width: 43%;
       float: right;
     }
       #quote_freight_condition_input {
@@ -32,25 +32,21 @@ $darkerAAbackgroundGray: #d3dcde;
       }
   }
 
-  .left-bottom {
-    display: inline-block;
+  .inputs-bottom {
     width: 100%;
 
-    .details-fields {
-      width: 31%;
+    &-left {
+      width: 48%;
       float: left;
     }
-    .taxes-fields {
-      width: 35%;
-      float: left;
-      margin-left: 3%;
-    }
 
-
-    .exchange-rate-fields {
-      width: 28%;
+    &-right {
+      width: 48%;
       float: right;
     }
+
+
+
   }
 
   fieldset.inputs {
@@ -104,12 +100,12 @@ $darkerAAbackgroundGray: #d3dcde;
   }
 
   #quote_freight_condition_input label {
-    width: 35% !important;
+    width: 75% !important;
     margin-right: -35px;
   }
 
   #quote_city_input label {
-    width: 55% !important;
+    width: 45% !important;
     margin-right: -35px;
   }
 
@@ -119,6 +115,7 @@ $darkerAAbackgroundGray: #d3dcde;
 
   #s2id_quote_city_id {
     width: 45% !important;
+    margin-left: 50px;
   }
 }
 
@@ -152,5 +149,19 @@ $darkerAAbackgroundGray: #d3dcde;
   .make-quote-button {
     float: right;
     margin-right: calc(50% - 60px);
+  }
+}
+
+
+.results-section {
+
+  .quote-results-panel {
+    width: 48%;
+    float: left;
+  }
+
+  .last-sale-panel {
+    width: 48%;
+    float: right;
   }
 }

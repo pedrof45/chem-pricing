@@ -1,5 +1,4 @@
-panel 'Resultado da Cotação' do
-
+panel 'Resultado da Cotação', class: 'quote-results-panel' do
   attributes_table_for quote do
     row :dist_center
     row :customer
@@ -8,6 +7,14 @@ panel 'Resultado da Cotação' do
     row :markup
     row :unit_price
   end
-
-
+end
+panel 'Ultima Venta', class: 'last-sale-panel' do
+  attributes_table_for quote do
+    row :dist_center
+    row :customer
+    row :product
+    row :final_freight
+    row :markup
+    row :unit_price
+  end
 end

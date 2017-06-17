@@ -1,7 +1,7 @@
 <div class="simulator-form">
   <%= semantic_form_for quote do |f| %>
-      <div class="left-side">
-        <div class="left-top">
+      <div class="inputs-side">
+        <div class="inputs-top">
           <div class="basic-fields fields-box">
             <%= f.inputs name: 'Dados Básicos' do %>
                 <%= f.input :dist_center %>
@@ -16,36 +16,45 @@
             <% end %>
           </div>
         </div>
-        <div class="left-bottom">
-          <div class="details-fields fields-box">
-            <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
-                <%= f.input :payment_term %>
-                <%= f.input :quantity %>
-            <% end %>
+        <div class="inputs-bottom">
+          <div class="inputs-bottom-left">
+            <div class="details-fields fields-box">
+              <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
+                  <%= f.input :payment_term %>
+                  <%= f.input :quantity %>
+              <% end %>
+            </div>
+            <div class="taxes-fields fields-box">
+              <%= f.inputs name: 'Impostos' do %>
+                  <div class="icms-box tax-box">
+                    <%= f.label 'ICMS' %>
+                    <%= f.input :icms_padrao, label: "Padrao?" %>
+                    <%= f.input :icms, label: false %>
+                  </div>
+                  <div class="pis-confins-box tax-box">
+                    <%= f.label 'Pis/Confins' %>
+                    <%= f.input :pis_confins_padrao, label: "Padrao?" %>
+                    <%= f.input :pis_confins, label: false %>
+                  </div>
+              <% end %>
+            </div>
+            <div class="exchange-rate-fields fields-box">
+              <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
+                  <%= f.input :brl_usd %>
+                  <%= f.input :brl_eur %>
+              <% end %>
+            </div>
           </div>
-          <div class="taxes-fields fields-box">
-            <%= f.inputs name: 'Impostos' do %>
-                <div class="icms-box tax-box">
-                  <%= f.label 'ICMS' %>
-                  <%= f.input :icms_padrao, label: "Padrao?" %>
-                  <%= f.input :icms, label: false %>
-                </div>
-                <div class="pis-confins-box tax-box">
-                  <%= f.label 'Pis/Confins' %>
-                  <%= f.input :pis_confins_padrao, label: "Padrao?" %>
-                  <%= f.input :pis_confins, label: false %>
-                </div>
-            <% end %>
-          </div>
-          <div class="exchange-rate-fields fields-box">
-            <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
-                <%= f.input :brl_usd %>
-                <%= f.input :brl_eur %>
+          <div class="inputs-bottom-right">
+            <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
+                <% 4.times do %>
+                  <%= f.input :city, label: "TODO"  %>
+                <% end %>
             <% end %>
           </div>
         </div>
       </div>
-      <div class="right-side">
+      <div class="outputs-side">
         <div class="price-markup-fields fields-box">
           <%= f.inputs name: 'Fixar Preço/Markup', class: 'inputs price-markup-fieldset' do %>
               <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario" => true, "Markup" => false }  %>
@@ -54,7 +63,7 @@
               <%= f.submit class: "make-quote-button" %>
           <% end %>
         </div>
-        <div class="result-box inputs">
+        <div class="results-section inputs">
           <%= render partial: '/quote_result', locals: { quote: quote }%>
         </div>
       </div>
