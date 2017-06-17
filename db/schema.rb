@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617041126) do
+ActiveRecord::Schema.define(version: 20170617055027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,9 +144,18 @@ ActiveRecord::Schema.define(version: 20170617041126) do
     t.datetime "updated_at", null: false
     t.bigint "dist_center_id"
     t.bigint "city_id"
+    t.bigint "optimal_markup_id"
+    t.bigint "cost_id"
+    t.decimal "fob_net_price"
+    t.integer "freight_table"
+    t.decimal "final_freight"
+    t.string "comment"
+    t.decimal "unit_freight"
     t.index ["city_id"], name: "index_quotes_on_city_id"
+    t.index ["cost_id"], name: "index_quotes_on_cost_id"
     t.index ["customer_id"], name: "index_quotes_on_customer_id"
     t.index ["dist_center_id"], name: "index_quotes_on_dist_center_id"
+    t.index ["optimal_markup_id"], name: "index_quotes_on_optimal_markup_id"
     t.index ["product_id"], name: "index_quotes_on_product_id"
     t.index ["user_id"], name: "index_quotes_on_user_id"
   end

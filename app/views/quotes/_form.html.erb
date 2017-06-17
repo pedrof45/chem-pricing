@@ -1,5 +1,5 @@
 <div class="simulator-form">
-  <%= semantic_form_for quote do |f| %>
+  <%= semantic_form_for resource do |f| %>
       <div class="inputs-side">
         <div class="inputs-top">
           <div class="basic-fields fields-box">
@@ -47,7 +47,10 @@
           </div>
           <div class="inputs-bottom-right">
             <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
-                <% 8.times do %>
+                <% 4.times do %>
+                  <br/>
+                  <br/>
+                  <br/>
                   <%= f.input :city, label: "TODO"  %>
                 <% end %>
             <% end %>
@@ -64,7 +67,7 @@
           <% end %>
         </div>
         <div class="results-section inputs">
-          <%= render partial: '/quote_result', locals: { quote: quote }%>
+          <%= render partial: 'results', locals: { quote: resource }%>
         </div>
       </div>
   <% end %>

@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   has_many :optimal_markups
   has_many :quotes
+  has_many :sales
   belongs_to :city
   belongs_to :country
 end

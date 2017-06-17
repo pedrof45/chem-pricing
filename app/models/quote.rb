@@ -9,6 +9,14 @@ class Quote < ApplicationRecord
 
   enumerize :freight_condition, in: [:cib, :fob, :redispatch]
 
+  def last_sale
+    if customer && product && dist_center
+      product.sales.where(customer: customer, dist_center: dist_center).last
+    elsif product && dist_center
+      product.sales.where(dist_center: dist_center).last
+    end
+  end
+
   def total_price
     unit_price.to_i * quantity.to_i
   end
@@ -53,14 +61,23 @@ end
 #  updated_at         :datetime         not null
 #  dist_center_id     :integer
 #  city_id            :integer
+#  optimal_markup_id  :integer
+#  cost_id            :integer
+#  fob_net_price      :decimal(, )
+#  freight_table      :integer
+#  final_freight      :decimal(, )
+#  comment            :string
+#  unit_freight       :decimal(, )
 #
 # Indexes
 #
-#  index_quotes_on_city_id         (city_id)
-#  index_quotes_on_customer_id     (customer_id)
-#  index_quotes_on_dist_center_id  (dist_center_id)
-#  index_quotes_on_product_id      (product_id)
-#  index_quotes_on_user_id         (user_id)
+#  index_quotes_on_city_id            (city_id)
+#  index_quotes_on_cost_id            (cost_id)
+#  index_quotes_on_customer_id        (customer_id)
+#  index_quotes_on_dist_center_id     (dist_center_id)
+#  index_quotes_on_optimal_markup_id  (optimal_markup_id)
+#  index_quotes_on_product_id         (product_id)
+#  index_quotes_on_user_id            (user_id)
 #
 # Foreign Keys
 #

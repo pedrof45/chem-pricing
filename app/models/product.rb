@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_many :costs
   has_many :optimal_markups
   has_many :quotes
+  has_many :sales
 end
 
 # == Schema Information
