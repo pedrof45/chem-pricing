@@ -22,13 +22,11 @@ end
 #  sku          :string
 #  name         :string
 #  unit         :string
-#  currency     :string
 #  ipi          :decimal(, )
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  density      :decimal(, )
 #  resolution13 :boolean
 #  origin       :integer
-#  commodity    :boolean
 #  ncm          :string
 #

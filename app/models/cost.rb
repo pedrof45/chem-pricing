@@ -23,7 +23,6 @@ end
 #  suggested_markup       :decimal(, )
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  unit                   :string
 #  amount_for_price       :decimal(, )
 #  updated_cost           :boolean
 #  last_month_base_price  :decimal(, )
@@ -31,10 +30,11 @@ end
 #  product_analyst        :string
 #  lead_time              :integer
 #  min_order_quantity     :decimal(, )
-#  frac_emb               :string
+#  frac_emb               :boolean
 #  source_adjustment      :decimal(, )
 #  competition_adjustment :decimal(, )
 #  commentary             :string
+#  on_demand		      :boolean
 #
 # Indexes
 #

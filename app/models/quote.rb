@@ -54,7 +54,7 @@ end
 #  customer_id        :integer
 #  product_id         :integer
 #  quote_date         :datetime
-#  payment_term       :string
+#  payment_term       :integer
 #  icms_padrao        :boolean
 #  icms               :decimal(, )
 #  ipi                :decimal(, )
