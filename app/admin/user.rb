@@ -15,6 +15,10 @@ ActiveAdmin.register User do
   end
 
   filter :email
+  filter :full_name
+  filter :position
+  filter :role
+  filter :business_unit
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at

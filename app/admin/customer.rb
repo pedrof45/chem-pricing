@@ -13,4 +13,14 @@ ActiveAdmin.register Customer do
     column :email
     actions
   end
+
+
+  filter :name
+  filter :code
+  filter :cnpj
+  filter :country
+  filter :state
+  filter :city
+
+
 end
