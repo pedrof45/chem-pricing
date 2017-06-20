@@ -1,6 +1,5 @@
 ActiveAdmin.register Product do
-  permit_params :sku, :name, , :ncm, :unit, :currency, :ipi,
-    :density, :resolution13, :origin, :commodity
+  permit_params :sku, :name, :ncm, :unit, :currency, :ipi, :density, :resolution13, :origin, :commodity
 
   actions :all
 

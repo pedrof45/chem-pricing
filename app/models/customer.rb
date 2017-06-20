@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
   belongs_to :country , required: false
 
 
-  validates_presence_of :code, 
+  validates_presence_of :code
 
 end
 
