@@ -5,7 +5,7 @@ class Quote < ApplicationRecord
   belongs_to :customer
   belongs_to :product
   belongs_to :dist_center
-  belongs_to :city
+  belongs_to :city, required: false
   belongs_to :cost, required: false
   belongs_to :optimal_markup, required: false
 
