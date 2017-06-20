@@ -3,6 +3,7 @@ class OptimalMarkup < ApplicationRecord
   belongs_to :customer
   belongs_to :dist_center
   belongs_to :business_unit
+  has_many :quotes
 
 
   validates_presence_of :customer_id, :product_id, :dist_center_id, :value

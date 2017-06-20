@@ -12,6 +12,7 @@ ActiveAdmin.register Quote do
   form partial: 'form', title: 'Simulador de Preço'
 
   controller do
+
     def create
       create! do |format|
         format.html do

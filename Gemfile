@@ -21,7 +21,8 @@ gem 'spring'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'enumerize'
-
+gem 'money-rails'
+gem 'google_currency'
 
 group :production do
   gem 'rack-timeout'

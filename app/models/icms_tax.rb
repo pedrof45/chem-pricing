@@ -8,7 +8,7 @@ class IcmsTax < ApplicationRecord
     self.distinct.order(:destination).pluck(:destination)
   end
 
-  def tax_value_for(origin, destination)
+  def self.tax_value_for(origin, destination)
     self.where(origin: origin, destination: destination).last.try(:value)
   end
 end

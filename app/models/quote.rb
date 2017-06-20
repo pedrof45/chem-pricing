@@ -6,8 +6,19 @@ class Quote < ApplicationRecord
   belongs_to :product
   belongs_to :dist_center
   belongs_to :city
+  belongs_to :cost, required: false
+  belongs_to :optimal_markup, required: false
 
-  enumerize :freight_condition, in: [:cib, :fob, :redispatch]
+  before_create :simulate!
+
+  validates_presence_of :freight_condition, :quantity
+
+  enumerize :freight_condition, in: [:cif, :fob, :redispatch]
+  enumerize :unit, in: [:kg, :lt]
+
+  def simulate!
+    SimulatorService.new(quote: self).run
+  end
 
   def last_sale
     if customer && product && dist_center
@@ -30,7 +41,7 @@ class Quote < ApplicationRecord
   end
 
   def mcb
-    "123"
+    total_price - (cost.base_price * quantity)
   end
 end
 

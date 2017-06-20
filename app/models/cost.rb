@@ -1,6 +1,7 @@
 class Cost < ApplicationRecord
   belongs_to :product
   belongs_to :dist_center
+  has_many :quotes
 
   validates_presence_of :product_id, :dist_center_id, :base_price,
     :currency, :suggested_markup
