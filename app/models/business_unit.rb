@@ -1,6 +1,9 @@
 class BusinessUnit < ApplicationRecord
   has_many :users
   has_many :optimal_markups
+
+  validates_presence_of :code
+
 end
 
 # == Schema Information

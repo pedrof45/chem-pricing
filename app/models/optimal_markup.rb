@@ -6,7 +6,7 @@ class OptimalMarkup < ApplicationRecord
   has_many :quotes
 
 
-  validates_presence_of :customer_id, :product_id, :dist_center_id, :value
+  validates_presence_of :customer_id, :product_id, :dist_center_id, :table_value
 end
 
 # == Schema Information
