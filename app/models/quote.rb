@@ -2,7 +2,7 @@ class Quote < ApplicationRecord
   extend Enumerize
 
   belongs_to :user
-  belongs_to :customer
+  belongs_to :customer, required: false
   belongs_to :product
   belongs_to :dist_center
   belongs_to :city, required: false
