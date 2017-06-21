@@ -1,2 +1,2 @@
-class SpecialPackedFreight < ApplicationPolicy
+class SpecialPackedFreightPolicy < ApplicationPolicy
 end

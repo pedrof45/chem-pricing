@@ -1,2 +1,2 @@
-class NormalPackedFreight < ApplicationPolicy
+class NormalPackedFreightPolicy < ApplicationPolicy
 end

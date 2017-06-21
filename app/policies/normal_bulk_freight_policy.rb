@@ -1,2 +1,2 @@
-class NormalBulkFreight < ApplicationPolicy
+class NormalBulkFreightPolicy < ApplicationPolicy
 end
