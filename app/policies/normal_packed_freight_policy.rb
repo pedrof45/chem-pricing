@@ -1,0 +1,2 @@
+class NormalPackedFreight < ApplicationPolicy
+end

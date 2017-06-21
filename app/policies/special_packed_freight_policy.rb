@@ -1,0 +1,2 @@
+class SpecialPackedFreight < ApplicationPolicy
+end

@@ -1,0 +1,2 @@
+class ChoppedBulkFreight < ApplicationPolicy
+end

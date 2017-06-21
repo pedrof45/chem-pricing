@@ -1,0 +1,2 @@
+class SpecialPackedFreight < ApplicationRecord
+end

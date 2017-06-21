@@ -1,0 +1,2 @@
+class NormalBulkFreight < ApplicationPolicy
+end
