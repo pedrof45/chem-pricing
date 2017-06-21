@@ -30,11 +30,11 @@ end
 #  product_analyst        :string
 #  lead_time              :integer
 #  min_order_quantity     :decimal(, )
-#  frac_emb               :boolean
 #  source_adjustment      :decimal(, )
 #  competition_adjustment :decimal(, )
 #  commentary             :string
-#  on_demand		      :boolean
+#  on_demand              :string
+#  frac_emb               :boolean
 #
 # Indexes
 #

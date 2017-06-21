@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620042541) do
+ActiveRecord::Schema.define(version: 20170620225425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.decimal "suggested_markup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "unit"
     t.decimal "amount_for_price"
     t.boolean "updated_cost"
     t.decimal "last_month_base_price"
@@ -45,10 +44,11 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.string "product_analyst"
     t.integer "lead_time"
     t.decimal "min_order_quantity"
-    t.string "frac_emb"
     t.decimal "source_adjustment"
     t.decimal "competition_adjustment"
     t.string "commentary"
+    t.string "on_demand"
+    t.boolean "frac_emb"
     t.index ["dist_center_id"], name: "index_costs_on_dist_center_id"
     t.index ["product_id"], name: "index_costs_on_product_id"
   end
@@ -115,18 +115,25 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.index ["product_id"], name: "index_optimal_markups_on_product_id"
   end
 
+  create_table "packagings", force: :cascade do |t|
+    t.integer "code"
+    t.string "name"
+    t.decimal "capacity"
+    t.decimal "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "sku"
     t.string "name"
     t.string "unit"
-    t.string "currency"
     t.decimal "ipi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "density"
     t.boolean "resolution13"
     t.integer "origin"
-    t.boolean "commodity"
     t.string "ncm"
   end
 
@@ -135,7 +142,6 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.bigint "customer_id"
     t.bigint "product_id"
     t.datetime "quote_date"
-    t.string "payment_term"
     t.boolean "icms_padrao"
     t.decimal "icms"
     t.decimal "ipi"
@@ -160,6 +166,7 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.decimal "final_freight"
     t.string "comment"
     t.decimal "unit_freight"
+    t.integer "payment_term"
     t.index ["city_id"], name: "index_quotes_on_city_id"
     t.index ["cost_id"], name: "index_quotes_on_cost_id"
     t.index ["customer_id"], name: "index_quotes_on_customer_id"
@@ -222,6 +229,13 @@ ActiveRecord::Schema.define(version: 20170620042541) do
     t.index ["business_unit_id"], name: "index_users_on_business_unit_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string "name"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "costs", "dist_centers"
