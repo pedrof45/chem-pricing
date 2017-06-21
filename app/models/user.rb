@@ -1,8 +1,12 @@
 class User < ApplicationRecord
+  extend Enumerize
+  
   has_many :quotes
   belongs_to :business_unit , required: false
 
   validates_presence_of :email, :encrypted_password, :role
+
+  enumerize :role, in: [:SysAdmin, :Admin, :Gerente, :Vendedor]
 
 
   # Include default devise modules. Others available are:

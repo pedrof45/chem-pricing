@@ -11,6 +11,29 @@ ActiveAdmin.register Quote do
 
   form partial: 'form', title: 'Simulador de Preço'
 
+  csv do
+
+    column :quote_date
+    column("Usuario") { |m| m.user.fullname }
+    column("Codigo Cliente") { |m| m.customer.code }
+    column("SKU") { |m| m.product.sku }
+    column("Moeda") { |m| m.cost.currency }
+    column :quantity
+    column :freight_condition
+    column :freight_table
+    column :icms_padrao
+    column :icms
+    column :pis_confins_padrao
+    column :pis_confins
+    column :ipi
+    column :payment_term
+    column("Preço Piso") { |m| m.cost.base_price}
+    column :unit_price
+    column("Unidade de Negocio") { |m| m.user.business_unit }
+    column("CD") { |m| m.dist_center.name }
+    column :markup
+  end
+
   controller do
 
     def create

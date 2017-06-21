@@ -15,4 +15,17 @@ ActiveAdmin.register NormalPackedFreight do
     column :min 
     actions
   end
+
+  csv do
+    column :origin
+    column :destination
+    column :type
+    column :amount
+    column :insurance
+    column :gris
+    column :toll
+    column :ct_e
+    column :min 
+  end
+
 end

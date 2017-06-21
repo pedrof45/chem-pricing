@@ -12,4 +12,14 @@ ActiveAdmin.register ProductBulkFreight do
     column :toll
     actions
   end
+
+  csv do 
+    column :origin
+    column :destination
+    column("Tp Veic") { |r| r.vehicle.name }
+    column("Produto") { |r| r.product.sku }
+    column :amount
+    column :toll
+  end
+
 end

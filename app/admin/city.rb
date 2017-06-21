@@ -9,5 +9,9 @@ ActiveAdmin.register City do
     actions
   end
 
-
+  csv do
+  	column :name
+  	column :code
+  end
 end
+

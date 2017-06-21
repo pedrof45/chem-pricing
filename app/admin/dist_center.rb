@@ -11,3 +11,4 @@ ActiveAdmin.register DistCenter do
     actions
   end
 end
+

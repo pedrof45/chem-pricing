@@ -22,5 +22,19 @@ ActiveAdmin.register Customer do
   filter :state
   filter :city
 
+  csv do
+    column :name
+    column :code
+    column :cnpj
+    column("Pais") { |r| r.country.name }
+    column("Estado") { |r| r.city.try :state }
+    column("Cidade") { |r| r.city.name }
+    column :contact
+    column :email
+
+  end
+
 
 end
+
+
