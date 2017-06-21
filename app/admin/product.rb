@@ -10,7 +10,7 @@ ActiveAdmin.register Product do
     column :unit
     column :density
     column :ipi
-    column :resolucion13
+    column :resolution13
     column :origin
     actions
   end

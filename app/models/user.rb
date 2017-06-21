@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :quotes
-  belongs_to :business_unit
+  belongs_to :business_unit , required: false
 
   validates_presence_of :email, :encrypted_password, :role
 

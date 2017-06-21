@@ -1,5 +1,5 @@
 ActiveAdmin.register Customer do
-  permit_params :code, :name, :email
+  permit_params :code, :name, :email, :city_id, :cnpj, :contact, :country_id
   actions :all
 
   index do
