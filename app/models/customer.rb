@@ -3,7 +3,11 @@ class Customer < ApplicationRecord
   has_many :quotes
   has_many :sales
   belongs_to :city
-  belongs_to :country
+  belongs_to :country , required: false
+
+
+  validates_presence_of :code
+
 end
 
 # == Schema Information

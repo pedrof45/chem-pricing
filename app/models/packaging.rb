@@ -1,18 +1,15 @@
-class BusinessUnit < ApplicationRecord
-  has_many :users
-  has_many :optimal_markups
-
-  validates_presence_of :code
-
+class Packaging < ApplicationRecord
 end
 
 # == Schema Information
 #
-# Table name: business_units
+# Table name: packagings
 #
 #  id         :integer          not null, primary key
+#  code       :integer
 #  name       :string
-#  code       :string
+#  capacity   :decimal(, )
+#  weight     :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

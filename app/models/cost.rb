@@ -1,10 +1,14 @@
 class Cost < ApplicationRecord
+	extend Enumerize
+
   belongs_to :product
   belongs_to :dist_center
   has_many :quotes
 
   validates_presence_of :product_id, :dist_center_id, :base_price,
-    :currency, :suggested_markup
+    :currency, :amount_for_price
+
+  enumerize :currency, in: [:brl, :usd, :eur]
 end
 
 # == Schema Information
@@ -19,7 +23,6 @@ end
 #  suggested_markup       :decimal(, )
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  unit                   :string
 #  amount_for_price       :decimal(, )
 #  updated_cost           :boolean
 #  last_month_base_price  :decimal(, )
@@ -27,10 +30,11 @@ end
 #  product_analyst        :string
 #  lead_time              :integer
 #  min_order_quantity     :decimal(, )
-#  frac_emb               :string
 #  source_adjustment      :decimal(, )
 #  competition_adjustment :decimal(, )
 #  commentary             :string
+#  on_demand              :string
+#  frac_emb               :boolean
 #
 # Indexes
 #

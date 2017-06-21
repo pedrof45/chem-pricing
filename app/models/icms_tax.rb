@@ -1,5 +1,8 @@
 class IcmsTax < ApplicationRecord
 
+
+  validates_presence_of :origin, :destination,:value
+
   def self.origins
     self.distinct.order(:origin).pluck(:origin)
   end

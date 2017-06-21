@@ -3,6 +3,10 @@ class DistCenter < ApplicationRecord
   has_many :optimal_markups
   has_many :sales
   belongs_to :city
+
+  validates_presence_of :code
+
+
 end
 
 # == Schema Information

@@ -2,10 +2,10 @@ class Quote < ApplicationRecord
   extend Enumerize
 
   belongs_to :user
-  belongs_to :customer
+  belongs_to :customer, required: false
   belongs_to :product
   belongs_to :dist_center
-  belongs_to :city
+  belongs_to :city, required: false
   belongs_to :cost, required: false
   belongs_to :optimal_markup, required: false
 
@@ -54,7 +54,7 @@ end
 #  customer_id        :integer
 #  product_id         :integer
 #  quote_date         :datetime
-#  payment_term       :string
+#  payment_term       :integer
 #  icms_padrao        :boolean
 #  icms               :decimal(, )
 #  ipi                :decimal(, )

@@ -3,10 +3,14 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
     if quote.new_record?
       para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'
     else
-      row(:base_price) { |q| q.cost.base_price }
       row :optimal_markup
-      row :final_freight
+      row(:base_price) { |q| q.cost.base_price }
+      row(:markup) { |q| q.quote.markup }
       row :fob_net_price
+      row(:icms) { |q| q.quote.icsms }
+      row(:pis_confins) { |q| q.quote.pis_confins }
+      row :final_freight
+      row(:unit_price) { |q| q.quote.unit_price }
       row :total_price
       row :mcb
     end

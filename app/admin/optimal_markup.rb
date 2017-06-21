@@ -12,5 +12,6 @@ ActiveAdmin.register OptimalMarkup do
     column("CD Origem") { |m| m.dist_center.code }
     column :value
     column :table_value
+    actions
   end
 end
