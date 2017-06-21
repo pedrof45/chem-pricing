@@ -249,6 +249,12 @@ ActiveAdmin.setup do |config|
   #     # Enable/disable the links based on block
   #     #   (for example, with cancan)
   #     admin.download_links = proc { can?(:view_download_links) }
+
+        config.download_links = false
+        config.download_links = [:csv]
+        config.download_links = proc { current_user.can_view_download_links? }
+
+
   #
   #   end
 

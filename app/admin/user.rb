@@ -39,11 +39,3 @@ ActiveAdmin.register User do
   end
 
 end
-
-ActiveAdmin.setup do |config|
-
-  config.download_links = false
-  config.download_links = [:csv]
-#  config.download_links = proc { current_user.can_view_download_links? }
-
-end
