@@ -1,5 +1,5 @@
 class NormalPackedFreight < ApplicationRecord
-  belongs_to :vehicle
+
 end
 
 # == Schema Information
@@ -9,16 +9,13 @@ end
 #  id          :integer          not null, primary key
 #  origin      :string
 #  destination :string
-#  vehicle_id  :integer
+#  type        :string
 #  amount      :decimal(, )
+#  insurance   :decimal(, )
+#  gris        :decimal(, )
+#  toll        :decimal(, )
+#  ct_e        :decimal(, )
+#  min         :decimal(, )
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#
-# Indexes
-#
-#  index_normal_packed_freights_on_vehicle_id  (vehicle_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (vehicle_id => vehicles.id)
 #

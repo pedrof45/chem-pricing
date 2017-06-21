@@ -1,2 +1,0 @@
-class SpecialPackedFreightPolicy < ApplicationPolicy
-end
