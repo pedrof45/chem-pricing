@@ -9,10 +9,10 @@ class SimulatorService < PowerTypes::Service.new(:quote)
     origin_state = @quote.dist_center.city.state
 
     # TODO QM handle require redispatch city (specially if no customer!)
-    destination_state = if @quote.freight_condition.redispatch?
+    destination_state = if @quote.customer.blank? || @quote.freight_condition.redispatch?
                           @quote.city.state
                         else
-                          @quote.customer.city
+                          @quote.customer.city.state
                         end
 
     if @quote.icms_padrao && @quote.product.resolution13 && origin_state != destination_state

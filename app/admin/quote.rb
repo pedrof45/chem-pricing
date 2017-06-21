@@ -25,6 +25,15 @@ ActiveAdmin.register Quote do
       end
     end
 
+    def build_new_resource
+      q = super
+      q.icms_padrao = true
+      q.pis_confins_padrao = true
+      q.freight_condition = :cif
+      q.fixed_price = false
+      q
+    end
+
     def set_user
       params[:quote][:user_id]= current_user.id
     end

@@ -5,9 +5,11 @@ class Customer < ApplicationRecord
   belongs_to :city
   belongs_to :country , required: false
 
-
   validates_presence_of :code
 
+  def name_and_code
+    "#{name} - #{code}"
+  end
 end
 
 # == Schema Information

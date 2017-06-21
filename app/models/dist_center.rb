@@ -6,7 +6,9 @@ class DistCenter < ApplicationRecord
 
   validates_presence_of :code
 
-
+  def name_and_code
+    "#{name} - #{code}"
+  end
 end
 
 # == Schema Information

@@ -4,9 +4,9 @@
         <div class="inputs-top">
           <div class="basic-fields fields-box">
             <%= f.inputs name: 'Dados Básicos' do %>
-                <%= f.input :dist_center %>
-                <%= f.input :customer %>
-                <%= f.input :product %>
+                <%= f.input :dist_center, member_label: :name_and_code %>
+                <%= f.input :customer, member_label: :name_and_code %>
+                <%= f.input :product, member_label: :name_and_code %>
             <% end %>
           </div>
           <div class="freight-conditions-fields fields-box">

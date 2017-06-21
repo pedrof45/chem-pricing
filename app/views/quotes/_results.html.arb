@@ -5,12 +5,12 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
     else
       row :optimal_markup
       row(:base_price) { |q| q.cost.base_price }
-      row(:markup) { |q| q.quote.markup }
+      row(:markup) { |q| q.markup }
       row :fob_net_price
-      row(:icms) { |q| q.quote.icsms }
-      row(:pis_confins) { |q| q.quote.pis_confins }
+      row(:icms) { |q| q.icms.try(:round, 3) }
+      row(:pis_confins) { |q| q.pis_confins }
       row :final_freight
-      row(:unit_price) { |q| q.quote.unit_price }
+      row(:unit_price) { |q| q.unit_price }
       row :total_price
       row :mcb
     end

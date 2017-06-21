@@ -11,6 +11,10 @@ class Product < ApplicationRecord
 
   enumerize :unit, in: [:kg, :lt]
 
+  def name_and_code
+    "#{name} - #{sku}"
+  end
+
 
 end
 
