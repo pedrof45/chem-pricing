@@ -1,5 +1,5 @@
 ActiveAdmin.register ChoppedBulkFreight do
-  menu parent: 'Tabelas Frete'
+  menu parent: '4. Logistica'
   permit_params :operation, :amount
   actions :all
 

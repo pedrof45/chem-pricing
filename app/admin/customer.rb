@@ -1,4 +1,5 @@
 ActiveAdmin.register Customer do
+  menu parent: '6. Companhia'
   permit_params :code, :name, :email, :city_id, :cnpj, :contact, :country_id
   actions :all
 

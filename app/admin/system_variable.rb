@@ -1,4 +1,5 @@
 ActiveAdmin.register SystemVariable do
+ menu parent: '5. Financeiro'
   permit_params :name, :value
   actions :index, :edit, :update
 

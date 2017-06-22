@@ -1,5 +1,5 @@
 ActiveAdmin.register EspecialPackedFreight do
-  menu parent: 'Tabelas Frete'
+  menu parent: '4. Logistica'
   permit_params :origin, :destination, :vehicle_id, :amount
   actions :all
 

@@ -1,4 +1,5 @@
 ActiveAdmin.register Sale do
+	menu label: '8. Histórico de Vendas'
 	permit_params :sale_date, :customer_id, :product_id, :dist_center_id, :business_unit_id, :moneda, :volume, :base_price, 
 	:unit_price,:markup,:comentario
 	  actions :all

@@ -1,5 +1,5 @@
 ActiveAdmin.register Quote do
-  menu priority: 2
+  menu priority: 2, label: '1. Cotaçao'
   before_action :set_user, only: [:create]
   actions :index, :new, :create, :edit, :update
 

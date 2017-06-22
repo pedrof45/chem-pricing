@@ -1,5 +1,5 @@
 ActiveAdmin.register Cost do
-  menu label: 'Preços Piso'
+  menu label: 'Preços Piso', parent: '3. Produtos'
   permit_params :product_id, :dist_center_id, :base_price, :currency,
     :suggested_markup, :amount_for_price, :updated_cost,
     :last_month_base_price, :last_month_fob_net, :product_analyst,

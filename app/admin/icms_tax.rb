@@ -1,4 +1,5 @@
 ActiveAdmin.register IcmsTax do
+  menu parent: '5. Financeiro'
   permit_params :origin, :destination, :value
   actions :all, except: :show
 

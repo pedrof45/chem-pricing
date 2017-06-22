@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu label: 'Users'
+  menu label: 'Users', parent: '7. Configuraçoes', priority: 1
   permit_params :email, :password, :password_confirmation,
     :first_name, :last_name, :position, :business_unit, :role, :active
 
