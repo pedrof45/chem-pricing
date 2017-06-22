@@ -1,0 +1,2 @@
+class ProductBulkFreightPolicy < ApplicationPolicy
+end

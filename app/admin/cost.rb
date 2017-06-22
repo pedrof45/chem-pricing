@@ -4,7 +4,7 @@ ActiveAdmin.register Cost do
     :suggested_markup, :unit, :amount_for_price, :updated_cost,
     :last_month_base_price, :last_month_fob_net, :product_analyst,
     :lead_time, :min_order_quantity, :frac_emb, :source_adjustment,
-    :competition_adjustment, :commentary
+    :competition_adjustment, :commentary, :on_demand
 
   actions :all
 
@@ -12,14 +12,13 @@ ActiveAdmin.register Cost do
     column("CD") { |r| r.dist_center.code }
     column("SKU") { |r| r.product.sku }
     column("Nome Produto") { |r| r.product.name }
-    column("UN") { |r| r.product.unit }
+    column("Unidade") { |r| r.product.unit }
     column :amount_for_price
     column :currency
     column("Preço Piso") { |r| r.base_price }
     column :suggested_markup
-    column :unit
-    column :amount_for_price
     column :updated_cost
+    column :on_demand
     actions
   end
 end

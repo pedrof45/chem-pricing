@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620225425) do
+ActiveRecord::Schema.define(version: 20170621190211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,13 @@ ActiveRecord::Schema.define(version: 20170620225425) do
   create_table "business_units", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chopped_bulk_freights", force: :cascade do |t|
+    t.string "operation"
+    t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -83,6 +90,16 @@ ActiveRecord::Schema.define(version: 20170620225425) do
     t.index ["city_id"], name: "index_dist_centers_on_city_id"
   end
 
+  create_table "especial_packed_freights", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.bigint "vehicle_id"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_id"], name: "index_especial_packed_freights_on_vehicle_id"
+  end
+
   create_table "exchange_rates", force: :cascade do |t|
     t.string "from"
     t.string "to"
@@ -96,6 +113,31 @@ ActiveRecord::Schema.define(version: 20170620225425) do
     t.string "origin"
     t.string "destination"
     t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "normal_bulk_freights", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.bigint "vehicle_id"
+    t.decimal "amount"
+    t.decimal "toll"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_id"], name: "index_normal_bulk_freights_on_vehicle_id"
+  end
+
+  create_table "normal_packed_freights", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.string "type"
+    t.decimal "amount"
+    t.decimal "insurance"
+    t.decimal "gris"
+    t.decimal "toll"
+    t.decimal "ct_e"
+    t.decimal "min"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -122,6 +164,19 @@ ActiveRecord::Schema.define(version: 20170620225425) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "product_bulk_freights", force: :cascade do |t|
+    t.string "origin"
+    t.string "destination"
+    t.bigint "vehicle_id"
+    t.decimal "amount"
+    t.bigint "product_id"
+    t.decimal "toll"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_bulk_freights_on_product_id"
+    t.index ["vehicle_id"], name: "index_product_bulk_freights_on_vehicle_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -240,9 +295,13 @@ ActiveRecord::Schema.define(version: 20170620225425) do
 
   add_foreign_key "costs", "dist_centers"
   add_foreign_key "costs", "products"
+  add_foreign_key "especial_packed_freights", "vehicles"
+  add_foreign_key "normal_bulk_freights", "vehicles"
   add_foreign_key "optimal_markups", "customers"
   add_foreign_key "optimal_markups", "dist_centers"
   add_foreign_key "optimal_markups", "products"
+  add_foreign_key "product_bulk_freights", "products"
+  add_foreign_key "product_bulk_freights", "vehicles"
   add_foreign_key "quotes", "customers"
   add_foreign_key "quotes", "products"
   add_foreign_key "quotes", "users"
