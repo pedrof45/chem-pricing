@@ -4,9 +4,12 @@ class SimulatorService < PowerTypes::Service.new(:q)
     @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
     @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
     if @q.product && @q.dist_center
-      error("Preço Base não for encontrada para o produto/CD selecionado") unless @q.cost
-      error("Markup não for encontrada para o produto/CD selecionado") unless @q.optimal_markup
+      error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
+      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
     end
+
+    # up to this point, the simulation aborts if quote has errors
+    return if @q.errors.any?
 
     origin_state = @q.dist_center.city.state
 
@@ -40,8 +43,6 @@ class SimulatorService < PowerTypes::Service.new(:q)
                          :interest_more_60
                        end
 
-    # up to this point, the simulation aborts if quote has errors
-    return if @q.errors.any?
 
     interest = SystemVariable.get interest_sys_var
     financial_cost = @q.payment_term * interest

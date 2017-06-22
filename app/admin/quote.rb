@@ -40,7 +40,7 @@ ActiveAdmin.register Quote do
         format.html do
           if resource.errors.any?
             flash.now[:error] = resource.errors.to_a.join("<br/>").html_safe
-            super
+            render 'form'
           else
             redirect_to edit_quote_path(resource)
           end
@@ -50,15 +50,21 @@ ActiveAdmin.register Quote do
 
     def build_new_resource
       q = super
-      # temp
-      q.dist_center = DistCenter.take
-      q.customer = Customer.take
-      q.product = Product.take
 
-      q.icms_padrao = true
-      q.pis_confins_padrao = true
-      q.freight_condition = :cif
-      q.fixed_price = false
+      if action_name == 'new'
+        # temp
+        q.dist_center = DistCenter.take
+        q.customer = Customer.take
+        q.product = Product.take
+
+        q.brl_usd = GetExchangeRate.for(from: :USD, to: :BRL)
+        q.brl_eur = GetExchangeRate.for(from: :EUR, to: :BRL)
+
+        q.icms_padrao = true
+        q.pis_confins_padrao = true
+        q.freight_condition = :cif
+        q.fixed_price = false
+      end
       q
     end
 
