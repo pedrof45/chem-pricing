@@ -10,4 +10,12 @@ ActiveAdmin.register EspecialPackedFreight do
     column :amount
     actions
   end
+
+  csv do
+    column :origin
+    column :destination
+    column("Tp Veic") { |r| r.vehicle.name }
+    column :amount
+  end
+
 end

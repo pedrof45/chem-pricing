@@ -8,4 +8,11 @@ ActiveAdmin.register ChoppedBulkFreight do
     column :amount
     actions
   end
+
+  csv do
+  	column :operation
+    column :amount
+  end
+
 end
+

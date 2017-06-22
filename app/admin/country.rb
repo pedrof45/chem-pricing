@@ -8,3 +8,4 @@ ActiveAdmin.register Country do
     actions
   end
 end
+

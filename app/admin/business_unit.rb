@@ -8,3 +8,4 @@ ActiveAdmin.register BusinessUnit do
     actions
   end
 end
+
