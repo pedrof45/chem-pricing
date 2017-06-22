@@ -12,7 +12,6 @@ ActiveAdmin.register Quote do
   form partial: 'form', title: 'Simulador de Preço'
 
   csv do
-
     column :quote_date
     column("Usuario") { |m| m.user.fullname }
     column("Codigo Cliente") { |m| m.customer.code }
@@ -40,6 +39,7 @@ ActiveAdmin.register Quote do
       create! do |format|
         format.html do
           if resource.errors.any?
+            flash.now[:error] = resource.errors.to_a.join("<br/>").html_safe
             super
           else
             redirect_to edit_quote_path(resource)
@@ -50,6 +50,11 @@ ActiveAdmin.register Quote do
 
     def build_new_resource
       q = super
+      # temp
+      q.dist_center = DistCenter.take
+      q.customer = Customer.take
+      q.product = Product.take
+
       q.icms_padrao = true
       q.pis_confins_padrao = true
       q.freight_condition = :cif
@@ -58,7 +63,7 @@ ActiveAdmin.register Quote do
     end
 
     def set_user
-      params[:quote][:user_id]= current_user.id
+      params[:quote][:user_id] = current_user.id
     end
   end
 end

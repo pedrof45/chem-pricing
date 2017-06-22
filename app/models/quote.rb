@@ -9,15 +9,34 @@ class Quote < ApplicationRecord
   belongs_to :cost, required: false
   belongs_to :optimal_markup, required: false
 
-  before_create :simulate!
+  after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity
+  validates_presence_of :freight_condition, :quantity, :payment_term
+  validate :city_when_corresponds, :taxes_when_not_padrao,
+           :corresponding_markup_price_input
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
 
   def simulate!
-    SimulatorService.new(quote: self).run
+    SimulatorService.new(q: self).run
+  end
+
+  def city_when_corresponds
+    if city.blank?
+      errors.add(:city, "Obrigatório se 'Redespacho' foi selecionado") if freight_condition.redispatch?
+      errors.add(:city, "Obrigatório se nenhum cliente foi selecionado") if customer.blank?
+    end
+  end
+
+  def corresponding_markup_price_input
+    errors.add(:unit_price, "Você deve digitar um valor se opçao 'Preço Unitario' foi selecionado") unless  unit_price.present? || !fixed_price
+    errors.add(:markup, "Você deve digitar um valor se opçao 'Markup' foi selecionado") unless  markup.present? || fixed_price
+  end
+
+  def taxes_when_not_padrao
+    errors.add(:icms, "Você deve digitar, ou selecionar 'padrão'") unless  icms.present? || icms_padrao
+    errors.add(:pis_confins, "Você deve digitar, ou selecionar 'padrão'") unless  pis_confins.present? || pis_confins_padrao
   end
 
   def last_sale
