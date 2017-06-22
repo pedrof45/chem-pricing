@@ -13,8 +13,8 @@ ActiveAdmin.register Quote do
 
   csv do
     column :quote_date
-    column("Usuario") { |m| m.user.fullname }
-    column("Codigo Cliente") { |m| m.customer.code }
+    column("Usuario") { |m| m.user.full_name }
+     #column("Codigo Cliente") { |m| m.customer.code }
     column("SKU") { |m| m.product.sku }
     column("Moeda") { |m| m.cost.currency }
     column :quantity
