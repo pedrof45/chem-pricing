@@ -18,7 +18,6 @@ ActiveAdmin.register IcmsTax do
 
   index do
     render '/icms_matrix'
-    actions
   end
 
 end
