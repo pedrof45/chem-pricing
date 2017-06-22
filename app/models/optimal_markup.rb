@@ -1,12 +1,13 @@
 class OptimalMarkup < ApplicationRecord
   belongs_to :product
-  belongs_to :customer
+  belongs_to :customer , required: false
   belongs_to :dist_center
   belongs_to :business_unit
   has_many :quotes
 
 
-  validates_presence_of :customer_id, :product_id, :dist_center_id, :table_value
+  validates_presence_of  :product_id, :dist_center_id, :table_value
+  
 end
 
 # == Schema Information
