@@ -4,7 +4,7 @@ ActiveAdmin.register OptimalMarkup do
   actions :all
 
   index title: 'Markups por Cliente e Produto' do
-    column("Codigo Cliente") { |m| m.customer.code }
+    column("Codigo Cliente") { |m| m.customer.code if m.customer }
     column("Nome Cliente") { |m| m.customer.name }
     column("SKU") { |m| m.product.sku }
     column("Nome Produto") { |m| m.product.name }

@@ -14,7 +14,7 @@ ActiveAdmin.register Quote do
   csv do
     column :quote_date
     column("Usuario") { |m| m.user.full_name }
-     #column("Codigo Cliente") { |m| m.customer.code }
+    column("Codigo Cliente") { |m| m.customer.code if m.customer }
     column("SKU") { |m| m.product.sku }
     column("Moeda") { |m| m.cost.currency }
     column :quantity
