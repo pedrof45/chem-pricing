@@ -45,16 +45,25 @@ class SimulatorService < PowerTypes::Service.new(:q)
 
 
     interest = SystemVariable.get interest_sys_var
+    #financial_cost = @q.payment_term * interest
     financial_cost = @q.payment_term * interest
     tax_d = 1 - @q.icms - @q.pis_confins
 
     @q.unit_freight = 0.1 # TODO freight
 
+    
+    aux2=@q.cost.base_price
+
+    
+    @q.cost.base_price= aux2/@q.cost.amount_for_price
+
     if @q.fixed_price
       @q.markup = (((((@q.unit_price * tax_d)/(1 + financial_cost)) - @q.unit_freight ) / @q.cost.base_price) - 1).round(3)
-      @q.fob_net_price = @q.cost.base_price * @q.markup
+      @q.fob_net_price = @q.cost.base_price * (1 + @q.markup)
     else
       @q.unit_price = ((((@q.cost.base_price * (1 + @q.markup)+ @q.unit_freight))/tax_d) * (1 + financial_cost)).round(2)
+      @q.fob_net_price = @q.cost.base_price * (1 + @q.markup)
+
     end
 
     # TODO additional product info (corresponds to simulation?)

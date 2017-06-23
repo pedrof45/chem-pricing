@@ -48,7 +48,7 @@ class Quote < ApplicationRecord
   end
 
   def total_price
-    unit_price.to_i * quantity.to_i
+    unit_price * quantity
   end
 
   def optimal_markup
@@ -60,8 +60,31 @@ class Quote < ApplicationRecord
   end
 
   def mcb
-    total_price - (cost.base_price * quantity)
+    total_price - ((cost.base_price/cost.amount_for_price) * quantity)
   end
+
+  def final_base_price
+    cost.base_price/cost.amount_for_price
+  end
+
+  def icms_amount
+
+    unit_price.to_i*icms
+
+  end
+
+  def pis_confins_amount
+
+    unit_price.to_i*pis_confins
+
+  end
+
+  def encargos
+
+    unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
+
+  end
+
 end
 
 # == Schema Information

@@ -4,12 +4,13 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
       para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'
     else
       row :optimal_markup
-      row(:base_price) { |q| q.cost.base_price }
+      row :final_base_price
       row(:markup) { |q| q.markup }
       row :fob_net_price
-      row(:icms) { |q| q.icms.try(:round, 3) }
-      row(:pis_confins) { |q| q.pis_confins }
-      row :final_freight
+      row :icms_amount
+      row :pis_confins_amount
+      row(:unit_freight) { |q| q.unit_freight }
+      row :encargos
       row(:unit_price) { |q| q.unit_price }
       row :total_price
       row :mcb

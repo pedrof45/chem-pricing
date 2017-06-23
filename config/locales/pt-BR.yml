@@ -164,7 +164,7 @@ pt-BR:
         final_freight: Frete Final
         comment: Comentario
         dist_center: Centro de Distribução
-        city: Cidade Redespacho
+        city: Cidade Alternativa
         frete_unitatio: Frete Unitario
         total_price: Receita
       city:

@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   has_many :quotes
   has_many :sales
 
-  validates_presence_of :sku, :unit, :density, :resolution13
+  validates_presence_of :sku, :unit, :density
 
 
   enumerize :unit, in: [:kg, :lt]
