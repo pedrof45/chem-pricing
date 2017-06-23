@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   menu label: 'Users', parent: '7. Configuraçoes', priority: 1
   permit_params :email, :password, :password_confirmation,
-    :first_name, :last_name, :position, :business_unit, :role, :active
+    :first_name, :last_name, :position, :business_unit_id, :role, :active
 
   index do
     selectable_column
@@ -9,7 +9,8 @@ ActiveAdmin.register User do
     column 'Name', :full_name
     column :position
     column :role
-    column :business_unit
+    column("Unidade de Negocio") { |m| m.business_unit.code if m.business_unit }
+    #column :business_unit
     column :active
     actions
   end

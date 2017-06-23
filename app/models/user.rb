@@ -25,6 +25,17 @@ class User < ApplicationRecord
   def full_name
     [first_name, last_name].join ' '
   end
+
+  def admin_or_more?
+    role.Admin? || role.SysAdmin? || role.Gerente?
+  end
+
+
+  def owner?
+    role.Admin? || role.SysAdmin?
+  end
+
+
 end
 
 # == Schema Information
