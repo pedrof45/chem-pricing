@@ -22,9 +22,9 @@ panel 'Ultima Venta', class: 'last-sale-panel' do
     row :base_price
     row :markup
     row :unit_price
-    row :quantity
-    row :total_price
-    row :sales_date
+    row :volume
+    row :unit_price
+    row :sale_date
     row :dist_center
   end
 end

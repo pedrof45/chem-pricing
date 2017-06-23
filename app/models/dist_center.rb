@@ -7,7 +7,7 @@ class DistCenter < ApplicationRecord
   validates_presence_of :code
 
   def name_and_code
-    "#{name} - #{code}"
+    "#{code} - #{name}"
   end
 end
 

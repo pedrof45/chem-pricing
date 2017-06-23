@@ -1,5 +1,5 @@
 ActiveAdmin.register ProductBulkFreight do
-  menu parent: 'Tabelas Frete'
+  menu parent: '4. Logistica'
   permit_params :origin, :destination, :vehicle_id, :amount, :product_id ,:toll
   actions :all
 

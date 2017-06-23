@@ -1,4 +1,5 @@
 ActiveAdmin.register DistCenter do
+  menu parent: '4. Logistica', priority: 98
   permit_params :code, :name, :city_id
   actions :all
 

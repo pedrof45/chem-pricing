@@ -1,5 +1,5 @@
 ActiveAdmin.register NormalPackedFreight do
-  menu parent: 'Tabelas Frete'
+  menu parent: '4. Logistica'
   permit_params :origin, :destination, :type, :amount, :insurance, :gris, :toll, :ct_e, :min
   actions :all
 

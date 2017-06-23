@@ -69,20 +69,23 @@ class Quote < ApplicationRecord
 
   def icms_amount
 
-    unit_price.to_i*icms
+    (unit_price*icms).round(3)
 
   end
 
   def pis_confins_amount
 
-    unit_price.to_i*pis_confins
+    (unit_price*pis_confins).round(3)
 
   end
 
   def encargos
 
+    if payment_term == 0
+      0
+    else
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
-
+    end
   end
 
 end

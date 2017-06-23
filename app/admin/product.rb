@@ -1,4 +1,5 @@
 ActiveAdmin.register Product do
+  menu parent: '3. Produtos', priority: 4
   permit_params :sku, :name, :ncm, :unit, :currency, :ipi, :density, :resolution13, :origin, :commodity
 
   actions :all

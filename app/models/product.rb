@@ -9,10 +9,10 @@ class Product < ApplicationRecord
   validates_presence_of :sku, :unit, :density
 
 
-  enumerize :unit, in: [:kg, :lt]
+  enumerize :unit, in: [:KG, :LT]
 
   def name_and_code
-    "#{name} - #{sku}"
+    "#{sku} - #{name}"
   end
 
 

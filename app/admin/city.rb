@@ -1,4 +1,5 @@
 ActiveAdmin.register City do
+  menu parent: '7. Configuraçoes'
   permit_params :id, :name, :code
   actions :all
 

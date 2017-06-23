@@ -1,4 +1,5 @@
 ActiveAdmin.register BusinessUnit do
+menu parent: '6. Companhia'
   permit_params :code, :name
   actions :all
   

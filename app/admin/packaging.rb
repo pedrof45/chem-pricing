@@ -1,4 +1,5 @@
 ActiveAdmin.register Packaging do
+  menu parent: '4. Logistica', priority: 100
   permit_params :code, :name, :capacity, :weight
   actions :all
 
