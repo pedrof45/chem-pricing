@@ -5,7 +5,7 @@ ActiveAdmin.register Upload do
 
   permit_params :model, :file
 
-  form do |f|
+  form title: 'Upload Tabela' do |f|
     f.inputs "" do
       f.input :model
       f.input :file, as: :file

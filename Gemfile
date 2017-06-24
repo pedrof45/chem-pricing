@@ -23,6 +23,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'enumerize'
 gem 'money-rails'
 gem 'google_currency'
+gem 'roo', '~> 2.7.0'
+
 
 group :production do
   gem 'rack-timeout'

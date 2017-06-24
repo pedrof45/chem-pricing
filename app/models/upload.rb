@@ -11,7 +11,10 @@ class Upload < ApplicationRecord
                          :normal_bulk_freight, :chopped_bulk_freight, :product_bulk_freight, :especial_packed_freight, :normal_packed_freight]
 
   def parse
-    # TODO
+    unless file.respond_to? :read
+      errors.add(:file, "Não é possível ler o arquivo") and return
+    end
+    UploadParserService.new(data: file).run
   end
 end
 
