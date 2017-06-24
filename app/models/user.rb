@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates_presence_of :email, :encrypted_password, :role
 
-  enumerize :role, in: [:SysAdmin, :Admin, :Gerente, :Vendedor]
+  enumerize :role, in: [:sysadmin, :admin, :manager, :agent]
 
 
   # Include default devise modules. Others available are:
@@ -24,6 +24,14 @@ class User < ApplicationRecord
 
   def full_name
     [first_name, last_name].join ' '
+  end
+
+  def admin_or_more?
+    role.admin? || role.sysadmin?
+  end
+
+  def manager_or_more?
+    role.manager? || role.admin? || role.sysadmin?
   end
 end
 

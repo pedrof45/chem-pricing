@@ -1,2 +1,4 @@
 class CustomerPolicy < ApplicationPolicy
+
+
 end

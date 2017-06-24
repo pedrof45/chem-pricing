@@ -28,8 +28,9 @@ ActiveAdmin.register Quote do
     column :payment_term
     column("Preço Piso") { |m| m.cost.base_price}
     column :unit_price
-    column("Unidade de Negocio") { |m| m.user.business_unit }
+    column("Unidade de Negocio") { |m| m.user.business_unit.code }
     column("CD") { |m| m.dist_center.name }
+    column :fixed_price
     column :markup
   end
 

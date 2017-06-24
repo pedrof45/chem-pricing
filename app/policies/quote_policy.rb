@@ -1,2 +1,3 @@
 class QuotePolicy < ApplicationPolicy
+
 end

@@ -13,13 +13,20 @@ class Quote < ApplicationRecord
 
   validates_presence_of :freight_condition, :quantity, :payment_term
   validate :city_when_corresponds, :taxes_when_not_padrao,
-           :corresponding_markup_price_input
+           :corresponding_markup_price_input, :optimal_markup_format
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
 
   def simulate!
     SimulatorService.new(q: self).run
+  end
+
+  def optimal_markup_format
+    if (markup<0 || markup>1)
+      errors.add(:markup, "tem que ser maior a 1") if markup<0
+      errors.add(:markup, "tem que ser menor a 1") if markup>1
+    end
   end
 
   def city_when_corresponds
