@@ -8,25 +8,29 @@ class Quote < ApplicationRecord
   belongs_to :city, required: false
   belongs_to :cost, required: false
   belongs_to :optimal_markup, required: false
+  belongs_to :vehicle, required: false
+
 
   after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity, :payment_term
+  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type, :freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
+  enumerize :freight_base_type, in: [:bulk, :packed]
 
   def simulate!
     SimulatorService.new(q: self).run
   end
 
   def optimal_markup_format
-    if (markup<0 || markup>1)
-      errors.add(:markup, "tem que ser maior a 1") if markup<0
-      errors.add(:markup, "tem que ser menor a 1") if markup>1
-    end
+    # FIXME
+    # if (markup<0 || markup>1)
+    #   errors.add(:markup, "tem que ser maior a 1") if markup<0
+    #   errors.add(:markup, "tem que ser menor a 1") if markup>1
+    # end
   end
 
   def city_when_corresponds
@@ -87,14 +91,24 @@ class Quote < ApplicationRecord
   end
 
   def encargos
-
-    if payment_term == 0
-      0
-    else
+    return 0 if payment_term.zero?
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
-    end
   end
 
+  def self.freight_subtype_options
+    basic_subtypes =
+    {
+        chemichal: 'Quimico',
+        pharma: 'Farma',
+        normal: 'Normal',
+        product: 'Produto'
+
+    }
+    chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
+      ["chopped_#{cbf.id}".to_sym, cbf.operation]
+  end.to_h
+    basic_subtypes.merge(chopped_subtypes).invert
+  end
 end
 
 # == Schema Information
@@ -106,7 +120,6 @@ end
 #  customer_id        :integer
 #  product_id         :integer
 #  quote_date         :datetime
-#  payment_term       :integer
 #  icms_padrao        :boolean
 #  icms               :decimal(, )
 #  ipi                :decimal(, )
@@ -127,10 +140,13 @@ end
 #  optimal_markup_id  :integer
 #  cost_id            :integer
 #  fob_net_price      :decimal(, )
-#  freight_table      :integer
 #  final_freight      :decimal(, )
 #  comment            :string
 #  unit_freight       :decimal(, )
+#  payment_term       :integer
+#  freight_base_type  :string
+#  freight_subtype    :string
+#  vehicle_id         :integer
 #
 # Indexes
 #
@@ -141,6 +157,7 @@ end
 #  index_quotes_on_optimal_markup_id  (optimal_markup_id)
 #  index_quotes_on_product_id         (product_id)
 #  index_quotes_on_user_id            (user_id)
+#  index_quotes_on_vehicle_id         (vehicle_id)
 #
 # Foreign Keys
 #

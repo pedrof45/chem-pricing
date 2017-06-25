@@ -47,12 +47,9 @@
           </div>
           <div class="inputs-bottom-right">
             <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
-                <% 4.times do %>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <%= f.input :comment, label: "TODO", as: :select  %>
-                <% end %>
+                <%= f.input :freight_base_type, as: :radio %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options %>
+                <%= f.input :vehicle %>
             <% end %>
           </div>
         </div>

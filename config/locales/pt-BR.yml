@@ -20,8 +20,8 @@ pt-BR:
         one: CD
         other: CDs
       icms_tax:
-        one: ICMS
-        other: ICMS
+        one: ICMS %
+        other: ICMS %
       freight:
         one: Frete
         other: Fretes
@@ -49,6 +49,27 @@ pt-BR:
       system_variable:
         one: Variável do Sistema
         other: Variável do Sistemas
+      exchange_rate:
+        one: Tipo de Cambio
+        other: Tipo de Cambios
+      normal_bulk_freight:
+        one: Frete Granel Normal
+        other: Frete Granel Normals
+      chopped_bulk_freight:
+        one: Frete Granel Picado
+        other: Frete Granel Picados
+      product_bulk_freight:
+        one: Frete Granel Produto
+        other: Frete Granel Produtos
+      especial_packed_freight:
+        one: Frete Embalado Especial
+        other: Frete Embalado Especials
+      normal_packed_freight:
+        one: Frete Embalado Normal
+        other: Frete Embalado Normals
+      upload:
+        one: Upload
+        other: Uploads
     attributes:
       user:
         email: Email
@@ -92,7 +113,7 @@ pt-BR:
         product_analyst: Analista de Produto
         lead_time: Lead Time
         min_order_quantity: Quantidade Minima de Compra
-        frac_emb: Fracionado/Embalado
+        frac_emb: Fracionado?
         source_adjustment: Reajuste Fonte
         competition_adjustment: Reajuste Concorrencia
         commentary: Comentario
@@ -155,18 +176,23 @@ pt-BR:
         quantity: Quantidade
         unit: Unidade
         unit_price: Preço Unitario
-        markup: Mark-up Calculado
-        table_value: Mark-up Tabela
+        markup: Mark-up
         fixed_price: ''
         quote_date: Data
+        city: Cidade Alternativa
+        optimal_markup: ''
+        cost: ''
         fob_net_price: Preço Fob Neto
         freight_table: Tabela Frete
         final_freight: Frete Final
         comment: Comentario
         dist_center: Centro de Distribução
-        city: Cidade Alternativa
-        frete_unitatio: Frete Unitario
+        unit_freight: Frete Unitario
         total_price: Receita
+        mcb: MCB (Estimado)
+        freight_base_type: Tipo
+        freight_subtype: Subtipo
+        vehicle: Veiculo
       city:
         name: Nome
         state: Estado
@@ -176,17 +202,17 @@ pt-BR:
         name: Nome
         code: Codigo
       sale:
-        quote_date: Data
+        sale_date: Data
         customer: Cliente
         product: Produto
-        distr_center: Centro de Distribução
+        dist_center: Centro de Distribução
         user: Usuario
         business_unit: Unidade de Negocio
         moneda: Moeda
         unit: Unidade
         volume: Volume
-        Last_base_price: Ultimo Preço Piso
-        last_unit_price: Ultimo Preço Unitario
+        base_price: Preço Piso
+        unit_price: Preço Unitario
         calculated markup: Mark-Up Calculado
         comentario: Comentario
       vehicle:
@@ -203,3 +229,93 @@ pt-BR:
       system_variable:
         name: Nome
         value: Valor
+      exchange_rate:
+        from: De
+        to: Para
+        value: Valor
+        rate_date: Data
+      normal_bulk_freight:
+        origin: Origem
+        destination: Destino
+        vehicle: Tp Veic
+        amount: Montante
+        toll: Pedagio
+      chopped_bulk_freight:
+        operation: Operaçao
+        amount: Montante
+      product_bulk_freight:
+        origin: Origem
+        destination: Destino
+        vehicle: Tp Veic
+        amount: Montante
+        product: Produto
+        toll: Pedagio
+      especial_packed_freight:
+        origin: Origem
+        destination: Destino
+        vehicle: Tp Veic
+        amount: Montante
+      normal_packed_freight:
+        origin: Origem
+        destination: Destino
+        type: Gp Transporte
+        amount: Montante
+        insurance: Seguro
+        gris: GRIS
+        toll: Pedagio
+        ct_e: CT-e
+        min: Minimo
+      upload:
+        filename: Arquivo
+        model: Tabela
+        user: Usuario
+        created_at: Data
+  enumerize:
+    user:
+      role:
+        super_admin: Super Admin
+        admin: Admin
+        director: Gerente
+        sales_rep: Vendedor
+    products:
+      unit:
+        kg: KG
+        lt: L
+    cost:
+      on_demand:
+        on_request: CONTRA PEDIDO
+        discontinued: DESCONTINUADO
+        regular: REGULAR
+    icms_tax:
+      origin/destination:
+        ac: AC
+        al: AL
+        ap: AP
+        am: AM
+        ba: BA
+        ce: CE
+        es: ES
+        go: GO
+        ma: MA
+        mt: MT
+        ms: MS
+        mg: MG
+        pa: PA
+        pb: PB
+        pr: PR
+        pe: PE
+        pi: PI
+        rj: RJ
+        rn: RN
+        rs: RS
+        ro: RO
+        rr: RR
+        sc: SC
+        sp: SP
+        se: SE
+        to: TO
+        df: DF
+    quote:
+      freight_base_type:
+        bulk: Granel
+        packed: Embalado

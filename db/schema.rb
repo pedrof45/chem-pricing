@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624062649) do
+ActiveRecord::Schema.define(version: 20170625192724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,11 +217,13 @@ ActiveRecord::Schema.define(version: 20170624062649) do
     t.bigint "optimal_markup_id"
     t.bigint "cost_id"
     t.decimal "fob_net_price"
-    t.integer "freight_table"
     t.decimal "final_freight"
     t.string "comment"
     t.decimal "unit_freight"
     t.integer "payment_term"
+    t.string "freight_base_type"
+    t.string "freight_subtype"
+    t.bigint "vehicle_id"
     t.index ["city_id"], name: "index_quotes_on_city_id"
     t.index ["cost_id"], name: "index_quotes_on_cost_id"
     t.index ["customer_id"], name: "index_quotes_on_customer_id"
@@ -229,6 +231,7 @@ ActiveRecord::Schema.define(version: 20170624062649) do
     t.index ["optimal_markup_id"], name: "index_quotes_on_optimal_markup_id"
     t.index ["product_id"], name: "index_quotes_on_product_id"
     t.index ["user_id"], name: "index_quotes_on_user_id"
+    t.index ["vehicle_id"], name: "index_quotes_on_vehicle_id"
   end
 
   create_table "sales", force: :cascade do |t|
