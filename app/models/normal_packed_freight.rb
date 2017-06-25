@@ -1,4 +1,5 @@
 class NormalPackedFreight < ApplicationRecord
+	extend Enumerize
 
 end
 

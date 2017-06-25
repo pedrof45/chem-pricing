@@ -12,7 +12,7 @@ ActiveAdmin.register Quote do
   form partial: 'form', title: 'Simulador de Preço'
 
   csv do
-    column :quote_date
+    column :created_at
     column("Usuario") { |m| m.user.full_name }
     column("Codigo Cliente") { |m| m.customer.code if m.customer }
     column("SKU") { |m| m.product.sku }
