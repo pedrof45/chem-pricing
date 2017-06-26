@@ -53,8 +53,7 @@ ActiveAdmin.register Quote do
     column("SKU") { |m| m.product.sku }
     column("Moeda") { |m| m.cost.currency }
     column :quantity
-    column :freight_condition.upcase
-    column :freight_table
+    column :freight_condition
     column :icms_padrao
     column :icms
     column :pis_confins_padrao
