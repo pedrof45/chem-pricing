@@ -1,7 +1,10 @@
 class NormalPackedFreight < ApplicationRecord
 	extend Enumerize
+<<<<<<< HEAD
 
 	enumerize :category, in: [:pharma, :chemical]
+=======
+>>>>>>> Minor_changes
 
 end
 
