@@ -27,7 +27,7 @@ pt-BR:
         other: Fretes
       quote:
         one: Cotaçao
-        other: Cotaçaos
+        other: Cotaçoes
       city:
         one: Municipio
         other: Municipios
@@ -175,21 +175,26 @@ pt-BR:
         brl_eur: BRL/EUR
         quantity: Quantidade
         unit: Unidade
-        unit_price: Preço Unitario
-        markup: Mark-up
+        unit_price: Preço Unitario ($)
+        currency: Moeda
+        markup: Mark-up Calculado (%)
         fixed_price: ''
         quote_date: Data
         city: Cidade Alternativa
-        optimal_markup: Markup Óptimo
+        optimal_markup: Markup Meta (%)
         cost: Preço Piso
-        fob_net_price: Preço Fob Neto
+        fob_net_price: Preço Fob Neto ($)
         freight_table: Tabela Frete
         final_freight: Frete Final
         comment: Comentario
+        encargos: Encargos ($)
         dist_center: Centro de Distribução
-        unit_freight: Frete Unitario
-        total_price: Receita
-        mcb: MCB (Estimado)
+        unit_freight: Frete Unitario ($)
+        total_price: Receita ($)
+        mcb: MCB (Estimado) ($)
+        final_base_price: Preço Piso ($)
+        icms_amount: ICMS ($)
+        pis_confins_amount: PIS/CONFINS ($)
         freight_base_type: Tipo
         freight_subtype: Subtipo
         vehicle: Veiculo

@@ -1,12 +1,12 @@
 ActiveAdmin.register NormalPackedFreight do
   menu parent: '4. Logistica'
-  permit_params :origin, :destination, :type, :amount, :insurance, :gris, :toll, :ct_e, :min
+  permit_params :origin, :destination, :category, :amount, :insurance, :gris, :toll, :ct_e, :min
   actions :all
 
   index do
     column :origin
     column :destination
-    column :type
+    column :category
     column :amount
     column :insurance
     column :gris
@@ -19,7 +19,7 @@ ActiveAdmin.register NormalPackedFreight do
   csv do
     column :origin
     column :destination
-    column :type
+    column :category
     column :amount
     column :insurance
     column :gris

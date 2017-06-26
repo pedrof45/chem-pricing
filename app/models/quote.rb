@@ -14,7 +14,8 @@ class Quote < ApplicationRecord
 
   after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type, :freight_subtype
+  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type 
+  #:freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
            :freight_fields_consistency
@@ -24,8 +25,12 @@ class Quote < ApplicationRecord
   enumerize :freight_base_type, in: [:bulk, :packed]
 
   def simulate!
+    
+    answer=FreightService.new(q: self).run unless errors.any?
+     if answer==0
+       unit_freight=0
+     end
     SimulatorService.new(q: self).run
-    FreightService.new(q: self).run unless errors.any?
   end
 
   def optimal_markup_format
