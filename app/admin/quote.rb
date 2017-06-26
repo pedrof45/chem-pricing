@@ -12,14 +12,48 @@ ActiveAdmin.register Quote do
 
   form partial: 'form', title: 'Simulador de Preço'
 
+
+  index do
+    column :user
+    column :customer
+    column :product
+    column :created_at
+    column :icms_padrao
+    column :icms
+    column :ipi
+    column :pis_confins_padrao
+    column :pis_confins
+    column :freight_condition
+    column :freight_base_type
+    column :freight_subtype
+    column :city
+    column :unit_freight
+    column("Veiculo") { |m| m.vehicle.name if m.vehicle }
+    column("Moeda") { |m| m.cost.currency.upcase }
+    column :brl_usd
+    column :brl_eur
+    column :quantity
+    column("Unidade") { |m| m.product.unit.upcase}
+    column :unit_price
+    column :markup
+    column :fixed_price
+    column :dist_center
+    column("Unidade de Negocio") { |m| m.user.business_unit.code }
+    column("Preço Piso") { |m| m.cost.base_price}
+    column :fob_net_price
+    column :comment
+    column :payment_term
+    actions
+  end
+
   csv do
-    column :quote_date
+    column :created_at
     column("Usuario") { |m| m.user.full_name }
     column("Codigo Cliente") { |m| m.customer.code if m.customer }
     column("SKU") { |m| m.product.sku }
     column("Moeda") { |m| m.cost.currency }
     column :quantity
-    column :freight_condition
+    column :freight_condition.upcase
     column :freight_table
     column :icms_padrao
     column :icms

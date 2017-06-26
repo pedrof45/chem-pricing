@@ -10,9 +10,22 @@ class FreightService < PowerTypes::Service.new(:q)
       error('Problema encontrado calculando o frete')
       return 1
     end
+
+
+
+    @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
+    @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
+    if @q.product && @q.dist_center
+      error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
+      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
+    end
+
+    # up to this point, the simulation aborts if quote has errors
+    return if @q.errors.any?
+
     convert_unit
     convert_currency
-    @q.unit_freight = @freight.round(2)
+    @q.unit_freight = @freight.round(4)
   end
 
   private
@@ -35,7 +48,7 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def bulk_normal
-    freight_obj = NormalBulkFreight.where(origin: @q.origin_state, destination: @q.destination_state, vehicle: @q.vehicle).last
+    freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle).last
     unless freight_obj
       return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
     end
@@ -44,7 +57,7 @@ class FreightService < PowerTypes::Service.new(:q)
     capacity = @q.vehicle.capacity
     volume = @q.quantity_lts
 
-    @freight = (((amount / 1000) * (capacity * 1000)) + (toll * volume)) / volume
+    @freight = (((amount / 1000) * (capacity * 1000)) + (toll * volume/1000)) / volume
   end
 
   def bulk_chopped
@@ -55,7 +68,7 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def bulk_product
-    freight_obj = ProductBulkFreight.where(origin: @q.origin_state, destination: @q.destination_state, vehicle: @q.vehicle, product: @q.product).last
+    freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle, product: @q.product).last
     unless freight_obj
       return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
     end
@@ -63,11 +76,11 @@ class FreightService < PowerTypes::Service.new(:q)
     toll = freight_obj.toll
     weight = @q.quantity_kgs
 
-    @freight = (((amount / 1000) * (weight)) + (toll * weight)) / weight
+    @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
   end
 
   def packed_special
-    freight_obj = EspecialPackedFreight.where(origin: @q.origin_state, destination: @q.destination_state, vehicle: @q.vehicle).last
+    freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle).last
     unless freight_obj
       return error('Frete Embalado - Especial não foi encontrado pelo origem/destino/veiculo dado')
     end
@@ -86,10 +99,11 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def packed_normal_calc
-    freight_obj = NormalPackedFreight.where(origin: @q.origin_state, destination: @q.destination_state, category: @subtype).last
+    freight_obj = NormalPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , category: @subtype).last
     unless freight_obj
       return error('Frete Embalado Normal não foi encontrado pelo origem/destino/tipo dado')
     end
+    amount = freight_obj.amount
     insurance = freight_obj.insurance
     gris = freight_obj.gris
     toll = freight_obj.toll

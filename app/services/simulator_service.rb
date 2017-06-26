@@ -18,6 +18,8 @@ class SimulatorService < PowerTypes::Service.new(:q)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
+    @q.ipi=@q.product.ipi
+
     if @q.pis_confins_padrao
       # TODO QM validate presence when not padrao.
       # TODO Handle Sys Var Unset
@@ -45,7 +47,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
     end
     tax_d = 1 - @q.icms - @q.pis_confins
 
-    @q.unit_freight = 0.1 # TODO freight
+    #@q.unit_freight = 0.1 # TODO freight
 
     
     aux2=@q.cost.base_price

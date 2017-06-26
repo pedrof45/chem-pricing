@@ -4,6 +4,8 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
       para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'
     else
       row :optimal_markup
+      row(:unit) { |q| q.product.unit.upcase } 
+      row(:currency) { |q| q.cost.currency.upcase } 
       row :final_base_price
       row(:markup) { |q| q.markup }
       row :fob_net_price

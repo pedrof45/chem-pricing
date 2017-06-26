@@ -1,4 +1,7 @@
 class NormalPackedFreight < ApplicationRecord
+	extend Enumerize
+
+	enumerize :category, in: [:pharma, :chemical]
 
 end
 
