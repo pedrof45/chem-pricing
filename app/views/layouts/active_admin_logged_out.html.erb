@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+  <title><%= [@page_title, render_or_call_method_or_proc_on(self, ActiveAdmin.application.site_title)].compact.join(" | ") %></title>
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+
+  <% ActiveAdmin.application.javascripts.each do |path| %>
+      <%= javascript_include_tag path %>
+  <% end %>
+
+  <%= favicon_link_tag ActiveAdmin.application.favicon if ActiveAdmin.application.favicon %>
+
+  <%= csrf_meta_tag %>
+</head>
+<body <%= controller.action_name %>">
+<%= yield %>
+</body>
+</html>

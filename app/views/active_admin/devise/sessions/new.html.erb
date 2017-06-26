@@ -1,0 +1,35 @@
+<div class="login-page">
+  <div class="login-form-panel">
+
+
+    <%if login_flash_messages.present?%>
+      <div class="login-flash-alert">
+        <% login_flash_messages.each do |type, message| %>
+            <%= content_tag :div, message, class: "flash flash_#{type}" %>
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <%=image_tag 'login-logo.jpg', class: 'login-logo'%>
+    <span class="login-app-name">Simulador de Preço quantiQ</span>
+
+    <div class="login-inputs-box">
+      <% scope = Devise::Mapping.find_scope!(resource_name) %>
+      <%= active_admin_form_for(resource, as: resource_name, url: send(:"#{scope}_session_path"), html: { class: "session-new" }) do |f|
+        f.inputs do
+          f.input :email, label: false, input_html: { placeholder: "Email", class: 'login-input'}
+          f.input :password, label: false, input_html: { placeholder: "Password", class: 'login-input'}
+          f.input :remember_me, input_html: { class: 'remember-check-box' }, as: :boolean if devise_mapping.rememberable?
+        end
+        f.actions class: "login-actions" do
+          f.action :submit, label: "Login", button_html: { class: 'login-button' }# value: "Login" }
+        end
+      end
+      %>
+      <%=link_to "Esqueceu sua senha?", new_password_path(resource_name), class: "need-help"%>
+    </div>
+  </div>
+  <div class="login-bckgrnd-pic">
+  </div>
+</div>

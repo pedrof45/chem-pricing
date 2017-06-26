@@ -1,0 +1,145 @@
+
+$quantiqFuchsia: #D2015F;
+$quantiqLightFuchsia: #fbd0e2;
+
+$white: #ffffff;
+$miceGray: #888;
+$swiftGray: #ecf0f1;
+
+$input-white: #f6f6f6;
+$semaphore-yellow: #fdfd96;
+$bckgrnd-white: #ffffff;
+$flash-border: #dede8b;
+
+.login-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  clear: both;
+  background: $quantiqFuchsia;
+  font-family: "Source Sans Pro", sans-serif;
+  text-align: center;
+}
+
+
+.login-form-panel {
+  width: 600px;
+  padding: 40px;
+  float: left;
+  background-color: $quantiqFuchsia;
+  box-sizing: border-box;
+
+  .inputs {
+    border: 0;
+    background-color: $swiftGray;
+  }
+
+}
+
+.login-inputs-box {
+  //background-color: $miceGray;
+  .action {
+    width: 100%;
+  }
+}
+
+.login-bckgrnd-pic {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 600px);
+  height: 100%;
+  background-image: image-url('lab-pic.png');
+  background-position: center center;
+  background-size: cover;
+}
+
+.login-logo {
+  display: block;
+  width: 378px;
+  height: 141px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.login-app-name {
+  display: inline-block;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  color: $white;
+  font-size: 29px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.session-new {
+  font-size: 17px;
+
+  .login-input {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border: 0;
+    background-color: $input-white;
+  }
+
+  // Overriding ActiveAdmin
+  // scss-lint:disable ImportantRule
+  label {
+    padding-left: 67px !important;
+    float: left;
+    color: $quantiqFuchsia;// !important;
+    text-align: left;// !important;
+  }
+
+  .remember-check-box {
+    position: relative;
+    bottom: 2px;
+  }
+
+  .login-button {
+    display: block;
+    width: 200px;
+    margin-right: auto !important;
+    margin-left: auto;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    color: $white;
+    background-color: $miceGray;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.need-help {
+  float: none;
+  font-size: 17px;
+  color: $white !important;
+}
+
+.login-flash-alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  padding: 19px;
+  border-bottom: 1px solid $flash-border;
+  background: $semaphore-yellow;
+  color: $quantiqFuchsia;
+  font-size: 17px;
+  text-shadow: none;
+
+  .flash {
+    text-align: center;
+  }
+}
+
+//Show login partials (i.e. forgot password) without original layout
+// scss-lint:disable IdSelector
+#login {
+  width: 500px;
+  height: 500px;
+  padding: 100px;
+}

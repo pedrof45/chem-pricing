@@ -21,5 +21,6 @@ module ChemPricing
     config.load_defaults 5.1
     config.time_zone = 'Brasilia'
     config.active_record.default_timezone = :utc
+    config.action_mailer.default_url_options = { host:  ENV['APPLICATION_HOST'] }
   end
 end
