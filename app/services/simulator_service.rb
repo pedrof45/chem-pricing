@@ -45,7 +45,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
     end
     tax_d = 1 - @q.icms - @q.pis_confins
 
-    #@q.unit_freight = 0.1 # TODO freight
+    @q.unit_freight = 0.1 # TODO freight
 
     
     aux2=@q.cost.base_price
