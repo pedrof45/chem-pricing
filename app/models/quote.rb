@@ -96,12 +96,13 @@ class Quote < ApplicationRecord
   end
 
   def self.freight_subtype_options(type)
-    if type.try(:to_sym) == :bulk
+    if type.try(:to_sym) == :packed
       {
         chemical: 'Quimico',
-        pharma: 'Farma'
+        pharma: 'Farma',
+        special: 'Frete Especial'
       }.invert
-    elsif type.try(:to_sym) == :packed
+    elsif type.try(:to_sym) == :bulk
         basic_subtypes =
         {
             normal: 'Normal',
