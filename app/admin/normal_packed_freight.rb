@@ -32,7 +32,7 @@ ActiveAdmin.register NormalPackedFreight do
     f.inputs "User Details" do
       f.input :origin
       f.input :destination
-      f.input :type
+      f.input :category
       f.input :amount
       f.input :insurance
       f.input :gris
