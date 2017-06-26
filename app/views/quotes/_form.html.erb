@@ -48,7 +48,8 @@
           <div class="inputs-bottom-right">
             <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
                 <%= f.input :freight_base_type, as: :radio %>
-                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:bulk), input_html: { class: 'bulk-subtype-input' } %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:packed), input_html: { class: 'packed-subtype-input' } %>
                 <%= f.input :vehicle %>
             <% end %>
           </div>

@@ -95,19 +95,23 @@ class Quote < ApplicationRecord
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
   end
 
-  def self.freight_subtype_options
-    basic_subtypes =
-    {
-        chemichal: 'Quimico',
-        pharma: 'Farma',
-        normal: 'Normal',
-        product: 'Produto'
-
-    }
-    chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
-      ["chopped_#{cbf.id}".to_sym, cbf.operation]
-  end.to_h
-    basic_subtypes.merge(chopped_subtypes).invert
+  def self.freight_subtype_options(type)
+    if type.try(:to_sym) == :bulk
+      {
+        chemical: 'Quimico',
+        pharma: 'Farma'
+      }.invert
+    elsif type.try(:to_sym) == :packed
+        basic_subtypes =
+        {
+            normal: 'Normal',
+            product: 'Produto'
+        }
+        chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
+          ["chopped_#{cbf.id}".to_sym, cbf.operation]
+      end.to_h
+        basic_subtypes.merge(chopped_subtypes).invert
+    end
   end
 end
 
