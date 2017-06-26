@@ -18,6 +18,10 @@ class SimulatorService < PowerTypes::Service.new(:q)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
+    if @q.unit_freight.nil?
+        @q.unit_freight=0
+    end
+
     @q.ipi=@q.product.ipi
 
     if @q.pis_confins_padrao

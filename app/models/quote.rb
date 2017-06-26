@@ -27,9 +27,9 @@ class Quote < ApplicationRecord
   def simulate!
     
     answer=FreightService.new(q: self).run unless errors.any?
-    if answer==0
-      unit_freight=0
-    end
+     if answer==0
+       unit_freight=0
+     end
     SimulatorService.new(q: self).run
   end
 
