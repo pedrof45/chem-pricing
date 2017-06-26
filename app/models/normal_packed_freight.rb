@@ -9,7 +9,7 @@ end
 #  id          :integer          not null, primary key
 #  origin      :string
 #  destination :string
-#  type        :string
+#  category    :string
 #  amount      :decimal(, )
 #  insurance   :decimal(, )
 #  gris        :decimal(, )

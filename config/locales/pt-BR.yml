@@ -180,8 +180,8 @@ pt-BR:
         fixed_price: ''
         quote_date: Data
         city: Cidade Alternativa
-        optimal_markup: ''
-        cost: ''
+        optimal_markup: Markup Óptimo
+        cost: Preço Piso
         fob_net_price: Preço Fob Neto
         freight_table: Tabela Frete
         final_freight: Frete Final
@@ -258,7 +258,7 @@ pt-BR:
       normal_packed_freight:
         origin: Origem
         destination: Destino
-        type: Gp Transporte
+        category: Gp Transporte
         amount: Montante
         insurance: Seguro
         gris: GRIS

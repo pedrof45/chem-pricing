@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   has_many :sales
 
   validates_presence_of :sku, :unit, :density
-
+  validates :density, :numericality => { greater_than: 0 }
 
   enumerize :unit, in: [:kg, :lt]
 

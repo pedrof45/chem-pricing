@@ -10,12 +10,14 @@ class Quote < ApplicationRecord
   belongs_to :optimal_markup, required: false
   belongs_to :vehicle, required: false
 
+  # TODO set quote_date
 
   after_validation :simulate!
 
   validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type, :freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
-           :corresponding_markup_price_input, :optimal_markup_format
+           :corresponding_markup_price_input, :optimal_markup_format,
+           :freight_fields_consistency
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
@@ -23,6 +25,7 @@ class Quote < ApplicationRecord
 
   def simulate!
     SimulatorService.new(q: self).run
+    FreightService.new(q: self).run unless errors.any?
   end
 
   def optimal_markup_format
@@ -31,6 +34,10 @@ class Quote < ApplicationRecord
     #   errors.add(:markup, "tem que ser maior a 1") if markup<0
     #   errors.add(:markup, "tem que ser menor a 1") if markup>1
     # end
+  end
+
+  def freight_fields_consistency
+    # TODO
   end
 
   def city_when_corresponds
@@ -48,6 +55,18 @@ class Quote < ApplicationRecord
   def taxes_when_not_padrao
     errors.add(:icms, "Você deve digitar, ou selecionar 'padrão'") unless  icms.present? || icms_padrao
     errors.add(:pis_confins, "Você deve digitar, ou selecionar 'padrão'") unless  pis_confins.present? || pis_confins_padrao
+  end
+
+  def origin_state
+    dist_center.city.state if dist_center
+  end
+
+  def destination_state
+    if customer.blank? || freight_condition.redispatch?
+      city.try(:state)
+    elsif customer
+      customer.city.try(:state)
+    end
   end
 
   def last_sale
@@ -93,6 +112,16 @@ class Quote < ApplicationRecord
   def encargos
     return 0 if payment_term.zero?
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
+  end
+
+  def quantity_lts
+    return unless product && quantity
+    product.unit.kg? ? quantity / product.density : quantity
+  end
+
+  def quantity_kgs
+    return unless product && quantity
+    product.unit.kg? ? quantity : quantity * product.density
   end
 
   def self.freight_subtype_options(type)

@@ -11,18 +11,10 @@ class SimulatorService < PowerTypes::Service.new(:q)
     # up to this point, the simulation aborts if quote has errors
     return if @q.errors.any?
 
-    origin_state = @q.dist_center.city.state
-
-    destination_state = if @q.customer.blank? || @q.freight_condition.redispatch?
-                          @q.city.state
-                        else
-                          @q.customer.city.state
-                        end
-
-    if @q.icms_padrao && @q.product.resolution13 && origin_state != destination_state
+    if @q.icms_padrao && @q.product.resolution13 && @q.origin_state != @q.destination_state
       @q.icms = 0.04
     elsif @q.icms_padrao
-      @q.icms = IcmsTax.tax_value_for(origin_state, destination_state)
+      @q.icms = IcmsTax.tax_value_for(@q.origin_state, @q.destination_state)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
@@ -76,8 +68,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
   #   error(e.to_s)
   end
 
-  def error(msg, attr = nil)
-    error_atr = attr.nil? ? :base : attr.to_sym
-    @q.errors.add(error_atr, msg)
+  def error(msg, attr = :base)
+    @q.errors.add(attr, msg)
   end
 end
