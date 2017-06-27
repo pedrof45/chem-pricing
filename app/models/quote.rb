@@ -94,10 +94,6 @@ class Quote < ApplicationRecord
     end
   end
 
-  def mcb
-    total_price - ((cost.base_price/cost.amount_for_price) * quantity)
-  end
-
   def final_base_price
     cost.base_price/cost.amount_for_price
   end
@@ -117,6 +113,10 @@ class Quote < ApplicationRecord
   def encargos
     return 0 if payment_term.zero?
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
+  end
+
+   def mcb
+    total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms).round(3) +p(unit_price*pis_confins).round(3) + encargos+unit_freight) * quantity)
   end
 
   def quantity_lts
