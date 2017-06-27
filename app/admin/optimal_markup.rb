@@ -9,7 +9,7 @@ ActiveAdmin.register OptimalMarkup do
     column("SKU") { |m| m.product.sku }
     column("Nome Produto") { |m| m.product.name }
     column("Unidade Negocio") { |m| m.business_unit.code if m.business_unit }
-    column("CD Origem") { |m| m.dist_center.city.code }
+    column("CD Origem") { |m| m.dist_center.code }
     column :value
     column :table_value
     actions
