@@ -74,6 +74,14 @@ class Quote < ApplicationRecord
     end
   end
 
+  def destination_itinerary
+    if customer.blank? || freight_condition.redispatch?
+      city.try(:code)
+    elsif customer
+      customer.city.try(:code)
+    end
+  end
+
   def last_sale
     if customer && product && dist_center
       product.sales.where(customer: customer, dist_center: dist_center).last

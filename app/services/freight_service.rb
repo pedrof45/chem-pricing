@@ -48,7 +48,7 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def bulk_normal
-    freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle).last
+    freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
     unless freight_obj
       puts @q.dist_center.city.code
       puts @q.customer.city.code
@@ -71,7 +71,7 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def bulk_product
-    freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle, product: @q.product).last
+    freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
     unless freight_obj
       return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
     end
@@ -83,7 +83,7 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def packed_special
-    freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , vehicle: @q.vehicle).last
+    freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
     unless freight_obj
       return error('Frete Embalado - Especial não foi encontrado pelo origem/destino/veiculo dado')
     end
@@ -113,7 +113,7 @@ class FreightService < PowerTypes::Service.new(:q)
     # up to this point, the simulation aborts if quote has errors
     return if @q.errors.any?
 
-    freight_obj = NormalPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.customer.city.code , category: @subtype).last
+    freight_obj = NormalPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , category: @subtype).last
     unless freight_obj
       return error('Frete Embalado Normal não foi encontrado pelo origem/destino/tipo dado')
     end
