@@ -18,7 +18,7 @@ class Quote < ApplicationRecord
   #:freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
-           :freight_fields_consistency
+           :freight_fields_consistency, :quantity_format
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
@@ -31,6 +31,10 @@ class Quote < ApplicationRecord
        unit_freight=0
      end
     SimulatorService.new(q: self).run
+  end
+
+  def quantity_format
+    errors.add(:quantity, "tem que ser maior a 0") if quantity<1
   end
 
   def optimal_markup_format
