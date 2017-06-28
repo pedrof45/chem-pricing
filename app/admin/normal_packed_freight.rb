@@ -29,7 +29,7 @@ ActiveAdmin.register NormalPackedFreight do
   end
 
   form do |f|
-    f.inputs "User Details" do
+    f.inputs "Frete Embalado Normal" do
       f.input :origin
       f.input :destination
       f.input :category
