@@ -18,7 +18,7 @@ class Quote < ApplicationRecord
   #:freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
-           :freight_fields_consistency
+           :freight_fields_consistency, :quantity_format
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
@@ -31,6 +31,10 @@ class Quote < ApplicationRecord
        unit_freight=0
      end
     SimulatorService.new(q: self).run
+  end
+
+  def quantity_format
+    errors.add(:quantity, "tem que ser maior a 0") if quantity<1
   end
 
   def optimal_markup_format
@@ -74,6 +78,14 @@ class Quote < ApplicationRecord
     end
   end
 
+  def destination_itinerary
+    if customer.blank? || freight_condition.redispatch?
+      city.try(:code)
+    elsif customer
+      customer.city.try(:code)
+    end
+  end
+
   def last_sale
     if customer && product && dist_center
       product.sales.where(customer: customer, dist_center: dist_center).last
@@ -92,10 +104,6 @@ class Quote < ApplicationRecord
     elsif product
       product.optimal_markups.where(customer: nil).last.try :value
     end
-  end
-
-  def mcb
-    total_price - ((cost.base_price/cost.amount_for_price) * quantity)
   end
 
   def final_base_price
@@ -117,6 +125,10 @@ class Quote < ApplicationRecord
   def encargos
     return 0 if payment_term.zero?
     unit_price - (unit_freight+pis_confins_amount+icms_amount+fob_net_price)
+  end
+
+   def mcb
+    total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms).round(3) +p(unit_price*pis_confins).round(3) + encargos+unit_freight) * quantity)
   end
 
   def quantity_lts

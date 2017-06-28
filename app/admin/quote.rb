@@ -92,8 +92,8 @@ ActiveAdmin.register Quote do
         q.customer = Customer.take
         q.product = Product.take
 
-        q.brl_usd = GetExchangeRate.for(from: :BRL, to: :USD)
-        q.brl_eur = GetExchangeRate.for(from: :BRL, to: :EUR)
+        q.brl_usd = GetExchangeRate.for(from: :USD, to: :BRL)
+        q.brl_eur = GetExchangeRate.for(from: :EUR, to: :BRL)
 
         q.freight_base_type = Quote.freight_base_type.bulk
         q.icms_padrao = true
