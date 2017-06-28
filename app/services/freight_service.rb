@@ -1,7 +1,10 @@
 class FreightService < PowerTypes::Service.new(:q)
 
   def run
-    return 0 if @q.freight_condition.fob?
+    if @q.freight_condition.fob?
+      @q.unit_freight = 0
+      return
+    end
     splited_subtype = @q.freight_subtype.split '_'
     @subtype = splited_subtype.first
     @op_id = splited_subtype.last if splited_subtype.length > 1
@@ -18,7 +21,6 @@ class FreightService < PowerTypes::Service.new(:q)
 
   private
 
-
   def convert_unit
     if @q.freight_base_type.bulk? && @subtype == 'normal'
       @freight *= @q.product.density if @q.product.unit.kg?
@@ -28,17 +30,11 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def convert_currency
-
-   @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
-    @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
       error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
     end
 
-    # up to this point, the simulation aborts if quote has errors
-    return if @q.errors.any?
-    
     @freight /= @q.brl_usd if @q.cost.currency.usd?
     @freight /= @q.brl_eur if @q.cost.currency.eur?
   end
@@ -102,17 +98,6 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def packed_normal_calc
-
-    @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
-    @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
-    if @q.product && @q.dist_center
-      error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
-      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
-    end
-
-    # up to this point, the simulation aborts if quote has errors
-    return if @q.errors.any?
-
     freight_obj = NormalPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , category: @subtype).last
     unless freight_obj
       return error('Frete Embalado Normal não foi encontrado pelo origem/destino/tipo dado')

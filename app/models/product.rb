@@ -15,7 +15,22 @@ class Product < ApplicationRecord
     "#{sku} - #{name}"
   end
 
+  def self.xls_mode
+    :update
+  end
 
+  def self.xls_fields
+    {
+      sku: :key,
+      name: :attr,
+      unit: :attr,
+      ipi: :attr,
+      density: :attr,
+      resolucion13: :attr,
+      origin: :attr,
+      ncm: :attr
+    }
+  end
 end
 
 # == Schema Information

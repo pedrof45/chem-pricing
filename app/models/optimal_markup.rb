@@ -5,8 +5,26 @@ class OptimalMarkup < ApplicationRecord
   belongs_to :business_unit
   has_many :quotes
 
-
   validates_presence_of  :product_id, :dist_center_id, :table_value
+
+
+  def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      'product.sku': :f_key,
+      'product.name': nil,
+      'customer.code': :f_key,
+      'customer.name': nil,
+      'business_unit.code': :f_key,
+      'dist_center.code': :f_key,
+      table_value: :attr,
+      value: :attr
+    }
+  end
+
   
 end
 

@@ -1,12 +1,13 @@
 require 'roo'
 
-class UploadParserService < PowerTypes::Service.new(:data)
+class UploadParserService < PowerTypes::Service.new(:u)
 
   def run
-    sheet = Roo::Spreadsheet.open(@data)
-    sheet.parse(header_search: ["field1", "field2", "field3"])
+    klass = Object.const_get @u.model.classify
+    headers = klass.xls_fields
+    pt_headers = headers.map { |k,v| [translate_field(k), v] }.to_h
 
-  rescue StandardError => e
-    erros.add(:file, "Erro ao ler arquivo: #{e}")
+    sheet = Roo::Spreadsheet.open(@data)
+    sheet.parse(header_search: pt_headers.keys)
   end
 end

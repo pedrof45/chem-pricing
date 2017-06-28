@@ -1,16 +1,6 @@
 class SimulatorService < PowerTypes::Service.new(:q)
 
   def run
-    @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
-    @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
-    if @q.product && @q.dist_center
-      error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
-      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
-    end
-
-    # up to this point, the simulation aborts if quote has errors
-    return if @q.errors.any?
-
     if @q.icms_padrao && @q.product.resolution13 && @q.origin_state != @q.destination_state
       @q.icms = 0.04
     elsif @q.icms_padrao
@@ -18,11 +8,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
-    if @q.unit_freight.nil?
-        @q.unit_freight=0
-    end
-
-    @q.ipi=@q.product.ipi
+    @q.ipi = @q.product.ipi
 
     if @q.pis_confins_padrao
       # TODO QM validate presence when not padrao.
@@ -72,6 +58,15 @@ class SimulatorService < PowerTypes::Service.new(:q)
 
   # rescue StandardError => e
   #   error(e.to_s)
+  end
+
+  def setup_cost_and_markup
+    @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
+    @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
+    if @q.product && @q.dist_center
+      error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
+      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
+    end
   end
 
   def error(msg, attr = :base)

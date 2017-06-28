@@ -43,7 +43,7 @@ pt-BR:
       packaging:
         one: Embalagem
         other: Embalagems
-      bussiness _unit:
+      business_unit:
         one: Unidade de Negocio
         other: Unidade de Negocios
       system_variable:
@@ -228,7 +228,7 @@ pt-BR:
         name: Nome
         capacity: Capacidade
         weight: Peso (kg)
-      bussiness _unit:
+      business_unit:
         name: Nome
         code: Codigo
       system_variable:

@@ -25,12 +25,13 @@ class Quote < ApplicationRecord
   enumerize :freight_base_type, in: [:bulk, :packed]
 
   def simulate!
-    
-    answer=FreightService.new(q: self).run unless errors.any?
-     if answer==0
-       unit_freight=0
-     end
-    SimulatorService.new(q: self).run
+    simulator_service = SimulatorService.new(q: self)
+    freight_service = FreightService.new(q: self)
+    simulator_service.setup_cost_and_markup
+    unless errors.any?
+      freight_service.run
+      simulator_service.run
+    end
   end
 
   def quantity_format
@@ -159,6 +160,13 @@ class Quote < ApplicationRecord
       end.to_h
         basic_subtypes.merge(chopped_subtypes).invert
     end
+  end
+
+  def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
   end
 end
 

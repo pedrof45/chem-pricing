@@ -14,7 +14,9 @@ class Upload < ApplicationRecord
     unless file.respond_to? :read
       errors.add(:file, "Não é possível ler o arquivo") and return
     end
-    UploadParserService.new(data: file).run
+    UploadParserService.new(u: self).run
+  rescue StandardError => e
+    errors.add(:file, "Erro ao ler arquivo: #{e}")
   end
 end
 
