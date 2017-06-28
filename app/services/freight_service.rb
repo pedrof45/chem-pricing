@@ -39,8 +39,8 @@ class FreightService < PowerTypes::Service.new(:q)
     # up to this point, the simulation aborts if quote has errors
     return if @q.errors.any?
     
-    @freight *= @q.brl_usd if @q.cost.currency.usd?
-    @freight *= @q.brl_eur if @q.cost.currency.eur?
+    @freight /= @q.brl_usd if @q.cost.currency.usd?
+    @freight /= @q.brl_eur if @q.cost.currency.eur?
   end
 
   def run_freight_by_type(type, subtype)
