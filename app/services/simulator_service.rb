@@ -33,7 +33,11 @@ class SimulatorService < PowerTypes::Service.new(:q)
     if @q.payment_term == 0
       financial_cost = 0
     else
-      financial_cost = @q.payment_term * interest
+      #financial_cost = @q.payment_term * interest
+
+      financial_cost = ((interest + 1)**(@q.payment_term/30.0)) -1
+      puts "encRGOS"
+      puts financial_cost 
     end
     tax_d = 1 - @q.icms - @q.pis_confins
 
