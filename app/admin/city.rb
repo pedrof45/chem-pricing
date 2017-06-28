@@ -11,6 +11,7 @@ ActiveAdmin.register City do
   end
 
   csv do
+    column :id
   	column :name
   	column :code
   end

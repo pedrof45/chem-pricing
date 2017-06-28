@@ -24,6 +24,7 @@ ActiveAdmin.register Product do
   filter :resolucion13
 
   csv do
+    column :id
     column :sku
     column :name
     column :ncm

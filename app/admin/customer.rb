@@ -24,6 +24,7 @@ ActiveAdmin.register Customer do
   filter :city
 
   csv do
+    column :id
     column :name
     column :code
     column :cnpj

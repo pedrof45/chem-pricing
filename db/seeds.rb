@@ -21,7 +21,7 @@ csv.each do |row|
   #puts "#{product.name}, #{product.sku} saved"
 end
 
-csv_text = File.read(Rails.root.join('db', 'cost.csv'))
+csv_text = File.read(Rails.root.join('db', 'costs.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
 csv.each do |row|
   cost = Cost.find_or_create_by(frac_emb: row[16], on_demand: row[15], commentary: row[14], competition_adjustment: row[13],source_adjustment: row[12], min_order_quantity: row[11], lead_time: row[10],product_analyst: row[9], last_month_fob_net: row[8], last_month_base_price: row[7], updated_cost: row[6],amount_for_price: row[5], suggested_markup: row[4],base_price: row[3], currency: row[2],dist_center_id: row[1], product_id: row[0])
