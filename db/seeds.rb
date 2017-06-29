@@ -25,10 +25,17 @@ csv_text = File.read(Rails.root.join('db', 'costs.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
 csv.each do |row|
   cost = Cost.find_or_create_by(frac_emb: row[16], on_demand: row[15], commentary: row[14], competition_adjustment: row[13],source_adjustment: row[12], min_order_quantity: row[11], lead_time: row[10],product_analyst: row[9], last_month_fob_net: row[8], last_month_base_price: row[7], updated_cost: row[6],amount_for_price: row[5], suggested_markup: row[4],base_price: row[3], currency: row[2],dist_center_id: row[1], product_id: row[0])
-  puts "#{cost.currency}"
+  #puts "#{cost.currency}"
 end
 
-{ pis_confins: 0.04, interest_2_30: 0.01, interest_31_60: 0.02, interest_more_60: 0.03 }.each do |name, value|
+csv_text = File.read(Rails.root.join('db', 'optimalmarkups.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
+csv.each do |row|
+  optimalmarkups = OptimalMarkup.find_or_create_by(business_unit_id: row[5], table_value: row[4],value: row[3], dist_center_id: row[2],customer_id: row[1], product_id: row[0])
+  puts "#{optimalmarkups.value} saved"
+end
+
+{ pis_confins: 0.095, interest_2_30: 0.01, interest_31_60: 0.025, interest_more_60: 0.035 }.each do |name, value|
   sys_var = SystemVariable.find_or_create_by(name: name)
   sys_var.update(value: value) if sys_var.value.nil?
 end
