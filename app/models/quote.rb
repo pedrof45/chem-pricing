@@ -125,19 +125,6 @@ class Quote < ApplicationRecord
 
   end
 
-  def freight_amount
-    unit_freight.round(2)
-  end
-
-  def fob_amount
-
-    fob_net_price.round(2)
-  end
-
-  def unit_price_amount
-    unit_price.round(2)
-  end
-
   def encargos
     return 0 if payment_term.zero?
     (unit_price*final_freight).round(2)
