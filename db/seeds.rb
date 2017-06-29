@@ -35,6 +35,14 @@ csv.each do |row|
   puts "#{optimalmarkups.value} saved"
 end
 
+
+csv_text = File.read(Rails.root.join('db', 'icms.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
+csv.each do |row|
+  icms = IcmsTax.find_or_create_by(value: row[2],destination: row[1], origin: row[0])
+  puts "#{icms.value} saved"
+end
+
 { pis_confins: 0.095, interest_2_30: 0.01, interest_31_60: 0.025, interest_more_60: 0.035 }.each do |name, value|
   sys_var = SystemVariable.find_or_create_by(name: name)
   sys_var.update(value: value) if sys_var.value.nil?
