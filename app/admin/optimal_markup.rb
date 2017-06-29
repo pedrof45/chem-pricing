@@ -5,7 +5,7 @@ ActiveAdmin.register OptimalMarkup do
 
   index title: 'Markups por Cliente e Produto' do
     column("Codigo Cliente") { |m| m.customer.code if m.customer }
-    column("Nome Cliente") { |m| m.customer.name }
+    column("Nome Cliente") { |m| m.customer.name if m.customer}
     column("SKU") { |m| m.product.sku }
     column("Nome Produto") { |m| m.product.name }
     column("Unidade Negocio") { |m| m.business_unit.code if m.business_unit }
@@ -17,8 +17,8 @@ ActiveAdmin.register OptimalMarkup do
 
   csv do
     column :id
-    column("Codigo Cliente") { |m| m.customer.code }
-    column("Nome Cliente") { |m| m.customer.name }
+    column("Codigo Cliente") { |m| m.customer.code if m.customer }
+    column("Nome Cliente") { |m| m.customer.name if m.customer }
     column("SKU") { |m| m.product.sku }
     column("Nome Produto") { |m| m.product.name }
     column("Unidade Negocio") { |m| m.business_unit.code if m.business_unit }
