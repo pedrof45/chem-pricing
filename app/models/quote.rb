@@ -101,12 +101,8 @@ class Quote < ApplicationRecord
     (unit_price * quantity).round(2)
   end
 
-  def optimal_markup
-    if product && customer
-      product.optimal_markups.where(customer: customer).last.try :value
-    elsif product
-      product.optimal_markups.where(customer: nil).last.try :value
-    end
+  def optimal_markup_amount
+    optimal_markup.value
   end
 
   def final_base_price
