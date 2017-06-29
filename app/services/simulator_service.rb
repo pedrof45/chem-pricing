@@ -69,6 +69,9 @@ class SimulatorService < PowerTypes::Service.new(:q)
   def setup_cost_and_markup
     @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last
     @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: @q.customer).last
+    if @q.optimal_markup==nil
+      @q.optimal_markup = OptimalMarkup.where(product: @q.product, dist_center: @q.dist_center, customer: nil).last
+    end
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
       error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
