@@ -14,8 +14,7 @@ class Quote < ApplicationRecord
 
   after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type 
-  :freight_subtype
+  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type, :freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
            :freight_fields_consistency, :quantity_format
