@@ -19,7 +19,7 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
     end
   end
 end
-panel 'Ultima Venta', class: 'last-sale-panel' do
+panel 'Ultima Venda', class: 'last-sale-panel' do
   attributes_table_for quote.last_sale || Sale.new do
     row :base_price
     row :markup

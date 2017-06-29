@@ -1,7 +1,7 @@
 class OptimalMarkupPolicy < ApplicationPolicy
 	
   def index?
-    user.admin_or_more?
+    user.manager_or_more?
   end
 
   

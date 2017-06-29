@@ -15,7 +15,7 @@ class Quote < ApplicationRecord
   after_validation :simulate!
 
   validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type 
-  #:freight_subtype
+  :freight_subtype
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
            :freight_fields_consistency, :quantity_format
@@ -96,7 +96,7 @@ class Quote < ApplicationRecord
   end
 
   def total_price
-    unit_price * quantity
+    (unit_price * quantity).round(2)
   end
 
   def optimal_markup
@@ -108,28 +108,28 @@ class Quote < ApplicationRecord
   end
 
   def final_base_price
-    cost.base_price/cost.amount_for_price
+    (cost.base_price/cost.amount_for_price).round(2)
   end
 
   def icms_amount
 
-    (unit_price*icms).round(3)
+    (unit_price*icms).round(2)
 
   end
 
   def pis_confins_amount
 
-    (unit_price*pis_confins).round(3)
+    (unit_price*pis_confins).round(2)
 
   end
 
   def encargos
     return 0 if payment_term.zero?
-    (unit_price*final_freight)
+    (unit_price*final_freight).round(2)
   end
 
    def mcb
-    total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity
+    (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).round(2)
   end
 
   def quantity_lts
