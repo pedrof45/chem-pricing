@@ -25,8 +25,8 @@ panel 'Ultima Venda', class: 'last-sale-panel' do
     row :markup
     row :unit_price
     row :volume
-    row :unit_price
     row :sale_date
     row :dist_center
+    row :user
   end
 end

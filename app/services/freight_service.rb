@@ -32,7 +32,6 @@ class FreightService < PowerTypes::Service.new(:q)
   def convert_currency
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
-      error("não for encontrada para o produto/CD selecionado", :optimal_markup) unless @q.optimal_markup
     end
 
     @freight /= @q.brl_usd if @q.cost.currency.usd?
