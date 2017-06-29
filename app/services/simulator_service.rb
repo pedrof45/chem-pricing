@@ -36,6 +36,8 @@ class SimulatorService < PowerTypes::Service.new(:q)
       #financial_cost = @q.payment_term * interest
 
       financial_cost = ((interest + 1)**(@q.payment_term/30.0)) -1
+      #use this variable because was available...change name of final_freight to financial_cost
+      @q.final_freight=financial_cost
       puts "encRGOS"
       puts financial_cost 
     end
@@ -53,7 +55,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
       @q.markup = (((((@q.unit_price * tax_d)/(1 + financial_cost)) - @q.unit_freight ) / @q.cost.base_price) - 1)
       @q.fob_net_price = (@q.cost.base_price * (1 + @q.markup)).round(3)
     else
-      @q.unit_price = ((((@q.cost.base_price * (1 + @q.markup)+ @q.unit_freight))/tax_d) * (1 + financial_cost))
+      @q.unit_price = ((((@q.cost.base_price * (1 + @q.markup)+ @q.unit_freight))/tax_d) * (1 + financial_cost)).round(3)
       @q.fob_net_price = (@q.cost.base_price * (1 + @q.markup)).round(3)
 
     end
