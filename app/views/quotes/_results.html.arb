@@ -12,7 +12,7 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
       row :icms_amount
       row :pis_confins_amount
       row(:unit_freight) { |q| q.unit_freight }
-      row :encargos
+      row :encargos_amount
       row(:unit_price) { |q| q.unit_price }
       row :total_price
       row :mcb

@@ -127,7 +127,11 @@ class Quote < ApplicationRecord
 
   def encargos
     return 0 if payment_term.zero?
-    (unit_price*final_freight).round(2)
+    (unit_price*final_freight)
+  end
+
+  def encargos_amount
+    encargos.round(2)
   end
 
    def mcb
