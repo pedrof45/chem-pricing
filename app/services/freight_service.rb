@@ -16,7 +16,7 @@ class FreightService < PowerTypes::Service.new(:q)
 
     convert_unit
     convert_currency
-    @q.unit_freight = @freight.round(4)
+    @q.unit_freight = @freight.round
   end
 
   private

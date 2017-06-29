@@ -8,12 +8,12 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
       row(:currency) { |q| q.cost.currency.upcase } 
       row :final_base_price
       row(:markup) { |q| q.markup }
-      row :fob_net_price
+      row :fob_amount
       row :icms_amount
       row :pis_confins_amount
-      row(:unit_freight) { |q| q.unit_freight }
+      row :freight_amount
       row :encargos
-      row(:unit_price) { |q| q.unit_price }
+      row :unit_price_amount
       row :total_price
       row :mcb
     end
