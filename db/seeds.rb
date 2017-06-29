@@ -28,7 +28,7 @@ csv.each do |row|
   #puts "#{cost.currency}"
 end
 
-csv_text = File.read(Rails.root.join('db', 'optimalmarkups.csv'))
+csv_text = File.read(Rails.root.join('db', 'optimalmarkup.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
 csv.each do |row|
   optimalmarkups = OptimalMarkup.find_or_create_by(business_unit_id: row[5], table_value: row[4],value: row[3], dist_center_id: row[2],customer_id: row[1], product_id: row[0])
