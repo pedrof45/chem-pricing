@@ -324,3 +324,5 @@ pt-BR:
       freight_base_type:
         bulk: Granel
         packed: Embalado
+      freight_condition:
+        redispatch: REDESPACHO

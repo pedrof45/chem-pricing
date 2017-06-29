@@ -32,7 +32,7 @@ csv_text = File.read(Rails.root.join('db', 'optimalmarkup.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
 csv.each do |row|
   optimalmarkups = OptimalMarkup.find_or_create_by(business_unit_id: row[5], table_value: row[4],value: row[3], dist_center_id: row[2],customer_id: row[1], product_id: row[0])
-  puts "#{optimalmarkups.value} saved"
+  #puts "#{optimalmarkups.value} saved"
 end
 
 
@@ -40,7 +40,14 @@ csv_text = File.read(Rails.root.join('db', 'icms.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
 csv.each do |row|
   icms = IcmsTax.find_or_create_by(value: row[2],destination: row[1], origin: row[0])
-  puts "#{icms.value} saved"
+  #puts "#{icms.value} saved"
+end
+
+csv_text = File.read(Rails.root.join('db', 'sales.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
+csv.each do |row|
+  sale = Sale.find_or_create_by(comentario: row[13],markup: row[12], calculated: row[11], unit_price: row[10],base_price: row[9], volume: row[8], unit: row[7], currency: row[6],business_unit_id: row[5], user_id: row[4],dist_center_id: row[3], product_id: row[2],customer_id: row[1], sale_date: row[0])
+  puts "#{sale.sale_date} saved"
 end
 
 { pis_confins: 0.095, interest_2_30: 0.02, interest_31_60: 0.025, interest_more_60: 0.035 }.each do |name, value|

@@ -40,15 +40,16 @@ class FreightService < PowerTypes::Service.new(:q)
   end
 
   def run_freight_by_type(type, subtype)
-    send("#{type}_#{subtype[/([a-z]+)/]}")
+    if @subtype!=nil
+      send("#{type}_#{subtype[/([a-z]+)/]}") 
+      else
+        error('Subtipo fica vacio')
+    end
   end
 
   def bulk_normal
     freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
     unless freight_obj
-      puts @q.dist_center.city.code
-      puts @q.customer.city.code
-      puts @q.vehicle.id
       return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
     end
     amount = freight_obj.amount
