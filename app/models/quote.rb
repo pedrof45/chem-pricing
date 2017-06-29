@@ -129,7 +129,7 @@ class Quote < ApplicationRecord
   end
 
    def mcb
-    total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms).round(3) +(unit_price*pis_confins).round(3) + encargos+unit_freight) * quantity)
+    total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight) * quantity)
   end
 
   def quantity_lts
