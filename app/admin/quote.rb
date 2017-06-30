@@ -29,7 +29,7 @@ ActiveAdmin.register Quote do
     column :city
     column :unit_freight
     column("Veiculo") { |m| m.vehicle.name if m.vehicle }
-    column("Moeda") { |m| m.cost.currency.upcase }
+    column("Moeda") { |m| m.cost.currency.upcase if m.cost }
     column :brl_usd
     column :brl_eur
     column :quantity
@@ -38,9 +38,8 @@ ActiveAdmin.register Quote do
     column :markup
     column :fixed_price
     column :dist_center
-    column("Unidade de Negocio") { |m| m.user.business_unit.code }
-    column("Preço Piso") { |m| m.cost.base_price}
-    column :fob_net_price
+    column("Unidade de Negocio") { |m| m.user.business_unit.code if m.user.business_unit }
+    column("Preço Piso") { |m| m.cost.base_price if m.cost }
     column :comment
     column :payment_term
     actions
@@ -88,9 +87,9 @@ ActiveAdmin.register Quote do
 
       if action_name == 'new'
         # temp
-        q.dist_center = DistCenter.take
-        q.customer = Customer.take
-        q.product = Product.take
+        # q.dist_center = DistCenter.take
+        # q.customer = Customer.take
+        # q.product = Product.take
 
         q.brl_usd = GetExchangeRate.for(from: :USD, to: :BRL)
         q.brl_eur = GetExchangeRate.for(from: :EUR, to: :BRL)
@@ -107,5 +106,17 @@ ActiveAdmin.register Quote do
     def set_user
       params[:quote][:user_id] = current_user.id
     end
+
+  end
+
+  collection_action :fetch_markup, method: :get do
+      dist_center = DistCenter.find_by(id: params[:dist_center_id])
+      product = Product.find_by(id: params[:product_id])
+      customer = Customer.find_by(id: params[:customer_id])
+      o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: customer).last
+      unless o_mkup
+        o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: nil).last
+      end
+      render json: { table_value: o_mkup.try(:table_value) }
   end
 end

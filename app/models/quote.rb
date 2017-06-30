@@ -37,7 +37,7 @@ class Quote < ApplicationRecord
   end
 
   def quantity_format
-    errors.add(:quantity, "tem que ser maior a 1") if quantity<1
+    errors.add(:quantity, "tem que ser maior a 0") if quantity.to_i <= 0
   end
 
   def optimal_markup_format

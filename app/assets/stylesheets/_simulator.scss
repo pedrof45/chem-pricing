@@ -1,4 +1,7 @@
 $darkerAAbackgroundGray: #d9d9d9;
+$disabledInputGray: #f2f2f2;
+$simulateButtonBlue: #006699;
+$simulateButtonBlueHover: #0088cc;
 
 .simulator-form {
 
@@ -150,6 +153,18 @@ $darkerAAbackgroundGray: #d9d9d9;
   .make-quote-button {
     float: right;
     margin-right: calc(50% - 60px);
+    background-color: $simulateButtonBlue;
+    font-size: 18px;
+    width: 116px;
+    height: 52px;
+
+    &:hover {
+      background-color: $simulateButtonBlueHover !important;
+    }
+
+    &:active {
+      border: 5px inset;
+    }
   }
 }
 
@@ -185,4 +200,8 @@ $darkerAAbackgroundGray: #d9d9d9;
   #quote_freight_base_type_input legend.label {
     border: none;
   }
+}
+
+.disabled-input {
+  background-color: $disabledInputGray;
 }

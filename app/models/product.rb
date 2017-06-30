@@ -9,6 +9,8 @@ class Product < ApplicationRecord
   validates_presence_of :sku, :unit, :density
   validates :density, :numericality => { greater_than_or_equal_to: 0 }
 
+  scope :with_cost, -> { joins(:costs).distinct }
+
   enumerize :unit, in: [:kg, :lt]
 
   def name_and_code

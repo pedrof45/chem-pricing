@@ -16,7 +16,63 @@ function toggleVehicleInput() {
   $('#quote_vehicle_input').toggle(show_vehicle);
 }
 
+function togglePriceMarkupInput() {
+  var priceFixed = $('#quote_fixed_price_true:checked').val() !== undefined;
+  $('#quote_unit_price').prop('disabled', !priceFixed).toggleClass('disabled-input', !priceFixed);
+  $('#quote_markup').prop('disabled', priceFixed).toggleClass('disabled-input', priceFixed);
+}
+
+function fetchMarkup() {
+  var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
+  var productId = ($('#quote_product_id').select2('data') || {}).id;
+  var customerId = ($('#quote_customer_id').select2('data') || {}).id;
+  var url = '/quotes/fetch_markup.json';
+  $.ajax({
+    type: "GET",
+    dataType: "script",
+    url: url,
+    data: {
+      dist_center_id: distCenterId,
+      product_id: productId,
+      customer_id: customerId
+    },
+    complete: function(data, textStatus, jqXHR){
+      if((data === undefined) || (data.responseText === undefined)) { return; }
+      var respObj = JSON.parse(data.responseText);
+      var tableValue = (respObj || {}).table_value
+      if(tableValue !== undefined) {
+        $('#quote_markup').val(tableValue)
+      }
+    }
+  });
+}
+
+function toggleCityInput() {
+  var hasCustomer = !!$('#quote_customer_id').select2('data');
+  var redispatchSelected = $('#quote_freight_condition_redispatch').is(':checked');
+  var enableCity = !hasCustomer || redispatchSelected;
+  $('#quote_city_id').prop('disabled', !enableCity);
+
+}
+
+function fakeSimulatorSelect() {
+  $('li#quotes').removeClass('current');
+  $('li#simulator').addClass('current');
+}
+
 $(function () {
+  $('.base-field-input').change(function () {
+    fetchMarkup();
+  });
+
+  $('#quote_customer_id, #quote_freight_condition_input').change(function () {
+    toggleCityInput();
+  });
+
+  $('#quote_fixed_price_true, #quote_fixed_price_false').change(function () {
+    togglePriceMarkupInput();
+  });
+
   $('#quote_freight_base_type_bulk, #quote_freight_base_type_packed').change(function () {
     toggleFreightSubtypeInputs();
     toggleVehicleInput();
@@ -34,4 +90,10 @@ $(function () {
 
   toggleFreightSubtypeInputs();
   toggleVehicleInput();
+  togglePriceMarkupInput();
+  toggleCityInput();
+  if($('#page_title').html() === 'Simulador de Preço') {
+    fakeSimulatorSelect();
+  }
+
 });

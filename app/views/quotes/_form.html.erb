@@ -4,9 +4,9 @@
         <div class="inputs-top">
           <div class="basic-fields fields-box">
             <%= f.inputs name: 'Dados Básicos' do %>
-                <%= f.input :dist_center, member_label: :name_and_code %>
-                <%= f.input :customer, member_label: :name_and_code %>
-                <%= f.input :product, member_label: :name_and_code %>
+                <%= f.input :dist_center, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
+                <%= f.input :customer, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
+                <%= f.input :product, collection: Product.with_cost, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
             <% end %>
           </div>
           <div class="freight-conditions-fields fields-box">
@@ -65,8 +65,8 @@
               <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario" => true, "Markup" => false }  %>
               <%= f.input :unit_price, label: false %>
               <%= f.input :markup, label: false %>
-              <%= f.submit class: "make-quote-button" %>
-          <% end %>
+              <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '.....' }  %>
+        <% end %>
         </div>
         <div class="results-section inputs">
           <%= render partial: 'results', locals: { quote: resource }%>
