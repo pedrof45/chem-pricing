@@ -181,28 +181,29 @@ pt-BR:
         fixed_price: ''
         quote_date: Data
         city: Cidade Alternativa
-        optimal_markup_amount: Markup Meta Semestre (%)
-        unit_price_amount: Preço Unitario ($)
-        unit_freight_amount: Frete Unitario ($)
+        optimal_markup_amount: Mark-up Meta Semestre (%)
+        unit_price_amount: Preço Final ($/UN)
+        unit_freight_amount: Frete ($/UN)
         encargos_amount: Encargos ($/un)
-        fob_net_rounded: Preço Fob Net ($)
-        calculated_markup_amount: Mark-up ($)
+        fob_net_rounded: Preço Fob Net ($/un)
+        calculated_markup_amount: Mark-up ($/UN)
         cost: Preço Piso
-        fob_net_price: Preço Fob Neto ($)
+        fob_net_price: Preço Fob Neto ($/UN)
         freight_table: Tabela Frete
         final_freight: Frete Final
         comment: Comentario
-        encargos: Encargos ($)
+        encargos: Encargos ($/UN)
         dist_center: Centro de Distribução
-        unit_freight: Frete Unitario ($)
+        unit_freight: Frete ($/UN)
         total_price: Receita ($)
-        mcb: MCB (Estimado) ($)
-        final_base_price: Preço Piso ($)
-        icms_amount: ICMS ($)
-        pis_confins_amount: PIS/CONFINS ($)
+        mcb: MCB Estimado ($)
+        final_base_price: Preço Piso ($/UN)
+        icms_amount: ICMS ($/UN)
+        pis_confins_amount: PIS/CONFINS ($/UN)
         freight_base_type: Tipo
         freight_subtype: Subtipo
         vehicle: Veiculo
+        table_value: Mark-Up Tabela (%)
       city:
         name: Nome
         state: Estado

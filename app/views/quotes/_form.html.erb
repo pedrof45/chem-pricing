@@ -62,10 +62,12 @@
       <div class="outputs-side">
         <div class="price-markup-fields fields-box">
           <%= f.inputs name: 'Fixar Preço/Markup', class: 'inputs price-markup-fieldset' do %>
-              <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario" => true, "Markup (%)" => false }  %>
+              <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario ($/un)" => true, "Mark-up (%)" => false } %>
               <%= f.input :unit_price, label: false %>
               <%= f.input :markup, label: false %>
-              <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '.....' }  %>
+              <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '....'}%>
+              <span style="display:block; height: 80px;width: 100px"></span>
+                <%= f.label '-----(*)Default é Mark-up Tabela-----' %>
         <% end %>
         </div>
         <div class="results-section inputs">
