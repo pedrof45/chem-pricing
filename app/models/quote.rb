@@ -117,6 +117,10 @@ class Quote < ApplicationRecord
     (cost.base_price/cost.amount_for_price).round(2)
   end
 
+  def unit_price_amount
+    unit_price.round(2)
+  end
+
   def calculated_markup_amount
     (markup/100)*final_base_price
   end
