@@ -164,7 +164,7 @@ pt-BR:
         user: Usuario
         customer: Cliente
         product: Produto
-        payment_term: Prazo de Pagamento
+        payment_term: Prazo de Pagamento (dias)
         icms_padrao: ICMS padrao
         icms: ICMS
         ipi: IPI
@@ -181,7 +181,12 @@ pt-BR:
         fixed_price: ''
         quote_date: Data
         city: Cidade Alternativa
-        optimal_markup: Markup Meta (%)
+        optimal_markup_amount: Markup Meta Semestre (%)
+        unit_price_amount: Preço Unitario ($)
+        unit_freight_amount: Frete Unitario ($)
+        encargos_amount: Encargos ($/un)
+        fob_net_rounded: Preço Fob Net ($)
+        calculated_markup_amount: Mark-up ($)
         cost: Preço Piso
         fob_net_price: Preço Fob Neto ($)
         freight_table: Tabela Frete
@@ -220,6 +225,7 @@ pt-BR:
         unit_price: Preço Unitario
         calculated markup: Mark-Up Calculado
         comentario: Comentario
+        markup: Mark-Up
       vehicle:
         name: Nome
         capacity: Capacidade

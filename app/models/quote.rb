@@ -98,15 +98,27 @@ class Quote < ApplicationRecord
   end
 
   def total_price
-    (unit_price * quantity).round(2)
+    (unit_price * quantity).to_i
+  end
+
+  def fob_net_rounded
+    fob_net_price.round(2)
   end
 
   def optimal_markup_amount
-    optimal_markup.value
+    optimal_markup.value*100
+  end
+
+  def unit_freight_amount
+    unit_freight.round(2)
   end
 
   def final_base_price
     (cost.base_price/cost.amount_for_price).round(2)
+  end
+
+  def calculated_markup_amount
+    (markup/100)*final_base_price
   end
 
   def icms_amount
@@ -131,7 +143,7 @@ class Quote < ApplicationRecord
   end
 
    def mcb
-    (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).round(2)
+    (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).to_i
   end
 
   def quantity_lts
