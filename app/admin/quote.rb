@@ -117,6 +117,6 @@ ActiveAdmin.register Quote do
       unless o_mkup
         o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: nil).last
       end
-      render json: { table_value: (o_mkup.try(:table_value)) }
+      render json: { table_value: (o_mkup.try(:table_value))*100 }
   end
 end
