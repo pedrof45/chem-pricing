@@ -26,6 +26,10 @@ class User < ApplicationRecord
     [first_name, last_name].join ' '
   end
 
+  def sysadmin_or_more?
+    role.sysadmin?
+  end
+
   def admin_or_more?
     role.admin? || role.sysadmin?
   end

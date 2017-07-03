@@ -46,19 +46,6 @@ class FreightService < PowerTypes::Service.new(:q)
     end
   end
 
-  def bulk_normal
-    freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
-    unless freight_obj
-      return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
-    end
-    amount = freight_obj.amount
-    toll = freight_obj.toll
-    capacity = @q.vehicle.capacity
-    volume = @q.quantity_lts
-
-    @freight = (((amount / 1000) * (capacity * 1000)) + (toll * volume/1000)) / volume
-  end
-
   def bulk_chopped
     freight_obj = ChoppedBulkFreight.find(@op_id)
     # TODO handle obj not found
@@ -66,17 +53,44 @@ class FreightService < PowerTypes::Service.new(:q)
     @freight = amount * 0.001
   end
 
-  def bulk_product
+  def bulk_normal
     freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
-    unless freight_obj
+    if freight_obj!=nil
+       unless freight_obj
       return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
-    end
-    amount = freight_obj.amount
-    toll = freight_obj.toll
-    weight = @q.quantity_kgs
+        end
+      amount = freight_obj.amount
+      toll = freight_obj.toll
+      weight = @q.quantity_kgs
 
-    @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
+      @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
+    else  
+      freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
+      unless freight_obj
+        return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
+      end
+      amount = freight_obj.amount
+      toll = freight_obj.toll
+      capacity = @q.vehicle.capacity
+      volume = @q.quantity_lts
+
+      @freight = (((amount / 1000) * (volume)) + (toll * volume/1000)) / volume
+    end
   end
+
+
+  #eliminé porque lo detecta solo ahora
+  # def bulk_product
+  #   freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
+  #   unless freight_obj
+  #     return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
+  #   end
+  #   amount = freight_obj.amount
+  #   toll = freight_obj.toll
+  #   weight = @q.quantity_kgs
+
+  #   @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
+  # end
 
   def packed_special
     freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last

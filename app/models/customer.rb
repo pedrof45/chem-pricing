@@ -8,7 +8,7 @@ class Customer < ApplicationRecord
   validates_presence_of :code
 
   def name_and_code
-    "#{code} - #{name}"
+    "#{code} - #{name} - #{city.name}"
   end
 end
 

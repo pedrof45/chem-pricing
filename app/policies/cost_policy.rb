@@ -1,5 +1,9 @@
 class CostPolicy < ApplicationPolicy
 
+ def index?
+  user.admin_or_more?
+ end
+
  def create?
     user.admin_or_more?
   end

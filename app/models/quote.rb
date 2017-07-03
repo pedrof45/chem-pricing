@@ -98,7 +98,7 @@ class Quote < ApplicationRecord
   end
 
   def total_price
-    (unit_price * quantity).to_i
+    (unit_price * quantity).round(2).to_i
   end
 
   def fob_net_rounded
@@ -147,7 +147,7 @@ class Quote < ApplicationRecord
   end
 
    def mcb
-    (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).to_i
+    (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).round(2).to_i
   end
 
   def quantity_lts
@@ -171,7 +171,7 @@ class Quote < ApplicationRecord
         basic_subtypes =
         {
             normal: 'Normal',
-            product: 'Produto'
+            #product: 'Produto'
         }
         chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
           ["chopped_#{cbf.id}".to_sym, cbf.operation]
