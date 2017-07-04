@@ -33,7 +33,7 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row)
 
   def fetch_foreign_field(f_model, f_field, value)
     f_class = Object.const_get f_model.classify
-    f_obj = f_class.find_by!(f_field => value)
+    f_obj = f_class.find_by!(f_field => value) unless value.blank?
     @obj.send("#{f_model}=", f_obj)
   rescue StandardError => e
     @obj.errors.add(:base, e.to_s)

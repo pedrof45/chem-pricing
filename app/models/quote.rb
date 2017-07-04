@@ -31,7 +31,7 @@ class Quote < ApplicationRecord
 
   def self.xls_fields
     {
-      'customer.code': :nil,
+      'customer.code': :f_key,
       'product.sku': :f_key,
       'dist_center.code': :f_key,
       payment_term: :attr,
@@ -44,10 +44,10 @@ class Quote < ApplicationRecord
       brl_usd: :attr,
       brl_eur: :attr,
       freight_condition: :attr,
-      'city.code': :nil,
+      'city.code': :f_key,
       freight_base_type: :attr,
       freight_subtype: :attr,
-      'vehicle.name': :nil,
+      'vehicle.name': :f_key,
       fixed_price: :attr,
       unit_price: :attr,
       markup: :attr
