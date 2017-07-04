@@ -44,10 +44,10 @@ class Quote < ApplicationRecord
       brl_usd: :attr,
       brl_eur: :attr,
       freight_condition: :attr,
-      'city.code': :f_key,
+      'city.code': :nil,
       freight_base_type: :attr,
       freight_subtype: :attr,
-      'vehicle.name': :f_key,
+      'vehicle.name': :nil,
       fixed_price: :attr,
       unit_price: :attr,
       markup: :attr
