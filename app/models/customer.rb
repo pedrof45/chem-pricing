@@ -21,7 +21,9 @@ class Customer < ApplicationRecord
       code: :key,
       cnpj: :attr,
 	  'country.code': :f_key,
-      'city.code': :f_key
+      'city.code': :f_key,
+      contact: :attr,
+      email: :attr
     }
   end
 
