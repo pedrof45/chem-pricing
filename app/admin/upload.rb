@@ -1,9 +1,9 @@
 ActiveAdmin.register Upload do
   menu priority: 999
-  actions :index, :new, :create
+  actions :index, :new, :create, :show
   before_action :set_user, only: [:create]
 
-  permit_params :model, :file
+  permit_params :model, :file, :user_id
 
   form title: 'Upload Tabela' do |f|
     f.inputs "" do
@@ -15,8 +15,17 @@ ActiveAdmin.register Upload do
 
   controller do
 
-    def create
-      super
+    def create(options={}, &block)
+      create! do |format|
+        format.html do
+          if resource.errors.any?
+            flash.now[:error] = resource.errors.to_a.join("<br/>").html_safe
+            render 'active_admin/resource/new.html.arb' and return
+          else
+            redirect_to uploads_path, flash: { notice: "Arquivo importado com sucesso!" }
+          end
+        end
+      end
     end
 
     def build_new_resource

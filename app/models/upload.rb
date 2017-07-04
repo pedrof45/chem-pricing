@@ -16,7 +16,7 @@ class Upload < ApplicationRecord
     end
     UploadParserService.new(u: self).run
   rescue StandardError => e
-    errors.add(:file, "Erro ao ler arquivo: #{e}")
+    errors.add(:file, "Erro: #{e}")
   end
 end
 

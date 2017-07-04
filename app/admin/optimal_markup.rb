@@ -16,14 +16,12 @@ ActiveAdmin.register OptimalMarkup do
   end
 
   csv do
-    column :id
-    column("Codigo Cliente") { |m| m.customer.code if m.customer }
-    column("Nome Cliente") { |m| m.customer.name if m.customer }
-    column("SKU") { |m| m.product.sku }
-    column("Nome Produto") { |m| m.product.name }
-    column("Unidade Negocio") { |m| m.business_unit.code if m.business_unit }
-    column("CD Origem") { |m| m.dist_center.code }
-    column :table_value
-    column :value
+    build_csv_columns(:optimal_markup).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :optimal_markup)
   end
 end
