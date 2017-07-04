@@ -1,9 +1,10 @@
 ActiveAdmin.register OptimalMarkup do
   menu label: '2. Markups', priority: 3
-  permit_params :customer_id, :product_id, :dist_center_id, :value, :business_unit_id, :table_value
+  permit_params :customer_id, :product_id, :dist_center_id, :value, :business_unit_id, :table_value, :metodology
   actions :all
 
   index title: 'Markups por Cliente e Produto' do
+    column :metodology
     column("Codigo Cliente") { |m| m.customer.code if m.customer }
     column("Nome Cliente") { |m| m.customer.name if m.customer}
     column("SKU") { |m| m.product.sku }

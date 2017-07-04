@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704174128) do
+ActiveRecord::Schema.define(version: 20170704205854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20170704174128) do
     t.datetime "updated_at", null: false
     t.decimal "table_value"
     t.bigint "business_unit_id"
+    t.string "metodology"
     t.index ["business_unit_id"], name: "index_optimal_markups_on_business_unit_id"
     t.index ["customer_id"], name: "index_optimal_markups_on_customer_id"
     t.index ["dist_center_id"], name: "index_optimal_markups_on_dist_center_id"
