@@ -58,11 +58,11 @@ end
 #  product_analyst        :string
 #  lead_time              :integer
 #  min_order_quantity     :decimal(, )
-#  competition_adjustment :decimal(, )
 #  commentary             :string
 #  on_demand              :string
 #  frac_emb               :boolean
 #  source_adjustment      :string
+#  competition_adjustment :string
 #
 # Indexes
 #

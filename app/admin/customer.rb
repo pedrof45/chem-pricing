@@ -24,16 +24,13 @@ ActiveAdmin.register Customer do
   filter :city
 
   csv do
-    column :id
-    column :name
-    column :code
-    column :cnpj
-    column("Pais") { |r| r.country.name }
-    column("Estado") { |r| r.city.try :state }
-    column("Cidade") { |r| r.city.name }
-    column :contact
-    column :email
+    build_csv_columns(:customer).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
 
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :customer)
   end
 
 

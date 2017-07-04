@@ -10,6 +10,22 @@ class Customer < ApplicationRecord
   def name_and_code
     "#{code} - #{name} - #{city.name}"
   end
+
+ def self.xls_mode
+    :update
+  end
+
+  def self.xls_fields
+    {
+      name: :attr,
+      code: :key,
+      cnpj: :attr,
+	  'country.code': :f_key,
+      'city.name': :f_key
+    }
+  end
+
+
 end
 
 # == Schema Information
