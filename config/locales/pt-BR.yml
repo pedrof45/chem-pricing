@@ -204,6 +204,7 @@ pt-BR:
         freight_subtype: Subtipo
         vehicle: Veiculo
         table_value: Mark-Up Tabela (%)
+        fixed_price: Preço Fixo?
       city:
         name: Nome
         state: Estado
