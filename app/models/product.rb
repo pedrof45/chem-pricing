@@ -28,7 +28,7 @@ class Product < ApplicationRecord
       unit: :attr,
       ipi: :attr,
       density: :attr,
-      resolucion13: :attr,
+      resolution13: :attr,
       origin: :attr,
       ncm: :attr
     }
