@@ -21,7 +21,7 @@ class Customer < ApplicationRecord
       code: :key,
       cnpj: :attr,
 	  'country.code': :f_key,
-      'city.name': :f_key
+      'city.code': :f_key
     }
   end
 
