@@ -178,7 +178,7 @@ pt-BR:
         unit_price: Preço Unitario ($)
         currency: Moeda
         markup: Mark-up Calculado (%)
-        fixed_price: ''
+        fixed_price: Preço Fixo?
         quote_date: Data
         city: Cidade Alternativa
         optimal_markup_amount: Mark-up Meta Semestre (%)
@@ -204,7 +204,6 @@ pt-BR:
         freight_subtype: Subtipo
         vehicle: Veiculo
         table_value: Mark-Up Tabela (%)
-        fixed_price: Preço Fixo?
       city:
         name: Nome
         state: Estado
