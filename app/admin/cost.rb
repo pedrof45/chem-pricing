@@ -23,25 +23,13 @@ ActiveAdmin.register Cost do
   end
 
   csv do
-    column("CD") { |r| r.dist_center.code }
-    column("SKU") { |r| r.product.sku }
-    column("Nome Produto") { |r| r.product.name }
-    column :currency
-    column("Unidade") { |r| r.product.unit }
-    column :amount_for_price
-    column("Preço Piso") { |r| r.base_price }
-    column :suggested_markup
-    column :updated_cost
-    column :last_month_base_price
-    column :last_month_fob_net
-    column :product_analyst
-    column :on_demand
-    column :lead_time
-    column :min_order_quantity
-    column :frac_emb
-    column :source_adjustment
-    column :competition_adjustment
-    column :commentary
+    build_csv_columns(:cost).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :cost)
   end
 
 
