@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626052602) do
+ActiveRecord::Schema.define(version: 20170704173245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,11 +51,11 @@ ActiveRecord::Schema.define(version: 20170626052602) do
     t.string "product_analyst"
     t.integer "lead_time"
     t.decimal "min_order_quantity"
-    t.decimal "source_adjustment"
     t.decimal "competition_adjustment"
     t.string "commentary"
     t.string "on_demand"
     t.boolean "frac_emb"
+    t.string "source_adjustment"
     t.index ["dist_center_id"], name: "index_costs_on_dist_center_id"
     t.index ["product_id"], name: "index_costs_on_product_id"
   end

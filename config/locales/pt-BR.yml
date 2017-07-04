@@ -95,10 +95,10 @@ pt-BR:
         currency: moeda
         ipi: IPI
         density: Peso Especifico
-        resolucion13: Resolução 13
+        resolution13: Resolução 13
         origin: Origem R13
         commodity?: Commodity?
-        'ncm ': NCM
+        ncm: NCM
       cost:
         product: Produto
         dist_center: Centro de Distribução

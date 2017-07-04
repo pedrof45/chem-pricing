@@ -9,7 +9,35 @@ class Cost < ApplicationRecord
     :currency, :amount_for_price
 
   enumerize :currency, in: [:brl, :usd, :eur]
+
+def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      'dist_center.code': :f_key,
+      'product.sku': :f_key,
+      'product.name': nil,
+      currency: :attr,
+      amount_for_price: :attr,
+      base_price: :attr,
+      suggested_markup: :attr,
+      updated_cost: :attr,
+      last_month_base_price: :attr,
+      last_month_fob_net: :attr,
+      product_analyst: :attr,
+      on_demand: :attr,
+      lead_time: :attr,
+      min_order_quantity: :attr,
+      frac_emb: :attr,
+      source_adjustment: :attr,
+      competition_adjustment: :attr,
+      commentary: :attr
+    }
+  end
 end
+
 
 # == Schema Information
 #
@@ -30,11 +58,11 @@ end
 #  product_analyst        :string
 #  lead_time              :integer
 #  min_order_quantity     :decimal(, )
-#  source_adjustment      :decimal(, )
 #  competition_adjustment :decimal(, )
 #  commentary             :string
 #  on_demand              :string
 #  frac_emb               :boolean
+#  source_adjustment      :string
 #
 # Indexes
 #
