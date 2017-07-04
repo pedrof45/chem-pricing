@@ -21,7 +21,7 @@ ActiveAdmin.register Product do
   filter :unit
   filter :density
   filter :ipi
-  filter :resolucion13
+  filter :resolution13
 
    csv do
     build_csv_columns(:product).each do |k, v|
