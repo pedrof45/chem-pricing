@@ -24,6 +24,36 @@ class Quote < ApplicationRecord
   enumerize :unit, in: [:kg, :lt]
   enumerize :freight_base_type, in: [:bulk, :packed]
 
+
+   def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      'customer.code': :f_key,
+      'product.sku': :f_key,
+      'dist_center.code': :f_key,
+      payment_term: :attr,
+      quantity: :attr,
+      icms_padrao: :attr,
+      icms: :attr,
+      pis_confins_padrao: :attr,
+      pis_confins: :attr,
+      ipi: :attr,
+      brl_usd: :attr,
+      brl_eur: :attr,
+      freight_condition: :attr,
+      'city.code': :f_key,
+      freight_base_type: :attr,
+      freight_subtype: :attr,
+      'vehicle.name': :f_key,
+      fixed_price: :attr,
+      unit_price: :attr,
+      markup: :attr
+    }
+  end
+
   def simulate!
     simulator_service = SimulatorService.new(q: self)
     freight_service = FreightService.new(q: self)

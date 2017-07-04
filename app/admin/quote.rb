@@ -45,26 +45,14 @@ ActiveAdmin.register Quote do
     actions
   end
 
-  csv do
-    column :created_at
-    column("Usuario") { |m| m.user.full_name }
-    column("Codigo Cliente") { |m| m.customer.code if m.customer }
-    column("SKU") { |m| m.product.sku }
-    column("Moeda") { |m| m.cost.currency }
-    column :quantity
-    column :freight_condition
-    column :icms_padrao
-    column :icms
-    column :pis_confins_padrao
-    column :pis_confins
-    column :ipi
-    column :payment_term
-    column("Preço Piso") { |m| m.cost.base_price}
-    column :unit_price
-    column("Unidade de Negocio") { |m| m.user.business_unit.code }
-    column("CD") { |m| m.dist_center.name }
-    column :fixed_price
-    column :markup
+    csv do
+    build_csv_columns(:quote).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Cotaçao Batch', new_upload_path(model: :quote)
   end
 
   controller do
