@@ -10,8 +10,13 @@ ActiveAdmin.register ChoppedBulkFreight do
   end
 
   csv do
-  	column :operation
-    column :amount
+    build_csv_columns(:chopped_bulk_freight).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :chopped_bulk_freight)
   end
 
 end

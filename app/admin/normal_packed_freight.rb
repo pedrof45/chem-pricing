@@ -16,16 +16,14 @@ ActiveAdmin.register NormalPackedFreight do
     actions
   end
 
-  csv do
-    column :origin
-    column :destination
-    column :category
-    column :amount
-    column :insurance
-    column :gris
-    column :toll
-    column :ct_e
-    column :min 
+ csv do
+    build_csv_columns(:normal_packed_freight).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :normal_packed_freight)
   end
 
   form do |f|

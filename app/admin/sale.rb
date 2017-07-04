@@ -22,23 +22,15 @@ ActiveAdmin.register Sale do
 	    actions
 	  end
 
+ csv do
+    build_csv_columns(:sale).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
 
-	  csv do
- 		column :sale_date
-	    column("Codigo Cliente") { |r| r.customer.code }
-	    column("Nome Cliente") { |r| r.customer.name }
-	    column("SKU") { |r| r.product.sku }
-	    column("SKU") { |r| r.product.name }
-	    column("CD") { |r| r.dist_center.name}
-	    column("UN") { |r| r.business_unit.code }
-	    column :moneda
-	    column("Unidade") { |r| r.product.unit }
-	    column :volume
-	    column :base_price
-	    column :unit_price
-	    column :markup
-	    column :comentario
-	  end
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :sale)
+  end
 end
 
 

@@ -3,6 +3,26 @@ class NormalPackedFreight < ApplicationRecord
 
 	enumerize :category, in: [:pharma, :chemical]
 
+
+	def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      origin: :key,
+      destination: :key,
+      category: :key,
+      amount: :attr,
+      toll: :attr,
+      insurance: :attr,
+      gris: :attr,
+      toll: :attr,
+      ct_e: :attr,
+      min: :attr
+    }
+  end
+
 end
 
 # == Schema Information

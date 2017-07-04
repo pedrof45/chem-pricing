@@ -1,6 +1,22 @@
 class ProductBulkFreight < ApplicationRecord
   belongs_to :vehicle
   belongs_to :product
+
+def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      origin: :key,
+      destination: :key,
+      'vehicle.name': :f_key,
+      'product.sku': :f_key,
+      amount: :attr,
+      toll: :attr
+    }
+  end
+
 end
 
 # == Schema Information

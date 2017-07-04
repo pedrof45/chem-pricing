@@ -13,13 +13,14 @@ ActiveAdmin.register ProductBulkFreight do
     actions
   end
 
-  csv do 
-    column :origin
-    column :destination
-    column("Tp Veic") { |r| r.vehicle.name }
-    column("Produto") { |r| r.product.sku }
-    column :amount
-    column :toll
+  csv do
+    build_csv_columns(:product_bulk_freight).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :product_bulk_freight)
   end
 
 end

@@ -1,4 +1,16 @@
 class ChoppedBulkFreight < ApplicationRecord
+
+def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      operation: :key,
+      amount: :attr
+    }
+  end
+
 end
 
 # == Schema Information

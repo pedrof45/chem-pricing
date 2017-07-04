@@ -3,6 +3,31 @@ class Sale < ApplicationRecord
   belongs_to :product
   belongs_to :dist_center
   belongs_to :business_unit
+
+
+ def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      sale_date: :key,
+      'customer.code': :f_key,
+      'customer.name': nil,
+      'product.sku': :f_key,
+      'product.name': nil,
+      'dist_center.code': :f_key,
+      'business_unit.code': :f_key,  
+      moneda: :attr,
+      unit: :attr,
+      volume: :attr,
+      base_price: :attr,
+      unit_price: :attr,
+      markup: :attr,
+      comentario: :attr
+    }
+  end
+
 end
 
 # == Schema Information

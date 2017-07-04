@@ -11,9 +11,13 @@ ActiveAdmin.register City do
   end
 
   csv do
-    column :id
-  	column :name
-  	column :code
+    build_csv_columns(:city).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :city)
   end
 end
 

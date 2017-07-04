@@ -8,6 +8,17 @@ class City < ApplicationRecord
     code[0..1] if code
   end
 
+  def self.xls_mode
+    :update
+  end
+
+  def self.xls_fields
+    {
+      name: :attr,
+      code: :key,
+    }
+  end
+
 end
 
 # == Schema Information

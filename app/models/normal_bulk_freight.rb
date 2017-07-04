@@ -1,5 +1,23 @@
 class NormalBulkFreight < ApplicationRecord
   belongs_to :vehicle
+
+
+def self.xls_mode
+    :create
+  end
+
+  def self.xls_fields
+    {
+      origin: :key,
+      destination: :key,
+      'vehicle.name': :f_key,
+      amount: :attr,
+      toll: :attr
+    }
+  end
+
+
+
 end
 
 # == Schema Information
