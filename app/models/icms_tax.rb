@@ -14,6 +14,20 @@ class IcmsTax < ApplicationRecord
   def self.tax_value_for(origin, destination)
     self.where(origin: origin, destination: destination).last.try(:value)
   end
+
+
+  def self.xls_mode
+    :update
+  end
+
+  def self.xls_fields
+    {
+      origin: :key,
+      destination: :key,
+      value: :attr
+    }
+  end
+
 end
 
 # == Schema Information

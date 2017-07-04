@@ -23,15 +23,13 @@ ActiveAdmin.register Product do
   filter :ipi
   filter :resolucion13
 
-  csv do
-    column :id
-    column :sku
-    column :name
-    column :ncm
-    column :unit
-    column :density
-    column :ipi
-    column :resolution13
-    column :origin
+   csv do
+    build_csv_columns(:product).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :product)
   end
 end

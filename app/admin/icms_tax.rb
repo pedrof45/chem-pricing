@@ -17,8 +17,20 @@ ActiveAdmin.register IcmsTax do
     end
   end
 
+   csv do
+    build_csv_columns(:icms_tax).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :icms_tax)
+  end
+
   index do
     render '/icms_matrix'
   end
+
+
 
 end
