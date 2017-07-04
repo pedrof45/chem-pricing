@@ -31,7 +31,7 @@ class Quote < ApplicationRecord
 
   def self.xls_fields
     {
-      'customer.code': :f_key,
+      'customer.code': :nil,
       'product.sku': :f_key,
       'dist_center.code': :f_key,
       payment_term: :attr,
