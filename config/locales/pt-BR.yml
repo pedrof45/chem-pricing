@@ -125,6 +125,7 @@ pt-BR:
         dist_center: Centro de Distribução
         value: Mark-up Meta
         table_value: Mark-up Tabela
+        metodology: Metodologia
       dist_center:
         code: Codigo
         name: Nome
