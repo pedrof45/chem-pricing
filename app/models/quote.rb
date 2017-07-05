@@ -209,13 +209,6 @@ class Quote < ApplicationRecord
         basic_subtypes.merge(chopped_subtypes).invert
     end
   end
-
-  def self.xls_mode
-    :create
-  end
-
-  def self.xls_fields
-  end
 end
 
 # == Schema Information
