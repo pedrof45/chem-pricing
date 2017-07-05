@@ -2,7 +2,7 @@ class Sale < ApplicationRecord
   belongs_to :customer
   belongs_to :product
   belongs_to :dist_center
-  belongs_to :business_unit
+  belongs_to :business_unit, required: false
 
 
  def self.xls_mode
