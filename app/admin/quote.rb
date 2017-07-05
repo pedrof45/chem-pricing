@@ -38,7 +38,7 @@ ActiveAdmin.register Quote do
     column :markup
     column :fixed_price
     column :dist_center
-    column("Unidade de Negocio") { |m| m.user.business_unit.code if m.user.business_unit }
+    column("Unidade de Negocio") { |m| m.user.business_unit.code if m.user }
     column("Preço Piso") { |m| m.cost.base_price if m.cost }
     column :comment
     column :payment_term
