@@ -1,7 +1,7 @@
 class ChoppedBulkFreight < ApplicationRecord
 
 def self.xls_mode
-    :create
+    :update
   end
 
   def self.xls_fields

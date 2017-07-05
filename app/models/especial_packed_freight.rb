@@ -2,7 +2,7 @@ class EspecialPackedFreight < ApplicationRecord
 	belongs_to :vehicle
 
 	def self.xls_mode
-    :create
+    :update
   end
 
   def self.xls_fields

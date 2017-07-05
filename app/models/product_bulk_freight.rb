@@ -3,7 +3,7 @@ class ProductBulkFreight < ApplicationRecord
   belongs_to :product
 
 def self.xls_mode
-    :create
+    :update
   end
 
   def self.xls_fields
