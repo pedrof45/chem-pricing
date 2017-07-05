@@ -11,7 +11,7 @@ class Sale < ApplicationRecord
 
   def self.xls_fields
     {
-      sale_date: :key,
+      sale_date: :attr,
       'customer.code': :f_key,
       'customer.name': nil,
       'product.sku': :f_key,
