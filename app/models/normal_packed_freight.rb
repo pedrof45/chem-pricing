@@ -14,7 +14,6 @@ class NormalPackedFreight < ApplicationRecord
       destination: :key,
       category: :key,
       amount: :attr,
-      toll: :attr,
       insurance: :attr,
       gris: :attr,
       toll: :attr,
