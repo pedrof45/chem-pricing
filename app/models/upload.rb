@@ -7,7 +7,7 @@ class Upload < ApplicationRecord
 
   validates_presence_of :model, :file, :user
 
-  enumerize :model, in: [:quote,:optimal_markup, :sales, :cost, :customer, :product, :icms_tax, :city,
+  enumerize :model, in: [:quote,:optimal_markup, :sale, :cost, :customer, :product, :icms_tax, :city,
                          :normal_bulk_freight, :chopped_bulk_freight, :product_bulk_freight, :especial_packed_freight, :normal_packed_freight]
 
   def parse
