@@ -56,13 +56,13 @@ end
 #  last_month_base_price  :decimal(, )
 #  last_month_fob_net     :decimal(, )
 #  product_analyst        :string
-#  lead_time              :integer
-#  min_order_quantity     :decimal(, )
 #  commentary             :string
 #  on_demand              :string
 #  frac_emb               :boolean
 #  source_adjustment      :string
 #  competition_adjustment :string
+#  lead_time              :string
+#  min_order_quantity     :string
 #
 # Indexes
 #
