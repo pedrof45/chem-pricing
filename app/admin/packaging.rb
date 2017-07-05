@@ -10,4 +10,15 @@ ActiveAdmin.register Packaging do
     column :weight
     actions
   end
+
+csv do
+    build_csv_columns(:packaging).each do |k, v|
+      column(k, humanize_name: false, &v)
+    end
+  end
+
+  action_item :upload do
+    link_to 'Upload Tabela', new_upload_path(model: :packaging)
+  end
+
 end

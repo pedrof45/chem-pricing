@@ -1,4 +1,18 @@
 class Packaging < ApplicationRecord
+
+ def self.xls_mode
+    :update
+  end
+
+  def self.xls_fields
+    {
+      code: :key,
+      name: :attr,
+      capacity: :attr,
+      weight: :attr
+    }
+  end
+
 end
 
 # == Schema Information

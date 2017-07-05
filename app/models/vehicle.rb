@@ -1,5 +1,17 @@
 class Vehicle < ApplicationRecord
   has_many :quotes
+
+def self.xls_mode
+    :update
+  end
+
+  def self.xls_fields
+    {
+      name: :key,
+      capacity: :attr
+    }
+  end
+
 end
 
 # == Schema Information
