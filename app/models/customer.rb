@@ -8,8 +8,7 @@ class Customer < ApplicationRecord
   validates_presence_of :code
 
   def name_and_code
-    # "#{code} - #{name} - #{city.name}"
-     "#{code} - #{name}" 
+     "#{code} - #{name} - #{city.name}"
   end
 
  def self.xls_mode
