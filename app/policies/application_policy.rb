@@ -54,4 +54,8 @@ class ApplicationPolicy
       scope
     end
   end
+  
+  def sysadmin_or_more_or_self
+    user.sysadmin_or_more? || record.id == user.id
+  end
 end

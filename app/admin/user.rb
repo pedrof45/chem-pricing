@@ -4,11 +4,10 @@ ActiveAdmin.register User do
     :first_name, :last_name, :position, :business_unit_id, :role, :active
 
   index do
-    selectable_column
     column :email
     column 'Name', :full_name
-    column :position
-    column :role
+    #column :position
+    #column :role
     column("Unidade de Negocio") { |m| m.business_unit.code if m.business_unit }
     #column :business_unit
     column :active

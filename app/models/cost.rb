@@ -11,7 +11,7 @@ class Cost < ApplicationRecord
   enumerize :currency, in: [:brl, :usd, :eur]
 
 def self.xls_mode
-    :create
+    :update
   end
 
   def self.xls_fields
