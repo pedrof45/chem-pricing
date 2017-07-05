@@ -1,6 +1,6 @@
 ActiveAdmin.register OptimalMarkup do
   menu label: '2. Markups', priority: 3
-  permit_params :customer_id, :product_id, :dist_center_id, :value, :business_unit_id, :table_value, :metodology
+  permit_params :metodology, :customer_id, :product_id, :dist_center_id, :value, :business_unit_id, :table_value
   actions :all
 
   index title: 'Markups por Cliente e Produto' do
