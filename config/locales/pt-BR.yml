@@ -79,7 +79,7 @@ pt-BR:
         position: Cargo
         business_unit: Unidade de Negocio
         role: Permisso
-        active: Ativo
+        active: Ativo    
       customer:
         code: Codigo Cliente
         name: Nome Cliente
@@ -205,7 +205,6 @@ pt-BR:
         freight_subtype: Subtipo
         vehicle: Veiculo
         table_value: Mark-Up Tabela (%)
-        full_name: Nome Usuario
       city:
         name: Nome
         state: Estado

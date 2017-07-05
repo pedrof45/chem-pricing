@@ -31,7 +31,7 @@ class Quote < ApplicationRecord
 
   def self.xls_fields
     {
-      'user.full_name': :f_key,
+      'user.email': :f_key,
       'customer.code': :f_key,
       'product.sku': :f_key,
       'dist_center.code': :f_key,
