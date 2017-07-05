@@ -2,7 +2,7 @@ class OptimalMarkup < ApplicationRecord
   belongs_to :product
   belongs_to :customer , required: false
   belongs_to :dist_center
-  belongs_to :business_unit
+  belongs_to :business_unit, required: false
   has_many :quotes
 
   validates_presence_of  :product_id, :dist_center_id, :table_value
