@@ -14,7 +14,7 @@ class OptimalMarkup < ApplicationRecord
 
   def self.xls_fields
     {
-      metodology: :key,
+      metodology: :attr,
       'product.sku': :f_key,
       'product.name': nil,
       'customer.code': :f_key,
