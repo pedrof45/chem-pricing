@@ -56,7 +56,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
     if @q.fixed_price
       @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - @q.unit_freight ) / @q.cost.base_price) - 1.0).round(2)
       @q.fob_net_price = (@q.cost.base_price * (1.0 + @q.markup)).round(2)
-      @q.markup*=100
+      #@q.markup*=100
     else
       if @q.markup>1
         @q.markup/=100
@@ -64,7 +64,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
       @q.unit_price = ((((@q.cost.base_price * (1.0 + @q.markup)+ @q.unit_freight))/tax_d) * (1.0 + financial_cost)).round(2)
       @q.fob_net_price = (@q.cost.base_price * (1.0 + @q.markup))
       if @q.markup>1
-        @q.markup*=100
+        #@q.markup*=100
       end
      
 

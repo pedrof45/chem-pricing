@@ -145,6 +145,10 @@ class Quote < ApplicationRecord
     (unit_price * quantity).round(2).to_i
   end
 
+  def mark_up_porcentage
+    markup*=100
+  end
+
   def fob_net_rounded
     fob_net_price.round(2)
   end

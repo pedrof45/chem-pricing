@@ -5,7 +5,7 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
     else
       row :optimal_markup_amount
       row(:table_value) { |q| q.optimal_markup.table_value.round(2)*100 }
-      row(:markup) { |q| q.markup.round(2) }
+      row :mark_up_porcentage
       row(:unit) { |q| q.product.unit.upcase } 
       row(:currency) { |q| q.cost.currency.upcase } 
       row :final_base_price
