@@ -52,12 +52,12 @@ class Quote < ApplicationRecord
       fixed_price: :attr,
       unit_price: :attr,
       markup: :attr,
+      'optimal_markup.table_value': :nil,
       'optimal_markup.value': :nil,
       'product.unit': :nil,
       'cost.currency': :nil,
-      unit_price: :attr,
       fob_net_price: :attr,
-      unit_freight: :attr,
+      unit_freight: :attr
     }
   end
 
@@ -163,7 +163,12 @@ class Quote < ApplicationRecord
   end
 
   def calculated_markup_amount
-    (markup/100)*final_base_price
+    if markup>1
+      (markup/100)*final_base_price
+    else
+      markup*final_base_price
+    end
+    
   end
 
   def icms_amount
