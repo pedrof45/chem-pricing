@@ -15,7 +15,7 @@ ActiveAdmin.register Cost do
     column :currency
     column("Unidade") { |r| r.product.unit }
     column :amount_for_price
-    column("Preço Piso") { |r| r.base_price }
+    column("Preço Piso") { |r| r.base_price.round(2) }
     column :suggested_markup
     column :updated_cost
     column :on_demand

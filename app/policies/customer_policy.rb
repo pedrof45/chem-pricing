@@ -1,7 +1,8 @@
 class CustomerPolicy < ApplicationPolicy
 
 def index?
-    user.manager_or_more?
+    #user.manager_or_more?
+    true
   end
 
  def create?
