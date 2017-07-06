@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705211455) do
+ActiveRecord::Schema.define(version: 20170706042643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170705211455) do
     t.bigint "city_id"
     t.string "cnpj"
     t.string "contact"
+    t.string "display_name"
     t.index ["city_id"], name: "index_customers_on_city_id"
     t.index ["country_id"], name: "index_customers_on_country_id"
   end
@@ -191,6 +192,7 @@ ActiveRecord::Schema.define(version: 20170705211455) do
     t.boolean "resolution13"
     t.integer "origin"
     t.string "ncm"
+    t.string "display_name"
   end
 
   create_table "quotes", force: :cascade do |t|

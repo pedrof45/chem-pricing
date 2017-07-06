@@ -6,9 +6,12 @@ class Customer < ApplicationRecord
   belongs_to :country , required: false
 
   validates_presence_of :code
+  before_save :set_display_name
 
-  def name_and_code
-     "#{code} - #{name} - #{city.name}"
+  def set_display_name
+    if name_changed? || code_changed? || city_id_changed?
+      self.display_name = "#{code} - #{name} - #{city.name}"
+    end
   end
 
  def self.xls_mode
@@ -34,16 +37,17 @@ end
 #
 # Table name: customers
 #
-#  id         :integer          not null, primary key
-#  code       :string
-#  name       :string
-#  email      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  country_id :integer
-#  city_id    :integer
-#  cnpj       :string
-#  contact    :string
+#  id           :integer          not null, primary key
+#  code         :string
+#  name         :string
+#  email        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  country_id   :integer
+#  city_id      :integer
+#  cnpj         :string
+#  contact      :string
+#  display_name :string
 #
 # Indexes
 #

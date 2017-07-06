@@ -251,7 +251,7 @@ ActiveAdmin.setup do |config|
   #     #   (for example, with cancan)
   #     admin.download_links = proc { can?(:view_download_links) }
 
-  config.download_links = [:csv]
+  config.download_links = [:csv, :json]
 
 
   #

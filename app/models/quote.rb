@@ -25,7 +25,7 @@ class Quote < ApplicationRecord
   enumerize :freight_base_type, in: [:bulk, :packed]
 
 
-   def self.xls_mode
+  def self.xls_mode
     :create
   end
 
@@ -139,7 +139,7 @@ class Quote < ApplicationRecord
   end
 
   def mark_up_porcentage
-    markup*=100
+    markup * 100 if markup
   end
 
   def fob_net_rounded
@@ -147,7 +147,7 @@ class Quote < ApplicationRecord
   end
 
   def optimal_markup_amount
-    optimal_markup.value*100
+    optimal_markup.value * 100 if optimal_markup.try(:value)
   end
 
   def unit_freight_amount
@@ -168,7 +168,7 @@ class Quote < ApplicationRecord
     else
       markup*final_base_price
     end
-    
+
   end
 
   def icms_amount

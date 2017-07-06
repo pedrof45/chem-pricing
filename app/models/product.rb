@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   has_many :quotes
   has_many :sales
 
+  before_save :set_display_name
+
   validates_presence_of :sku, :unit, :density
   validates :density, :numericality => { greater_than_or_equal_to: 0 }
 
@@ -13,8 +15,10 @@ class Product < ApplicationRecord
 
   enumerize :unit, in: [:kg, :lt]
 
-  def name_and_code
-    "#{sku} - #{name}"
+  def set_display_name
+    if sku_changed? || name_changed?
+      self.display_name = "#{sku} - #{name}"
+    end
   end
 
   def self.xls_mode
@@ -50,4 +54,5 @@ end
 #  resolution13 :boolean
 #  origin       :integer
 #  ncm          :string
+#  display_name :string
 #

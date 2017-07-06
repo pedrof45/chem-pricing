@@ -5,8 +5,8 @@
           <div class="basic-fields fields-box">
             <%= f.inputs name: 'Dados Básicos' do %>
                 <%= f.input :dist_center, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
-                <%= f.input :customer, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
-                <%= f.input :product, collection: Product.with_cost, member_label: :name_and_code, input_html: { class: 'base-field-input' } %>
+                <%= f.input :customer_id, as: :search_select, url: customers_path, fields: [:display_name], display_name: :display_name, minimum_input_length: 2, class: 'base-field-input' %>
+                <%= f.input :product, collection: Product.with_cost, member_label: :display_name, input_html: { class: 'base-field-input' } %>
             <% end %>
           </div>
           <div class="freight-conditions-fields fields-box">
@@ -64,7 +64,7 @@
           <%= f.inputs name: 'Fixar Preço/Markup', class: 'inputs price-markup-fieldset' do %>
               <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario ($/un)" => true, "Mark-up (%)" => false }, label:false %>
               <%= f.input :unit_price, label: false %>
-              <%= f.input :markup_up_porcentage, label: false %>
+              <%= f.input :mark_up_porcentage, label: false %>
               <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '....'}%>
               <span style="display:block; height: 80px;width: 100px"></span>
                 <%= f.label '-----(*)Default é Mark-up Tabela-----' %>
