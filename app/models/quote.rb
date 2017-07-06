@@ -58,13 +58,6 @@ class Quote < ApplicationRecord
       unit_price: :attr,
       fob_net_price: :attr,
       unit_freight: :attr,
-      icms: :attr,
-      icms_amount: :attr,
-      pis_confins: :attr,
-      pis_confins_amount: :attr,
-      #include %of encargos
-      encargos_amount: :attr,
-      unit_price: :attr
     }
   end
 
