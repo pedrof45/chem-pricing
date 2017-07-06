@@ -51,7 +51,20 @@ class Quote < ApplicationRecord
       'vehicle.name': :f_key,
       fixed_price: :attr,
       unit_price: :attr,
-      markup: :attr
+      markup: :attr,
+      'optimal_markup.value': :nil,
+      'product.unit': :nil,
+      'cost.currency': :nil,
+      unit_price: :attr,
+      fob_net_price: :attr,
+      unit_freight: :attr,
+      icms: :attr,
+      icms_amount: :attr,
+      pis_confins: :attr,
+      pis_confins_amount: :attr,
+      #include %of encargos
+      encargos_amount: :attr,
+      unit_price: :attr
     }
   end
 
