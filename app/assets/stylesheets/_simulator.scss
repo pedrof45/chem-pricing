@@ -87,7 +87,7 @@ $simulateButtonBlueHover: #0088cc;
   }
 
   input#quote_icms, input#quote_pis_confins {
-    width: 40px;
+    width: 70px;
   }
 
   input#quote_icms_padrao {
@@ -205,9 +205,8 @@ $simulateButtonBlueHover: #0088cc;
 
 .disabled-input {
   background-color: $disabledInputGray !important;
-  color: $disabledInputFontGray;
 
-  span {
+  span, &#quote_markup, &#quote_unit_price {
     color: $disabledInputFontGray;
   }
 }

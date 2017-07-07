@@ -85,6 +85,7 @@ ActiveAdmin.register Quote do
         q.freight_base_type = Quote.freight_base_type.bulk
         q.icms_padrao = true
         q.pis_confins_padrao = true
+        q.pis_confins = SystemVariable.get(:pis_confins)
         q.freight_condition = :cif
         q.fixed_price = false
       end
@@ -106,6 +107,26 @@ ActiveAdmin.register Quote do
         o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: nil).last
       end
       t_value = o_mkup.table_value * 100 if o_mkup.try(:table_value)
-      render json: { table_value: t_value }
+      resp = { table_value: t_value }
+      puts "FETCH MARKUP RESPONSE: #{resp}"
+      render json: resp
+  end
+
+  collection_action :fetch_icms, method: :get do
+    dist_center = DistCenter.find(params[:dist_center_id])
+    customer = Customer.find_by(id: params[:customer_id])
+    redispatch = params[:redispatch].present? && params[:redispatch].to_s != 'false'
+    city = City.find_by(id: params[:city_id])
+
+    origin = dist_center.city.state
+    destination = if redispatch || customer.blank?
+                    city.state
+                  else
+                    customer.city.state
+                  end
+    icms = IcmsTax.tax_value_for(origin, destination)
+    resp = { icms: icms, origin: origin, destination: destination }
+    puts "FETCH ICMS RESPONSE: #{resp}"
+    render json: resp
   end
 end
