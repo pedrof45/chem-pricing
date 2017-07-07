@@ -1,8 +1,7 @@
 class CustomerPolicy < ApplicationPolicy
 
-def index?
-    #user.manager_or_more?
-    true
+  def index?
+    user.manager_or_more? || user.request_format == :json
   end
 
  def create?

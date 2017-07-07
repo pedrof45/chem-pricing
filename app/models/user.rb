@@ -1,18 +1,14 @@
 class User < ApplicationRecord
   extend Enumerize
-  
   has_many :quotes
   belongs_to :business_unit , required: false
-
   validates_presence_of :email, :encrypted_password, :role
-
   enumerize :role, in: [:sysadmin, :admin, :manager, :agent]
-
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+  attr_accessor :request_format
 
   def to_s
     email
