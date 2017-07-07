@@ -68,7 +68,7 @@ class Quote < ApplicationRecord
     unless errors.any?
       freight_service.run
     end
-    unless errors.any? || unit_freight.nil?
+    unless errors.any? || unit_freight.nil? || unit_freight == 0
       simulator_service.run
     end
   end
