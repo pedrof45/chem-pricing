@@ -52,7 +52,12 @@ function toggleCityInput() {
   var redispatchSelected = $('#quote_freight_condition_redispatch').is(':checked');
   var enableCity = !hasCustomer || redispatchSelected;
   $('#quote_city_id').prop('disabled', !enableCity);
+}
 
+function toggleFreightInputs() {
+  var fobSelected = $('#quote_freight_condition_fob').is(':checked');
+  $('#quote_freight_subtype, #quote_vehicle_id, .freight-fieldset input:radio').prop('disabled', fobSelected);
+  $(".freight-fieldset").toggleClass('disabled-input', fobSelected)
 }
 
 function fakeSimulatorSelect() {
@@ -67,6 +72,7 @@ $(function () {
 
   $('#quote_customer_id, #quote_freight_condition_input').change(function () {
     toggleCityInput();
+    toggleFreightInputs();
   });
 
   $('#quote_fixed_price_true, #quote_fixed_price_false').change(function () {
