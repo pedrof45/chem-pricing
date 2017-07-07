@@ -1,4 +1,5 @@
 Rails.application.configure do
+  # Set to true to avoid circ dep problems
   config.cache_classes = false
   config.eager_load = false
   config.consider_all_requests_local = true

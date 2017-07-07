@@ -5,9 +5,17 @@ ActiveAdmin.register Upload do
 
   permit_params :model, :file, :user_id
 
+  index do
+    id_column
+    column :pt_model
+    column :user
+    column :created_at
+    actions
+  end
+
   form title: 'Upload Tabela' do |f|
     f.inputs "" do
-      f.input :model
+      f.input :model, collection: Upload.model.values.map { |m| [I18n.t("activerecord.models.#{m}.other"), m]}
       f.input :file, as: :file
     end
     f.actions
