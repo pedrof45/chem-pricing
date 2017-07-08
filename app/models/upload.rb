@@ -6,9 +6,22 @@ class Upload < ApplicationRecord
   after_validation :parse
 
   validates_presence_of :model, :file, :user
+  validate :granted_model
 
   enumerize :model, in: [:quote,:optimal_markup, :sale, :cost, :customer, :product, :icms_tax, :city,
                          :normal_bulk_freight, :chopped_bulk_freight, :product_bulk_freight, :especial_packed_freight, :normal_packed_freight, :vehicle, :packaging]
+
+  def granted_model
+    errors.add(:model, "Não autorizado") unless Upload.granted_models_for(user.role).include? model.to_sym
+  end
+
+  def self.granted_models_for(role)
+    if role == :agent
+      [:quote]
+    else
+      self.model.values
+    end
+  end
 
   def pt_model
     I18n.t("activerecord.models.#{model}.other") if model

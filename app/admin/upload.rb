@@ -15,7 +15,7 @@ ActiveAdmin.register Upload do
 
   form title: 'Upload Tabela' do |f|
     f.inputs "" do
-      f.input :model, collection: Upload.model.values.map { |m| [I18n.t("activerecord.models.#{m}.other"), m]}
+      f.input :model, collection: Upload.granted_models_for(current_user.role).map { |m| [I18n.t("activerecord.models.#{m}.other"), m]}, input_html: ({ readonly: true } if current_user.role.agent?)
       f.input :file, as: :file
     end
     f.actions

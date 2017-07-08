@@ -5,7 +5,7 @@ class UploadPolicy < ApplicationPolicy
   end
 	
  def create?
-    user.admin_or_more?
+    true
   end
 
   def update?
