@@ -1,0 +1,17 @@
+panel "INFORMAÇAO DE ADICIONAL DE PRODUTO: #{resource.product.try(:name_and_code)}", class: 'product-info-panel' do
+  attributes_table_for resource do
+    row('Masa Especifica') { |q| q.product.try(:density) }
+    row('Capacidade') { |q| q.product.try(:packaging).try(:capacity) }
+    row('Moeda Fornecedor') { |q| q.cost.try(:currency) }
+    row('Embalagem Fornecedor') { |q| !q.product.frac_emb if q.product }
+  end
+  attributes_table_for resource do
+    row('IPI') { |q| q.product.try(:ipi)}
+    row('Origem (Res 13)') { |q| q.product.try(:origin) }
+    row('Analista') { |q| q.cost.try(:product_analyst) }
+    row('Custo Atualizado') { |q| q.cost.try(:updated_cost) }
+    row('Lead Time') { |q| q.cost.try(:on_demand) }
+    row('Contra Pedido (Dias)') { |q| q.cost.try(:lead_time) }
+    row('Quantidade Minima de Compra') { |q| q.cost.try(:min_order_quantity) }
+  end
+end

@@ -3,6 +3,7 @@ $disabledInputGray: #f2f2f2;
 $disabledInputFontGray: #a6a6a6;
 $simulateButtonBlue: #006699;
 $simulateButtonBlueHover: #0088cc;
+$productSectionBackgroundGray: #8c8c8c;
 
 .simulator-form {
 
@@ -83,11 +84,11 @@ $simulateButtonBlueHover: #0088cc;
     font-weight: bold;
     color: #5E6469;
     text-transform: uppercase;
-    margin: 0 14px 0 18px
+    margin: 0 0 0 12px;
   }
 
   input#quote_icms, input#quote_pis_confins {
-    width: 70px;
+    width: 60px;
   }
 
   input#quote_icms_padrao {
@@ -196,7 +197,7 @@ $simulateButtonBlueHover: #0088cc;
 
 .freight-fieldset {
 
-  height: 230px;
+  height: 161px;
 
   #quote_freight_base_type_input legend.label {
     border: none;
@@ -208,5 +209,32 @@ $simulateButtonBlueHover: #0088cc;
 
   span, &#quote_markup, &#quote_unit_price {
     color: $disabledInputFontGray;
+  }
+}
+
+.product-info-section {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-top: -15px;
+  padding: 0 10px 10px 10px;
+  background-color: $productSectionBackgroundGray;
+
+  h3 {
+    color: $disabledInputGray;
+    background-color: $productSectionBackgroundGray;
+    font-size: 15px;
+  }
+
+  .product-info-panel{
+    overflow: auto;
+    margin-bottom: 0px;
+    border: none;
+
+    .attributes_table {
+      float: left;
+      margin: 0 5%;
+      width: 40%;
+    }
   }
 }

@@ -21,6 +21,14 @@ class Product < ApplicationRecord
     end
   end
 
+  def packaging_code
+    sku.split('-').last.strip if sku && sku.include?('-')
+  end
+
+  def packaging
+    Packaging.find_by(code: packaging_code)
+  end
+
   def self.xls_mode
     :update
   end
