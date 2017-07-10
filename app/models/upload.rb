@@ -25,6 +25,10 @@ class Upload < ApplicationRecord
     end
   end
 
+  def klass
+    Object.const_get model.to_s.classify
+  end
+
   def pt_model
     I18n.t("activerecord.models.#{model}.other") if model
   end
@@ -35,12 +39,16 @@ class Upload < ApplicationRecord
     end
     UploadParserService.new(u: self).run
   rescue StandardError => e
+    binding.pry
     errors.add(:file, "Erro: #{e}")
   end
 
   def associate_records
-    klass = Object.const_get model.to_s.classify
-    klass.find_by(id: records).update_all(upload: self)
+    klass.where(id: records).update_all(upload_id: self.id)
+  end
+
+  def records_count
+    klass.where(upload_id: self.id).count
   end
 end
 

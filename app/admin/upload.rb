@@ -30,7 +30,8 @@ ActiveAdmin.register Upload do
             flash.now[:error] = resource.errors.to_a.join("<br/>").html_safe
             render 'active_admin/resource/new.html.arb' and return
           else
-            redirect_to uploads_path, flash: { notice: "Arquivo importado com sucesso!" }
+            msg = "Arquivo importado com sucesso! Foram afetadas #{resource.records_count} filas"
+            redirect_to send("#{resource.model.pluralize}_path", { 'q[upload_id_eq]': resource.id}), flash: { notice: msg }
           end
         end
       end
