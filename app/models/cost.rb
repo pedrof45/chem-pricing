@@ -10,6 +10,16 @@ class Cost < ApplicationRecord
 
   enumerize :currency, in: [:brl, :usd, :eur]
 
+
+
+  def lead_time_order?
+    if on_demand== 'CONTRA PEDIDO'
+      return true
+    else
+      return false
+    end
+  end
+
 def self.xls_mode
     :update
   end
