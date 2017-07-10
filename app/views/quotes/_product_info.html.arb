@@ -3,7 +3,7 @@ panel "INFORMAÇAO DE ADICIONAL DE PRODUTO: #{resource.product.try(:name_and_cod
     row('Masa Especifica') { |q| q.product.try(:density) }
     row('Capacidade') { |q| q.product.try(:packaging).try(:capacity) }
     row('Moeda Fornecedor') { |q| q.cost.try(:currency) }
-    row('Embalagem Fornecedor') { |q| !q.product.frac_emb if q.product }
+    row('Embalagem Fornecedor') { |q| !q.cost.frac_emb if q.cost }
   end
   attributes_table_for resource do
     row('IPI') { |q| q.product.try(:ipi)}
