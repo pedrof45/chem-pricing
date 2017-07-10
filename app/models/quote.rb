@@ -14,7 +14,8 @@ class Quote < ApplicationRecord
 
   after_validation :simulate!
 
-  validates_presence_of :freight_condition, :quantity, :payment_term, :freight_base_type
+  validates_presence_of :freight_condition, :quantity, :payment_term
+  #, :freight_base_type
   #, :freight_subtype PONER DENUEVO CUANDO FOB DESACTIVE LA CAJA DE FRETE
   validate :city_when_corresponds, :taxes_when_not_padrao,
            :corresponding_markup_price_input, :optimal_markup_format,
@@ -86,7 +87,10 @@ class Quote < ApplicationRecord
   end
 
   def freight_fields_consistency
-    # TODO
+    if freight_condition != 'fob'
+      errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type?
+      errors.add(:freight_subtype_options, "Obrigatório se 'Frete' foi selecionado") if freight_subtype_options?
+    end
   end
 
   def city_when_corresponds

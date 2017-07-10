@@ -1,7 +1,7 @@
 class UserPolicy < ApplicationPolicy
 
   def index?
-    true
+  scope.where(:id => record.id=user.id)
   end
 
   def update?
