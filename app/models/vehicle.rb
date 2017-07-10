@@ -23,8 +23,10 @@ end
 #  capacity   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  upload_id  :integer
 #
 # Indexes
 #
-#  index_vehicles_on_name  (name)
+#  index_vehicles_on_name       (name)
+#  index_vehicles_on_upload_id  (upload_id)
 #

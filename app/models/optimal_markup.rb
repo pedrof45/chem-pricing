@@ -43,6 +43,7 @@ end
 #  table_value      :decimal(, )
 #  business_unit_id :integer
 #  metodology       :string
+#  upload_id        :integer
 #
 # Indexes
 #
@@ -50,6 +51,7 @@ end
 #  index_optimal_markups_on_customer_id       (customer_id)
 #  index_optimal_markups_on_dist_center_id    (dist_center_id)
 #  index_optimal_markups_on_product_id        (product_id)
+#  index_optimal_markups_on_upload_id         (upload_id)
 #
 # Foreign Keys
 #

@@ -63,8 +63,10 @@ end
 #  origin       :integer
 #  ncm          :string
 #  display_name :string
+#  upload_id    :integer
 #
 # Indexes
 #
-#  index_products_on_sku  (sku)
+#  index_products_on_sku        (sku)
+#  index_products_on_upload_id  (upload_id)
 #

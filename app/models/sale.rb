@@ -51,6 +51,7 @@ end
 #  comentario       :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  upload_id        :integer
 #
 # Indexes
 #
@@ -58,6 +59,7 @@ end
 #  index_sales_on_customer_id       (customer_id)
 #  index_sales_on_dist_center_id    (dist_center_id)
 #  index_sales_on_product_id        (product_id)
+#  index_sales_on_upload_id         (upload_id)
 #  index_sales_on_user_id           (user_id)
 #
 # Foreign Keys

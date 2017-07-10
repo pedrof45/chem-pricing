@@ -26,4 +26,9 @@ end
 #  weight     :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  upload_id  :integer
+#
+# Indexes
+#
+#  index_packagings_on_upload_id  (upload_id)
 #

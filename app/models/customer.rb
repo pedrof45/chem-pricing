@@ -48,10 +48,12 @@ end
 #  cnpj         :string
 #  contact      :string
 #  display_name :string
+#  upload_id    :integer
 #
 # Indexes
 #
 #  index_customers_on_city_id     (city_id)
 #  index_customers_on_code        (code)
 #  index_customers_on_country_id  (country_id)
+#  index_customers_on_upload_id   (upload_id)
 #

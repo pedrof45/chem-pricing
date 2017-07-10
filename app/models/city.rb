@@ -30,8 +30,10 @@ end
 #  code       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  upload_id  :integer
 #
 # Indexes
 #
-#  index_cities_on_code  (code)
+#  index_cities_on_code       (code)
+#  index_cities_on_upload_id  (upload_id)
 #

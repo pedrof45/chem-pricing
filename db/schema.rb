@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710004314) do
+ActiveRecord::Schema.define(version: 20170710005934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_chopped_bulk_freights_on_upload_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -35,7 +37,9 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
     t.index ["code"], name: "index_cities_on_code"
+    t.index ["upload_id"], name: "index_cities_on_upload_id"
   end
 
   create_table "costs", force: :cascade do |t|
@@ -58,8 +62,10 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.string "competition_adjustment"
     t.string "lead_time"
     t.string "min_order_quantity"
+    t.bigint "upload_id"
     t.index ["dist_center_id"], name: "index_costs_on_dist_center_id"
     t.index ["product_id"], name: "index_costs_on_product_id"
+    t.index ["upload_id"], name: "index_costs_on_upload_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -81,9 +87,11 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.string "cnpj"
     t.string "contact"
     t.string "display_name"
+    t.bigint "upload_id"
     t.index ["city_id"], name: "index_customers_on_city_id"
     t.index ["code"], name: "index_customers_on_code"
     t.index ["country_id"], name: "index_customers_on_country_id"
+    t.index ["upload_id"], name: "index_customers_on_upload_id"
   end
 
   create_table "dist_centers", force: :cascade do |t|
@@ -103,6 +111,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_especial_packed_freights_on_upload_id"
     t.index ["vehicle_id"], name: "index_especial_packed_freights_on_vehicle_id"
   end
 
@@ -121,6 +131,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_icms_taxes_on_upload_id"
   end
 
   create_table "normal_bulk_freights", force: :cascade do |t|
@@ -131,6 +143,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "toll"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_normal_bulk_freights_on_upload_id"
     t.index ["vehicle_id"], name: "index_normal_bulk_freights_on_vehicle_id"
   end
 
@@ -146,6 +160,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "min"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_normal_packed_freights_on_upload_id"
   end
 
   create_table "optimal_markups", force: :cascade do |t|
@@ -158,10 +174,12 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "table_value"
     t.bigint "business_unit_id"
     t.string "metodology"
+    t.bigint "upload_id"
     t.index ["business_unit_id"], name: "index_optimal_markups_on_business_unit_id"
     t.index ["customer_id"], name: "index_optimal_markups_on_customer_id"
     t.index ["dist_center_id"], name: "index_optimal_markups_on_dist_center_id"
     t.index ["product_id"], name: "index_optimal_markups_on_product_id"
+    t.index ["upload_id"], name: "index_optimal_markups_on_upload_id"
   end
 
   create_table "packagings", force: :cascade do |t|
@@ -171,6 +189,8 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_packagings_on_upload_id"
   end
 
   create_table "product_bulk_freights", force: :cascade do |t|
@@ -182,7 +202,9 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.decimal "toll"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
     t.index ["product_id"], name: "index_product_bulk_freights_on_product_id"
+    t.index ["upload_id"], name: "index_product_bulk_freights_on_upload_id"
     t.index ["vehicle_id"], name: "index_product_bulk_freights_on_vehicle_id"
   end
 
@@ -198,7 +220,9 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.integer "origin"
     t.string "ncm"
     t.string "display_name"
+    t.bigint "upload_id"
     t.index ["sku"], name: "index_products_on_sku"
+    t.index ["upload_id"], name: "index_products_on_upload_id"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -233,12 +257,14 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.string "freight_base_type"
     t.string "freight_subtype"
     t.bigint "vehicle_id"
+    t.bigint "upload_id"
     t.index ["city_id"], name: "index_quotes_on_city_id"
     t.index ["cost_id"], name: "index_quotes_on_cost_id"
     t.index ["customer_id"], name: "index_quotes_on_customer_id"
     t.index ["dist_center_id"], name: "index_quotes_on_dist_center_id"
     t.index ["optimal_markup_id"], name: "index_quotes_on_optimal_markup_id"
     t.index ["product_id"], name: "index_quotes_on_product_id"
+    t.index ["upload_id"], name: "index_quotes_on_upload_id"
     t.index ["user_id"], name: "index_quotes_on_user_id"
     t.index ["vehicle_id"], name: "index_quotes_on_vehicle_id"
   end
@@ -260,10 +286,12 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.string "comentario"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
     t.index ["business_unit_id"], name: "index_sales_on_business_unit_id"
     t.index ["customer_id"], name: "index_sales_on_customer_id"
     t.index ["dist_center_id"], name: "index_sales_on_dist_center_id"
     t.index ["product_id"], name: "index_sales_on_product_id"
+    t.index ["upload_id"], name: "index_sales_on_upload_id"
     t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
@@ -312,7 +340,9 @@ ActiveRecord::Schema.define(version: 20170710004314) do
     t.integer "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
     t.index ["name"], name: "index_vehicles_on_name"
+    t.index ["upload_id"], name: "index_vehicles_on_upload_id"
   end
 
   add_foreign_key "costs", "dist_centers"

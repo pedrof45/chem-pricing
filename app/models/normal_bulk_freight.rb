@@ -32,9 +32,11 @@ end
 #  toll        :decimal(, )
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  upload_id   :integer
 #
 # Indexes
 #
+#  index_normal_bulk_freights_on_upload_id   (upload_id)
 #  index_normal_bulk_freights_on_vehicle_id  (vehicle_id)
 #
 # Foreign Keys

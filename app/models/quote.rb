@@ -263,6 +263,7 @@ end
 #  freight_base_type  :string
 #  freight_subtype    :string
 #  vehicle_id         :integer
+#  upload_id          :integer
 #
 # Indexes
 #
@@ -272,6 +273,7 @@ end
 #  index_quotes_on_dist_center_id     (dist_center_id)
 #  index_quotes_on_optimal_markup_id  (optimal_markup_id)
 #  index_quotes_on_product_id         (product_id)
+#  index_quotes_on_upload_id          (upload_id)
 #  index_quotes_on_user_id            (user_id)
 #  index_quotes_on_vehicle_id         (vehicle_id)
 #

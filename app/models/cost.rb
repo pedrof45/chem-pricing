@@ -63,11 +63,13 @@ end
 #  competition_adjustment :string
 #  lead_time              :string
 #  min_order_quantity     :string
+#  upload_id              :integer
 #
 # Indexes
 #
 #  index_costs_on_dist_center_id  (dist_center_id)
 #  index_costs_on_product_id      (product_id)
+#  index_costs_on_upload_id       (upload_id)
 #
 # Foreign Keys
 #
