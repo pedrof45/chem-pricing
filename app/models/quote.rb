@@ -89,7 +89,7 @@ class Quote < ApplicationRecord
   def freight_fields_consistency
     if freight_condition != 'fob'
       errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type?
-      errors.add(:freight_subtype_options, "Obrigatório se 'Frete' foi selecionado") if freight_subtype_options?
+      errors.add(:freight_subtype, "Obrigatório se 'Frete' foi selecionado") if freight_subtype?
     end
   end
 
