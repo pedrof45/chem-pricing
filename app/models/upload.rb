@@ -12,6 +12,7 @@ class Upload < ApplicationRecord
                          :normal_bulk_freight, :chopped_bulk_freight, :product_bulk_freight, :especial_packed_freight, :normal_packed_freight, :vehicle, :packaging]
 
   def granted_model
+    return unless model
     errors.add(:model, "Não autorizado") unless Upload.granted_models_for(user.role).include? model.to_sym
   end
 

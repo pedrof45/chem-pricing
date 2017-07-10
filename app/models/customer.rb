@@ -23,7 +23,7 @@ class Customer < ApplicationRecord
       name: :attr,
       code: :key,
       cnpj: :attr,
-	  'country.code': :f_key,
+	    'country.code': :f_key,
       'city.code': :f_key,
       contact: :attr,
       email: :attr
@@ -52,5 +52,6 @@ end
 # Indexes
 #
 #  index_customers_on_city_id     (city_id)
+#  index_customers_on_code        (code)
 #  index_customers_on_country_id  (country_id)
 #

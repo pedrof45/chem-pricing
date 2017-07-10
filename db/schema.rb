@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706042643) do
+ActiveRecord::Schema.define(version: 20170710004314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_business_units_on_code"
   end
 
   create_table "chopped_bulk_freights", force: :cascade do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_cities_on_code"
   end
 
   create_table "costs", force: :cascade do |t|
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_countries_on_code"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -79,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.string "contact"
     t.string "display_name"
     t.index ["city_id"], name: "index_customers_on_city_id"
+    t.index ["code"], name: "index_customers_on_code"
     t.index ["country_id"], name: "index_customers_on_country_id"
   end
 
@@ -89,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.datetime "updated_at", null: false
     t.bigint "city_id"
     t.index ["city_id"], name: "index_dist_centers_on_city_id"
+    t.index ["code"], name: "index_dist_centers_on_code"
   end
 
   create_table "especial_packed_freights", force: :cascade do |t|
@@ -193,6 +198,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.integer "origin"
     t.string "ncm"
     t.string "display_name"
+    t.index ["sku"], name: "index_products_on_sku"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -306,6 +312,7 @@ ActiveRecord::Schema.define(version: 20170706042643) do
     t.integer "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_vehicles_on_name"
   end
 
   add_foreign_key "costs", "dist_centers"

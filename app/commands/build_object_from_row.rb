@@ -1,4 +1,4 @@
-class BuildObjectFromRow < PowerTypes::Command.new(:model, :row)
+class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, hash_tables: nil)
   def perform
     @klass = Object.const_get @model.to_s.classify
     @obj = build_obj
@@ -32,9 +32,18 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row)
   end
 
   def fetch_foreign_field(f_model, f_field, value)
-    f_class = Object.const_get f_model.classify
-    f_obj = f_class.find_by!(f_field => value) unless value.blank?
-    @obj.send("#{f_model}=", f_obj)
+    if @hash_tables
+      f_obj_id = @hash_tables["#{f_model}.#{f_field}".to_sym][value.to_s]
+      if f_obj_id == nil && value.present?
+        raise "No #{f_model.titleize} found with #{f_field} #{value}"
+      end
+      @obj.send("#{f_model}_id=", f_obj_id)
+    else
+      raise "hash tables not present"
+      f_class = Object.const_get f_model.classify
+      f_obj = f_class.find_by!(f_field => value) unless value.blank?
+      @obj.send("#{f_model}=", f_obj)
+    end
   rescue StandardError => e
     @obj.errors.add(:base, e.to_s)
   end

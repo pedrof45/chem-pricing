@@ -4,13 +4,14 @@ class UploadParserService < PowerTypes::Service.new(:u)
     @klass = Object.const_get @u.model.classify
     sheet = Roo::Spreadsheet.open(@u.file, clean: true)
     headers = hts.model_fields_to_pt(@u.model)
+    hash_tables = build_hash_tables
     compare_headers(sheet, headers)
 
     new_entries = []
     accept_file = true
     sheet.parse(headers).each_with_index do |row, index|
       row_n = index + 2
-      obj = BuildObjectFromRow.for(model: @u.model, row: row)
+      obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
       if !obj.errors.any? && obj.valid?
         new_entries << obj
       else
@@ -46,5 +47,16 @@ class UploadParserService < PowerTypes::Service.new(:u)
 
   def error(msg, attr = :base)
     @u.errors.add(attr, msg)
+  end
+
+  def build_hash_tables
+    hash_tables = {}
+    f_key_fields = @klass.xls_fields.select {|_k, v| v == :f_key }.keys
+    f_key_fields.each do |f_key_field|
+      f_model, f_field = f_key_field.to_s.split('.')
+      f_class = Object.const_get f_model.classify
+      hash_tables[f_key_field] = f_class.pluck(f_field, :id).map { |row| [row.first.to_s, row.last.to_s] }.to_h
+    end
+    hash_tables
   end
 end

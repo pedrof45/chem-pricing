@@ -11,3 +11,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_countries_on_code  (code)
+#

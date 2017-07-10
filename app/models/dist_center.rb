@@ -25,4 +25,5 @@ end
 # Indexes
 #
 #  index_dist_centers_on_city_id  (city_id)
+#  index_dist_centers_on_code     (code)
 #

@@ -16,3 +16,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_business_units_on_code  (code)
+#

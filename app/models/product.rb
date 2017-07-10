@@ -64,3 +64,7 @@ end
 #  ncm          :string
 #  display_name :string
 #
+# Indexes
+#
+#  index_products_on_sku  (sku)
+#
