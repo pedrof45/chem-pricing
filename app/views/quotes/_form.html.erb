@@ -69,8 +69,7 @@
               <%= f.input :unit_price, label: false %>
               <%= f.input :markup, label: false %>
               <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '....'}%>
-              <span style="display:block; height: 80px;width: 100px"></span>
-                <%= f.label '-----(*)Default é Mark-up Tabela-----' %>
+              <span class="markup-default-msg">* Default é Mark-up Tabela</span>
         <% end %>
         </div>
         <div class="results-section inputs">

@@ -95,7 +95,6 @@ ActiveAdmin.register Quote do
     def set_user
       params[:quote][:user_id] = current_user.id
     end
-
   end
 
   collection_action :fetch_markup, method: :get do
@@ -106,8 +105,7 @@ ActiveAdmin.register Quote do
       unless o_mkup
         o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: nil).last
       end
-      t_value = o_mkup.table_value * 100 if o_mkup.try(:table_value)
-      resp = { table_value: t_value }
+      resp = { table_value: o_mkup.try(:table_value) }
       puts "FETCH MARKUP RESPONSE: #{resp}"
       render json: resp
   end

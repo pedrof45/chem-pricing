@@ -142,16 +142,8 @@ class Quote < ApplicationRecord
     (unit_price * quantity).round(2).to_i
   end
 
-  def mark_up_porcentage
-    markup * 100 if markup
-  end
-
   def fob_net_rounded
     fob_net_price.round(2)
-  end
-
-  def optimal_markup_amount
-    optimal_markup.value * 100 if optimal_markup.try(:value)
   end
 
   def unit_freight_amount
@@ -159,7 +151,7 @@ class Quote < ApplicationRecord
   end
 
   def final_base_price
-    (cost.base_price/cost.amount_for_price).round(2)
+    (cost.base_price / cost.amount_for_price).round(2)
   end
 
   def unit_price_amount
@@ -167,36 +159,27 @@ class Quote < ApplicationRecord
   end
 
   def calculated_markup_amount
-    if markup>1
-      (markup/100)*final_base_price
-    else
-      markup*final_base_price
-    end
-
+      markup * final_base_price
   end
 
   def icms_amount
-
-    (unit_price*icms).round(2)
-
+    (unit_price * icms).round(2)
   end
 
   def pis_confins_amount
-
-    (unit_price*pis_confins).round(2)
-
+    (unit_price * pis_confins).round(2)
   end
 
   def encargos
     return 0 if payment_term.zero?
-    (unit_price*final_freight)
+    (unit_price * final_freight)
   end
 
   def encargos_amount
     encargos.round(2)
   end
 
-   def mcb
+  def mcb
     (total_price - ((cost.base_price/cost.amount_for_price + (unit_price*icms) +(unit_price*pis_confins) + encargos+unit_freight)) * quantity).round(2).to_i
   end
 

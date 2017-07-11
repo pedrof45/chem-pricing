@@ -41,6 +41,9 @@ function fetchMarkup() {
       var respObj = JSON.parse(data.responseText);
       var tableValue = (respObj || {}).table_value
       if(tableValue !== undefined) {
+        if(tableValue !== undefined && tableValue !== null && !isNaN(tableValue)) {
+          tableValue = 100 * Number(tableValue);
+        }
         $('#quote_markup').val(tableValue)
       }
     }
@@ -84,6 +87,9 @@ function fetchIcms() {
           var icmsValue = (respObj || {}).icms;
           var icmsPadrao = $('#quote_icms_padrao').is(":checked");
           if(icmsPadrao) {
+            if(icmsValue !== undefined && icmsValue !== null && !isNaN(icmsValue)) {
+              icmsValue = 100 * Number(icmsValue);
+            }
             $('#quote_icms').val(icmsValue)
           }
         }
@@ -142,6 +148,19 @@ function clearOriginDestination() {
   updateOriginDestination(null, null);
 }
 
+function convertPercentageFields(toPerc) {
+  var factor = toPerc ? 100 : 0.01;
+  var fields = ['#quote_markup', '#quote_icms', '#quote_pis_confins'];
+  for(var i = 0; i < 3; i++) {
+    var input = $(fields[i]);
+    var originalValue = Number(input.val());
+    if(originalValue !== 0 && !isNaN(originalValue)) {
+      var newValue = originalValue * factor;
+      input.val(newValue);
+    }
+  }
+}
+
 $(function () {
   $('.base-field-input').change(function () {
     fetchMarkup();
@@ -181,6 +200,7 @@ $(function () {
   $('form.quote').submit(function () {
     var f_type = $('#quote_freight_base_type_input input:checked').val();
     $('#quote_freight_subtype:not(.' + f_type + '-subtype-input)').remove();
+    convertPercentageFields(false);
     return true;
   });
 
@@ -190,6 +210,7 @@ $(function () {
   toggleCityInput();
   togglePisConfins();
   toggleIcms();
+  convertPercentageFields(true);
   if($('#page_title').html() === 'Simulador de Preço') {
     fakeSimulatorSelect();
   }
