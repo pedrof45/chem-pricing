@@ -162,6 +162,14 @@ class Quote < ApplicationRecord
       markup * final_base_price
   end
 
+  def optimal_markup_amount
+    optimal_markup.value * 100 if optimal_markup.try(:value)
+  end
+
+  def mark_up_porcentage
+    markup * 100 if markup
+  end
+
   def icms_amount
     (unit_price * icms).round(2)
   end

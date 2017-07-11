@@ -4,6 +4,7 @@ $disabledInputFontGray: #a6a6a6;
 $simulateButtonBlue: #006699;
 $simulateButtonBlueHover: #0088cc;
 $productSectionBackgroundGray: #8c8c8c;
+$aaFontGray: #5E6469;
 
 .simulator-form {
 
@@ -82,7 +83,7 @@ $productSectionBackgroundGray: #8c8c8c;
   label {
     font-size: 1.0em;
     font-weight: bold;
-    color: #5E6469;
+    color: $aaFontGray;
     text-transform: uppercase;
     margin: 0 0 0 12px;
   }
@@ -187,6 +188,10 @@ $productSectionBackgroundGray: #8c8c8c;
 
   .quote-results-panel {
     float: left;
+
+    th, td {
+      color: $aaFontGray;
+    }
   }
 
   .last-sale-panel {
@@ -196,9 +201,16 @@ $productSectionBackgroundGray: #8c8c8c;
   .simulate-msg {
     font-size: 14px;
     text-align: center;
-    color: #5E6469;
+    color: $aaFontGray;
     margin-top: 10%;
     padding: 10px;
+  }
+
+  .row-total_price, .row-mcb {
+    td, th {
+     font-weight: bold;
+
+    }
   }
 }
 
@@ -247,7 +259,7 @@ $productSectionBackgroundGray: #8c8c8c;
     .simulate-msg {
       font-size: 14px;
       text-align: center;
-      color: #5E6469;
+      color: $aaFontGray;
       margin-top: 4px;
       padding: 10px;
     }
