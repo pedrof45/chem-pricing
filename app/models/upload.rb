@@ -39,7 +39,6 @@ class Upload < ApplicationRecord
     end
     UploadParserService.new(u: self).run
   rescue StandardError => e
-    binding.pry
     errors.add(:file, "Erro: #{e}")
   end
 

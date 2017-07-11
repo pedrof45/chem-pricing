@@ -18,13 +18,14 @@ class QuotePolicy < ApplicationPolicy
 	  end
 
 	def index?
-
       if user.manager_or_more?
         true
       else
         @quotes = UserPolicy::Scope.new(@user,Quote).resolve
       end
-    
-    end
+	end
 
+	def update?
+		owner? || user.manager_or_more?
+	end
 end

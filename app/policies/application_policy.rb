@@ -39,7 +39,7 @@ class ApplicationPolicy
   end
 
   def owner?
-    user == resource.try(:user)
+    user == record.try(:user)
   end
 
   class Scope

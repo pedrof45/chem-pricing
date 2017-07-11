@@ -1,18 +1,23 @@
-panel "INFORMAÇAO DE ADICIONAL DE PRODUTO: #{resource.product.try(:name_and_code)}", class: 'product-info-panel' do
-  attributes_table_for resource do
-    row('Masa Especifica') { |q| q.product.try(:density) }
-    row('Capacidade') { |q| q.product.try(:packaging).try(:capacity) }
-    row('Moeda Fornecedor') { |q| q.cost.try(:currency) }
-    row('Embalagem Fornecedor') { |q| !q.cost.frac_emb if q.cost }
-  end
-  attributes_table_for resource do
-    row('IPI') { |q| q.product.try(:ipi)}
-    row('Resoluçao 13?') { |q| q.product.try(:resolution13) }
-    row('Origem (Res 13)') { |q| q.product.try(:origin) }
-    row('Analista') { |q| q.cost.try(:product_analyst) }
-    row('Custo Atualizado') { |q| q.cost.try(:updated_cost) }
-    row('Contra Pedido?') { |q| q.cost.try(:lead_time_order?) }
-    row('Lead Time (Dias)') { |q| q.cost.try(:lead_time) }
-    row('Quantidade Minima de Compra') { |q| q.cost.try(:min_order_quantity) }
+panel "INFORMAÇAO DE ADICIONAL DE PRODUTO #{':' + resource.product.try(:display_name) unless resource.new_record?}", class: 'product-info-panel' do
+  if resource.new_record?
+    para 'Primeiro você tem que simular uma cotação para ver esta informaçao', class: 'simulate-msg'
+  else
+    attributes_table_for resource do
+      row('Masa Especifica') { |q| q.product.try(:density) }
+      row('Capacidade') { |q| q.product.try(:packaging).try(:capacity) }
+      row('Moeda Fornecedor') { |q| q.cost.try(:currency) }
+      row('Embalagem Fornecedor') { |q| !q.cost.frac_emb if q.cost }
+    end
+
+    attributes_table_for resource do
+      row('IPI') { |q| q.product.try(:ipi)}
+      row('Resoluçao 13?') { |q| q.product.try(:resolution13) }
+      row('Origem (Res 13)') { |q| q.product.try(:origin) }
+      row('Analista') { |q| q.cost.try(:product_analyst) }
+      row('Custo Atualizado') { |q| q.cost.try(:updated_cost) }
+      row('Contra Pedido?') { |q| q.cost.try(:lead_time_order?) }
+      row('Lead Time (Dias)') { |q| q.cost.try(:lead_time) }
+      row('Quantidade Minima de Compra') { |q| q.cost.try(:min_order_quantity) }
+    end
   end
 end

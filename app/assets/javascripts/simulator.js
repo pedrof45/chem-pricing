@@ -148,6 +148,14 @@ function clearOriginDestination() {
   updateOriginDestination(null, null);
 }
 
+function clearProductInfoBox() {
+  var simulateMsg = '<p class="simulate-msg">Primeiro você tem que simular uma cotação para ver esta informaçao</p>';
+  $('.product-info-section .panel_contents').html(simulateMsg);
+  var clearedTitle = 'INFORMAÇAO DE ADICIONAL DE PRODUTO';
+  $('.product-info-section h3').html(clearedTitle);
+
+}
+
 function convertPercentageFields(toPerc) {
   var factor = toPerc ? 100 : 0.01;
   var fields = ['#quote_markup', '#quote_icms', '#quote_pis_confins'];
@@ -164,6 +172,10 @@ function convertPercentageFields(toPerc) {
 $(function () {
   $('.base-field-input').change(function () {
     fetchMarkup();
+  });
+
+  $('#quote_product_id').change(function () {
+    clearProductInfoBox();
   });
 
   $('#quote_customer_id, #quote_freight_condition_input').change(function () {
