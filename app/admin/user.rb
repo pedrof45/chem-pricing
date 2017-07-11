@@ -6,10 +6,10 @@ ActiveAdmin.register User do
   index do
     column :email
     column 'Name', :full_name
-    #column :position
+    column :position
     column :role
     column("Unidade de Negocio") { |m| m.business_unit.code if m.business_unit }
-    #column :business_unit
+    column :business_unit
     column :active
     actions
   end
@@ -32,7 +32,8 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :position
       f.input :business_unit
-      f.input :role if current_user.admin_or_more? && !resource.role.sysadmin?
+      f.input :role if current_user.admin_or_more? 
+      #&& !resource.role.sysadmin?
       f.input :active
     end
     f.actions
