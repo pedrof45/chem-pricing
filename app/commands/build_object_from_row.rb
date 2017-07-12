@@ -33,11 +33,11 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, hash_tables: ni
 
   def fetch_foreign_field(f_model, f_field, value)
     if @hash_tables
-      f_obj_id = @hash_tables["#{f_model}.#{f_field}".to_sym][value.to_s]
-      if f_obj_id == nil && value.present?
+      f_obj = @hash_tables["#{f_model}.#{f_field}".to_sym][value.to_s]
+      if f_obj.nil? && value.present?
         raise "No #{f_model.titleize} found with #{f_field} #{value}"
       end
-      @obj.send("#{f_model}_id=", f_obj_id)
+      @obj.send("#{f_model}=", f_obj)
     else
       raise "hash tables not present"
       f_class = Object.const_get f_model.classify
