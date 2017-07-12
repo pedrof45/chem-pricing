@@ -22,7 +22,7 @@ class OptimalMarkup < ApplicationRecord
       'business_unit.code': :f_key,
       'dist_center.code': :f_key,
       table_value: :attr,
-      value: :attr
+      value: :attr,
       created_at: :attr
     }
   end
