@@ -24,7 +24,7 @@ class UploadParserService < PowerTypes::Service.new(:u)
     end
 
     if accept_file && !@u.errors.any?
-      new_entries.each { |new_entry| new_entry.save! }
+      @klass.import new_entries
       @u.records = new_entries
       true
     else

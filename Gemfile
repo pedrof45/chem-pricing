@@ -24,6 +24,7 @@ gem 'enumerize'
 gem 'money-rails'
 gem 'google_currency'
 gem 'roo', '~> 2.7.0'
+gem 'activerecord-import'
 
 
 group :production do
