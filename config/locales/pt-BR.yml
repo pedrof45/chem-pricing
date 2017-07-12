@@ -126,6 +126,7 @@ pt-BR:
         value: Mark-up Meta
         table_value: Mark-up Tabela
         metodology: Metodologia
+        created_at: Data
       dist_center:
         code: Codigo
         name: Nome
