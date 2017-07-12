@@ -48,13 +48,13 @@ pt-BR:
         other: Unidade de Negocios
       system_variable:
         one: Variável do Sistema
-        other: Variável do Sistemas
+        other: Variáveis do Sistemas
       exchange_rate:
         one: Tipo de Cambio
         other: Tipo de Cambios
       normal_bulk_freight:
         one: Frete Granel Normal
-        other: Frete Granel Normals
+        other: Frete Granel Normal
       chopped_bulk_freight:
         one: Frete Granel Picado
         other: Frete Granel Picados
@@ -63,10 +63,10 @@ pt-BR:
         other: Frete Granel Produtos
       especial_packed_freight:
         one: Frete Embalado Especial
-        other: Frete Embalado Especials
+        other: Frete Embalado Especiais
       normal_packed_freight:
         one: Frete Embalado Normal
-        other: Frete Embalado Normals
+        other: Frete Embalado Normal
       upload:
         one: Upload
         other: Uploads
@@ -118,6 +118,7 @@ pt-BR:
         competition_adjustment: Reajuste Concorrencia
         commentary: Comentario
         on_demand: Apoio Sobre Demanda
+        created_at: Data
       optimal_markup:
         product: Produto
         customer: Cliente

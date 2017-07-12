@@ -21,7 +21,7 @@ class Cost < ApplicationRecord
   end
 
 def self.xls_mode
-    :update
+    :create
   end
 
   def self.xls_fields
@@ -43,7 +43,8 @@ def self.xls_mode
       frac_emb: :attr,
       source_adjustment: :attr,
       competition_adjustment: :attr,
-      commentary: :attr
+      commentary: :attr,
+      created_at: :attr
     }
   end
 end
