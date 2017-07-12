@@ -32,7 +32,7 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :position
       f.input :business_unit
-      f.input :role if current_user.admin_or_more? 
+      f.input :role if current_user.sysadmin_or_more? 
       #&& !resource.role.sysadmin?
       f.input :active
     end
