@@ -18,7 +18,7 @@ class Upload < ApplicationRecord
   end
 
   def self.granted_models_for(role)
-    if role == :agent
+    if role == :agent || role== :manager
       [:quote]
     else
       self.model.values

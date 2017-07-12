@@ -11,7 +11,7 @@ ActiveAdmin.register Sale do
 	    column("SKU") { |r| r.product.sku }
 	    column("SKU") { |r| r.product.name }
 	    column("CD") { |r| r.dist_center.name}
-	    column("UN") { |r| r.business_unit.code }
+	    column("UN") { |r| r.business_unit.code if r.business_unit}
 	    column :moneda
 	    column("Unidade") { |r| r.product.unit }
 	    column :volume
