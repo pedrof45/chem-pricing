@@ -34,16 +34,11 @@ def self.xls_mode
       base_price: :attr,
       suggested_markup: :attr,
       updated_cost: :attr,
-      last_month_base_price: :attr,
-      last_month_fob_net: :attr,
       product_analyst: :attr,
       on_demand: :attr,
       lead_time: :attr,
       min_order_quantity: :attr,
       frac_emb: :attr,
-      source_adjustment: :attr,
-      competition_adjustment: :attr,
-      commentary: :attr,
       created_at: :attr
     }
   end
