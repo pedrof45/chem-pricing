@@ -24,10 +24,10 @@ end
 panel 'Ultima Venda', class: 'last-sale-panel' do
   attributes_table_for quote.last_sale || Sale.new do
     row :base_price
-    row :markup
+    row('Mark-Up (%)') { |v| v.markup * 100 if v.markup }
     row :unit_price
     row :volume
-    row :sale_date
+    row('Data') { |v| v.sale_date.to_date if v.sale_date}
     row :dist_center
     row :user
   end

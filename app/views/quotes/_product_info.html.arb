@@ -1,4 +1,4 @@
-panel "INFORMAÇAO DE ADICIONAL DE PRODUTO #{':' + resource.product.try(:display_name) unless resource.new_record?}", class: 'product-info-panel' do
+panel "INFORMAÇAO DE ADICIONAL DE PRODUTO #{': ' + resource.product.try(:display_name) unless resource.new_record?}", class: 'product-info-panel' do
   if resource.new_record?
     para 'Primeiro você tem que simular uma cotação para ver esta informaçao', class: 'simulate-msg'
   else
