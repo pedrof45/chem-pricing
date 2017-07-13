@@ -34,10 +34,14 @@ class Upload < ApplicationRecord
   end
 
   def parse
-    unless file.blank? || file.respond_to?(:read)
-      errors.add(:file, "Não é possível ler o arquivo") and return
+    unless file.blank?
+      if file.respond_to?(:read)
+        UploadParserService.new(u: self).run unless file.blank?
+      else
+        errors.add(:file, "Não é possível ler o arquivo") and return
+      end
     end
-    UploadParserService.new(u: self).run
+
   rescue StandardError => e
     errors.add(:file, "Erro: #{e}")
   end
