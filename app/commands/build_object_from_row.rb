@@ -4,6 +4,7 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
     @errors = []
     @foreign_fields = fetch_foreigns
     @obj = build_obj
+    update_display_names if @klass.method_defined?(:set_display_name)
     @errors.each { |err_msg| @obj.errors.add(:base, err_msg) }
     @obj
   end
@@ -45,6 +46,10 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
   rescue StandardError => e
     @errors << e.to_s
     nil
+  end
+
+  def update_display_names
+    @obj.set_display_name
   end
 
   def headers_of_type(type)

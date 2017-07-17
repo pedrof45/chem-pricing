@@ -25,6 +25,7 @@ class UploadParserService < PowerTypes::Service.new(:u)
 
     if accept_file && !@u.errors.any?
       attr_fields = @klass.xls_fields.select {|_k, v| v == :attr }.keys
+      attr_fields << :display_name if @klass.method_defined?(:set_display_name)
       @klass.import new_entries, on_duplicate_key_update: { conflict_target: [:id], columns: attr_fields }
       @u.records = new_entries
       true
