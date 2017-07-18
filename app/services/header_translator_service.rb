@@ -53,4 +53,20 @@ class HeaderTranslatorService < PowerTypes::Service.new
       I18n.transliterate(I18n.t("activerecord.models.#{model_name}.one")) == pt_model_tr
     end
   end
+
+  def enum_field_to_pt(model, field, value)
+    I18n.t("enumerize.#{model}.#{field}.#{value}")
+  end
+
+  def enum_field_to_en(model, field, pt_value)
+    enum_tr_hash(model, field)[pt_value]
+  end
+
+  def enum_tr_hash(model, field)
+    klass = class_from(model)
+    @enum_translations ||= Hash.new({})
+    @enum_translations[model][field] ||= klass.send(field).values.map do |value|
+      [value, enum_field_to_pt(model, field, value)]
+    end.to_h.invert
+  end
 end

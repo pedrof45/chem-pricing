@@ -290,10 +290,10 @@ pt-BR:
   enumerize:
     user:
       role:
-        super_admin: Super Admin
+        sysadmin: SysAdmin
         admin: Admin
-        director: Gerente
-        sales_rep: Vendedor
+        manager: Gerente
+        agent: Vendedor
     products:
       unit:
         kg: KG
@@ -337,4 +337,4 @@ pt-BR:
         bulk: Granel
         packed: Embalado
       freight_condition:
-        redispatch: REDESPACHO
+        redispatch: Redespacho

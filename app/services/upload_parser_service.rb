@@ -12,6 +12,8 @@ class UploadParserService < PowerTypes::Service.new(:u)
     sheet.parse(headers).each_with_index do |row, index|
       row_n = index + 2
       puts "Processing sheet row ##{row_n}" if (row_n % 100).zero?
+      row_tr_enums = translate_enum_fields(row) if @klass.is_a?(Enumerize)
+      row.merge!(row_tr_enums) if row_tr_enums.present?
       obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
       if !obj.errors.any? && obj.valid?
         new_entries << obj
@@ -63,5 +65,12 @@ class UploadParserService < PowerTypes::Service.new(:u)
       hash_tables[f_key_field] = f_class.all.map { |obj| [obj.send(f_field).to_s, obj] }.to_h
     end
     hash_tables
+  end
+
+  def translate_enum_fields(row)
+    @enum_cols ||= @klass.enumerized_attributes.attributes.keys
+    row.select { |k,v| @enum_cols.include?(k.to_s)}.map do |k,v|
+      [k, hts.enum_field_to_en(@u.model, k, v)]
+    end.to_h
   end
 end

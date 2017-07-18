@@ -9,6 +9,7 @@ class Cost < ApplicationRecord
     :currency, :amount_for_price
 
   enumerize :currency, in: [:brl, :usd, :eur]
+  enumerize :on_demand, in: [:on_request, :discontinued, :regular]
 
 
 
