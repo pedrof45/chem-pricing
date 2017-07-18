@@ -14,8 +14,8 @@ pt-BR:
         one: Preço Piso
         other: Preço Pisos
       optimal_markup:
-        one: Politica de Mark-Up
-        other: Politica de Mark-Ups
+        one: Politica de MarkUp
+        other: Politica de MarkUps
       dist_center:
         one: CD
         other: CDs
@@ -124,8 +124,8 @@ pt-BR:
         customer: Cliente
         business_unit: Unidade de Negocio
         dist_center: Centro de Distribução
-        value: Mark-up Meta
-        table_value: Mark-up Tabela
+        value: MarkUp Meta
+        table_value: MarkUp Tabela
         metodology: Metodologia
         created_at: Data
       dist_center:
@@ -149,7 +149,7 @@ pt-BR:
         produto: Produto
         insurance: Seguro
         GRIS: GRIS
-        CT-e: CT-e
+        CT-e: CT_e
         min: Minimo
         tipo_frete_embalado: Embalado?
         tipo_frete_granel: Granel?
@@ -180,16 +180,16 @@ pt-BR:
         unit: Unidade
         unit_price: Preço Unitario ($)
         currency: Moeda
-        markup: Mark-up Calculado (%)
+        markup: MarkUp Calculado (%)
         fixed_price: Preço Fixo?
         quote_date: Data
         city: Cidade Alternativa
-        optimal_markup_amount: Mark-up Meta Semestre (%)
+        optimal_markup_amount: MarkUp Meta Semestre (%)
         unit_price_amount: Preço Final ($/UN)
         unit_freight_amount: Frete ($/UN)
         encargos_amount: Encargos ($/un)
         fob_net_rounded: Preço Fob Net ($/un)
-        calculated_markup_amount: Mark-up ($/UN)
+        calculated_markup_amount: MarkUp ($/UN)
         cost: Preço Piso
         fob_net_price: Preço Fob Neto ($/UN)
         freight_table: Tabela Frete
@@ -206,7 +206,7 @@ pt-BR:
         freight_base_type: Tipo
         freight_subtype: Subtipo
         vehicle: Veiculo
-        table_value: Mark-Up Tabela (%)
+        table_value: MarkUp Tabela (%)
         created_at: Data
       city:
         name: Nome
@@ -228,9 +228,9 @@ pt-BR:
         volume: Volume
         base_price: Preço Piso
         unit_price: Preço Unitario
-        calculated markup: Mark-Up Calculado
+        calculated markup: MarkUp Calculado
         comentario: Comentario
-        markup: Mark-Up
+        markup: MarkUp
       vehicle:
         name: Nome
         capacity: Capacidade
@@ -279,7 +279,7 @@ pt-BR:
         insurance: Seguro
         gris: GRIS
         toll: Pedagio
-        ct_e: CT-e
+        ct_e: CT_e
         min: Minimo
       upload:
         filename: Arquivo

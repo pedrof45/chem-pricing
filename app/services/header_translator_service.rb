@@ -16,14 +16,16 @@ class HeaderTranslatorService < PowerTypes::Service.new
   end
 
   def field_to_en(en_model, pt_field)
-    return foreign_field_to_en(pt_field) if pt_field.to_s.include?(' - ')
+    pt_field_tr = I18n.transliterate(pt_field)
+    return foreign_field_to_en(pt_field_tr) if pt_field_tr.to_s.include?(' - ')
     translations = model_fields_to_pt(en_model).invert
-    translations[pt_field]
+    translations[pt_field_tr]
   end
 
   def field_to_pt(model, field)
     return foreign_field_to_pt(field) if field.to_s.include?('.')
-    I18n.t("activerecord.attributes.#{model}.#{field}")
+    tr = I18n.t("activerecord.attributes.#{model}.#{field}")
+    I18n.transliterate(tr)
   end
 
   def foreign_field_to_en(pt_field)
@@ -37,7 +39,8 @@ class HeaderTranslatorService < PowerTypes::Service.new
     f_model, f_field = field.to_s.split '.'
     field_pt = I18n.t("activerecord.attributes.#{f_model}.#{f_field}")
     model_pt = I18n.t("activerecord.models.#{f_model}.one")
-    "#{field_pt} - #{model_pt}"
+    tr = "#{field_pt} - #{model_pt}"
+    I18n.transliterate(tr)
   end
 
   def class_from(model_name)
@@ -45,8 +48,9 @@ class HeaderTranslatorService < PowerTypes::Service.new
   end
 
   def model_name_from_pt(pt_model)
+    pt_model_tr = I18n.transliterate(pt_model)
     ApplicationRecord.descendants.map { |k| k.name.underscore }.find do |model_name|
-      I18n.t("activerecord.models.#{model_name}.one") == pt_model
+      I18n.transliterate(I18n.t("activerecord.models.#{model_name}.one")) == pt_model_tr
     end
   end
 end
