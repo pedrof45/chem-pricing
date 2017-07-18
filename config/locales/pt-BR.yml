@@ -168,10 +168,10 @@ pt-BR:
         customer: Cliente
         product: Produto
         payment_term: Prazo de Pagamento (dias)
-        icms_padrao: ICMS padrao
+        icms_padrao: ICMS Padrao
         icms: ICMS
         ipi: IPI
-        pis_confins_padrao: Pis/Confins
+        pis_confins_padrao: Pis/Confins Padrao
         pis_confins: Pis/Confins
         freight_condition: Condiçoes de Frete
         brl_usd: BRL/USD
