@@ -63,6 +63,7 @@ class Quote < ApplicationRecord
   end
 
   def simulate!
+    set_currencies
     simulator_service = SimulatorService.new(q: self)
     freight_service = FreightService.new(q: self)
     simulator_service.setup_cost_and_markup
@@ -108,6 +109,11 @@ class Quote < ApplicationRecord
   def taxes_when_not_padrao
     errors.add(:icms, "Você deve digitar, ou selecionar 'padrão'") unless  icms.present? || icms_padrao
     errors.add(:pis_confins, "Você deve digitar, ou selecionar 'padrão'") unless  pis_confins.present? || pis_confins_padrao
+  end
+
+  def set_currencies
+    self.brl_usd ||= GetExchangeRate.for(from: :USD, to: :BRL)
+    self.brl_eur ||= GetExchangeRate.for(from: :EUR, to: :BRL)
   end
 
   def origin_state
