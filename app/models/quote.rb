@@ -23,6 +23,7 @@ class Quote < ApplicationRecord
 
   enumerize :freight_condition, in: [:cif, :fob, :redispatch]
   enumerize :unit, in: [:kg, :lt]
+  enumerize :currency, in: [:brl, :usd, :eur]
   enumerize :freight_base_type, in: [:bulk, :packed]
 
 
@@ -265,6 +266,7 @@ end
 #  freight_subtype    :string
 #  vehicle_id         :integer
 #  upload_id          :integer
+#  currency           :string
 #
 # Indexes
 #
