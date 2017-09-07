@@ -191,7 +191,7 @@ pt-BR:
         fob_net_rounded: Preço Fob Net ($/un)
         calculated_markup_amount: MarkUp ($/UN)
         cost: Preço Piso
-        fob_net_price: Preço Fob Neto ($/UN)
+        fob_net_price: Preço Fob Net ($/UN)
         freight_table: Tabela Frete
         final_freight: Frete Final
         comment: Comentario
@@ -337,4 +337,6 @@ pt-BR:
         bulk: Granel
         packed: Embalado
       freight_condition:
+        cif: CIF
+        fob: FOB
         redispatch: Redespacho
