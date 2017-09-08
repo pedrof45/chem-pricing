@@ -170,7 +170,7 @@ class Quote < ApplicationRecord
   end
 
   def optimal_markup_amount
-    optimal_markup.value * 100 if optimal_markup.try(:value)
+    optimal_markup.value.round(4) * 100 if optimal_markup.try(:value)
   end
 
   def mark_up_porcentage

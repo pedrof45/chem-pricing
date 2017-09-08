@@ -16,55 +16,46 @@ class SimulatorService < PowerTypes::Service.new(:q)
       @q.pis_confins = SystemVariable.get :pis_confins
     end
 
-    # TODO validate payment term range ( > 0? )
-    # TODO Handle Sys Var Unset
-    interest_sys_var = case @q.payment_term
-                       when (0..30)
-                         :interest_2_30
-                       when (31..60)
-                         :interest_31_60
-                       else
-                         :interest_more_60
-                       end
 
-
-    interest = SystemVariable.get interest_sys_var
-
-    if @q.payment_term == 0
-      financial_cost = 0
-    else
-      #financial_cost = @q.payment_term * interest
-
-      financial_cost = ((interest + 1.0)**(@q.payment_term/30.0)) -1.0
-      #use this variable because was available...change name of final_freight to financial_cost
-      @q.final_freight=financial_cost
-      puts "encRGOS"
-      puts financial_cost 
-    end
     tax_d = 1 - @q.icms - @q.pis_confins
+    base_price = calc_base_price
+    unit_freight = @q.unit_freight * currency_conversor('brl', @q.currency)
+    financial_cost = @q.financial_cost
 
-    #@q.unit_freight = 0.1 # TODO freight
 
-    
-    aux2=@q.cost.base_price
-
-    
-    @q.cost.base_price= aux2/@q.cost.amount_for_price
-
-    
 
     if @q.fixed_price
-      @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - @q.unit_freight ) / @q.cost.base_price) - 1.0).round(2)
-      @q.fob_net_price = (@q.cost.base_price * (1.0 + @q.markup)).round(2)
+      @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - unit_freight ) / base_price) - 1.0).round(2)
+      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(2)
     else
-      @q.unit_price = ((((@q.cost.base_price * (1.0 + @q.markup)+ @q.unit_freight))/tax_d) * (1.0 + financial_cost)).round(2)
-      @q.fob_net_price = (@q.cost.base_price * (1.0 + @q.markup))
+      @q.unit_price = ((((base_price * (1.0 + @q.markup)+ unit_freight))/tax_d) * (1.0 + financial_cost)).round(2)
+      @q.fob_net_price = (base_price * (1.0 + @q.markup))
+    end
+  end
+
+  def calc_base_price
+    conversor = currency_conversor(@q.cost.currency, @q.currency)
+    @q.cost.base_price * conversor / @q.cost.amount_for_price
+  end
+
+  def currency_conversor(from, to)
+    case [from, to]
+    when ['brl', 'usd']
+      1.0 / @q.brl_usd
+    when ['brl', 'eur']
+      1.0 / @q.brl_eur
+    when ['usd', 'brl']
+      @q.brl_usd
+    when ['usd', 'eur']
+      @q.brl_usd / @q.brl_eur
+    when ['eur', 'brl']
+      @q.brl_eur
+    when ['eur', 'usd']
+      @q.brl_eur / @q.brl_usd
+    else
+      1.0
     end
 
-    # TODO additional product info (corresponds to simulation?)
-
-  # rescue StandardError => e
-  #   error(e.to_s)
   end
 
   def setup_cost_and_markup
