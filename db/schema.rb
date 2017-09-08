@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907032723) do
+ActiveRecord::Schema.define(version: 20170908033432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,6 +259,7 @@ ActiveRecord::Schema.define(version: 20170907032723) do
     t.bigint "vehicle_id"
     t.bigint "upload_id"
     t.string "currency"
+    t.boolean "freight_padrao"
     t.index ["city_id"], name: "index_quotes_on_city_id"
     t.index ["cost_id"], name: "index_quotes_on_cost_id"
     t.index ["customer_id"], name: "index_quotes_on_customer_id"

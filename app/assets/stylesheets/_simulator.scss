@@ -6,6 +6,13 @@ $simulateButtonBlueHover: #0088cc;
 $productSectionBackgroundGray: #8c8c8c;
 $aaFontGray: #5E6469;
 
+@mixin strong-label {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: $aaFontGray;
+  text-transform: uppercase !important;
+}
+
 .simulator-form {
 
   .inputs-side {
@@ -39,37 +46,6 @@ $aaFontGray: #5E6469;
       }
   }
 
-  .inputs-middle {
-
-    .currency-field {
-      width: 55%;
-      float: left;
-    }
-
-    .unit-field {
-      width: 43%;
-      float: right;
-    }
-
-    fieldset.inputs {
-      height: 25px;
-      padding-top: 32px;
-      padding-bottom: 24px;
-    }
-
-    .choices-group {
-      width: 100%;
-      padding: 0;
-      text-align: center;
-    }
-
-    .choice {
-      width: 50px;
-      display: inline-block;
-    }
-
-  }
-
   .inputs-bottom {
     width: 100%;
 
@@ -82,15 +58,43 @@ $aaFontGray: #5E6469;
       width: 43%;
       float: right;
     }
-
-
-
   }
 
   fieldset.inputs {
     margin-top: -7px;
-    padding-top: 42px;
+    padding-top: 35px;
     padding-bottom: 8px;
+
+    legend > span {
+      padding: 6px 15px
+    }
+  }
+}
+
+.currency-and-unit-inputs {
+
+  fieldset.inputs {
+    height: 25px;
+    padding-top: 22px;
+    padding-bottom: 24px;
+  }
+
+  .choices-group {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .choice {
+    width: 50px;
+    display: inline-block;
+  }
+}
+
+.details-and-exchange-rates-inputs {
+
+  .input.number {
+    padding: 7px 10px;
   }
 }
 
@@ -112,10 +116,7 @@ $aaFontGray: #5E6469;
   }
 
   label {
-    font-size: 1.0em;
-    font-weight: bold;
-    color: $aaFontGray;
-    text-transform: uppercase;
+    @include strong-label;
     margin: 0 0 0 12px;
   }
 
@@ -247,7 +248,24 @@ $aaFontGray: #5E6469;
 
 .freight-fieldset {
 
-  height: 161px;
+  height: 241px;
+
+  #quote_freight_padrao_input label {
+    @include strong-label;
+  }
+
+  #quote_unit_freight_input {
+    margin-top: 23px;
+    margin-left: 54px;
+
+    label {
+      width: 85px;
+    }
+
+    input {
+      width: 100px;
+    }
+  }
 
   #quote_freight_base_type_input legend.label {
     border: none;

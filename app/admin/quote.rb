@@ -8,7 +8,7 @@ ActiveAdmin.register Quote do
                 :brl_usd, :brl_eur, :quantity, :unit, :unit_price, :markup, :fixed_price,
                 :optimal_markup_id, :cost_id, :fob_net_price,
                 :final_freight, :comment, :dist_center_id, :city_id, :unit_freight,
-                :freight_base_type, :freight_subtype, :vehicle_id
+                :freight_base_type, :freight_subtype, :vehicle_id, :freight_padrao, :currency
 
   form partial: 'form', title: 'Simulador de Preço'
 
@@ -82,9 +82,11 @@ ActiveAdmin.register Quote do
         q.currency = :brl
         q.unit = :kg
 
+
         q.brl_usd = GetExchangeRate.for(from: :USD, to: :BRL)
         q.brl_eur = GetExchangeRate.for(from: :EUR, to: :BRL)
 
+        q.freight_padrao = true
         q.freight_base_type = Quote.freight_base_type.bulk
         q.icms_padrao = true
         q.pis_confins_padrao = true

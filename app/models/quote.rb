@@ -66,9 +66,9 @@ class Quote < ApplicationRecord
   def simulate!
     set_currencies
     simulator_service = SimulatorService.new(q: self)
-    freight_service = FreightService.new(q: self)
+    freight_service = FreightService.new(q: self) if freight_padrao
     simulator_service.setup_cost_and_markup
-    unless errors.any?
+    if freight_padrao && errors.blank?
       freight_service.run
     end
     unless errors.any? || unit_freight.nil?
@@ -89,9 +89,13 @@ class Quote < ApplicationRecord
   end
 
   def freight_fields_consistency
-    if freight_condition != 'fob'
-      errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type.blank?
-      errors.add(:freight_subtype, "Obrigatório se 'Frete' foi selecionado") if freight_subtype.blank?
+    if freight_padrao
+      if freight_condition != 'fob'
+        errors.add(:freight_base_type, "Obrigatório se 'Frete' foi selecionado") if freight_base_type.blank?
+        errors.add(:freight_subtype, "Obrigatório se 'Frete' foi selecionado") if freight_subtype.blank?
+      end
+    elsif unit_freight.nil?
+      errors.add(:unit_freight, 'Deve inserir un valor se não escolhe padrão')
     end
   end
 
@@ -287,6 +291,7 @@ end
 #  vehicle_id         :integer
 #  upload_id          :integer
 #  currency           :string
+#  freight_padrao     :boolean
 #
 # Indexes
 #

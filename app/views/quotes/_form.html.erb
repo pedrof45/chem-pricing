@@ -16,44 +16,36 @@
             <% end %>
           </div>
         </div>
-        <div class="inputs-middle">
-          <div class="currency-field fields-box">
-            <%= f.inputs name: 'Moeda' do %>
-                <%= f.input :currency, as: :radio, label: false %>
-            <% end %>
-          </div>
-          <div class="unit-field fields-box">
-            <%= f.inputs name: 'Unidade' do %>
-                <%= f.input :unit, as: :radio, label: false %>
-            <% end %>
-          </div>
-        </div>
         <div class="inputs-bottom">
           <div class="inputs-bottom-left">
-            <div class="details-fields fields-box">
-              <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
-                  <%= f.input :payment_term %>
-                  <%= f.input :quantity %>
-              <% end %>
+            <div class="currency-and-unit-inputs">
+              <div class="currency-field fields-box">
+                <%= f.inputs name: 'Moeda' do %>
+                    <%= f.input :currency, as: :radio, label: false %>
+                <% end %>
+              </div>
+              <div class="unit-field fields-box">
+                <%= f.inputs name: 'Unidade' do %>
+                    <%= f.input :unit, as: :radio, label: false %>
+                <% end %>
+              </div>
             </div>
-            <div class="exchange-rate-fields fields-box">
-              <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
-                  <%= f.input :brl_usd %>
-                  <%= f.input :brl_eur %>
-              <% end %>
-            </div>
-             <div class="Info">
-              <%= f.inputs name: '(*) Campo Obrigatorio', class: 'data details-fieldset' do %>
-              <% end %>
+            <div class="details-and-exchange-rates-inputs">
+              <div class="details-fields fields-box">
+                <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
+                    <%= f.input :payment_term %>
+                    <%= f.input :quantity %>
+                <% end %>
+              </div>
+              <div class="exchange-rate-fields fields-box">
+                <%= f.inputs name: 'Taxas de Câmbio', class: 'inputs details-fieldset' do %>
+                    <%= f.input :brl_usd %>
+                    <%= f.input :brl_eur %>
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="inputs-bottom-right">
-            <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
-                <%= f.input :freight_base_type, as: :radio %>
-                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:bulk), input_html: { class: 'bulk-subtype-input' } %>
-                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:packed), input_html: { class: 'packed-subtype-input' } %>
-                <%= f.input :vehicle %>
-            <% end %>
             <div class="taxes-fields fields-box">
               <%= f.inputs name: 'Impostos' do %>
                   <div class="icms-box tax-box">
@@ -68,6 +60,14 @@
                   </div>
               <% end %>
             </div>
+            <%= f.inputs name: 'Frete', class: 'inputs freight-fieldset' do %>
+                <%= f.input :freight_padrao, label: 'Padrao?' %>
+                <%= f.input :unit_freight %>
+                <%= f.input :freight_base_type, as: :radio, input_html: { class: 'freight-show-if-padrao' } %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:bulk), input_html: { class: 'bulk-subtype-input freight-show-if-padrao' } %>
+                <%= f.input :freight_subtype, as: :select, collection: Quote.freight_subtype_options(:packed), input_html: { class: 'packed-subtype-input freight-show-if-padrao' } %>
+                <%= f.input :vehicle, input_html: { class: 'freight-show-if-padrao' } %>
+            <% end %>
           </div>
         </div>
         <div class="product-info-section">

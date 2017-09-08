@@ -5,6 +5,16 @@ function toggleFreightSubtypeInputs() {
   $('.packed-subtype-input').parent().toggle(f_type === 'packed');
 }
 
+function toggleFreightPadraoInput() {
+  var freightPadrao = $('#quote_freight_padrao').is(":checked");
+  $(".freight-show-if-padrao").closest('li.input').toggle(freightPadrao);
+  $("#quote_unit_freight_input").toggle(!freightPadrao);
+  if(freightPadrao) {
+    toggleFreightSubtypeInputs();
+    toggleVehicleInput();
+  }
+}
+
 function toggleVehicleInput() {
   var f_type = $('#quote_freight_base_type_input input:checked').val();
   var s2_subtype = $('.' + f_type + '-subtype-input').select2('data');
@@ -197,6 +207,10 @@ $(function () {
     toggleVehicleInput();
   });
 
+  $('#quote_freight_padrao').change(function () {
+    toggleFreightPadraoInput();
+  });
+
   $('#quote_icms_padrao').change(function () {
     toggleIcms();
   });
@@ -213,10 +227,13 @@ $(function () {
     var f_type = $('#quote_freight_base_type_input input:checked').val();
     $('#quote_freight_subtype:not(.' + f_type + '-subtype-input)').remove();
     convertPercentageFields(false);
+    var freightPadrao = $('#quote_freight_padrao').is(":checked");
+    (freightPadrao ? $('#quote_unit_freight') : $(".freight-show-if-padrao")).remove();
     return true;
   });
 
   toggleFreightSubtypeInputs();
+  toggleFreightPadraoInput();
   toggleVehicleInput();
   togglePriceMarkupInput();
   toggleCityInput();

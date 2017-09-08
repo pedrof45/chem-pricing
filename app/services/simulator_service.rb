@@ -40,6 +40,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
   end
 
   def calc_unit_freight
+    return @q.unit_freight unless @q.freight_padrao
     @q.unit_freight *= currency_conversor('brl', @q.currency)
     @q.unit_freight *= unit_conversor(@q.product.unit, @q.unit) #freight service gives amount based on product's unit
   end
