@@ -15,7 +15,7 @@ class FreightService < PowerTypes::Service.new(:q)
     end
 
     convert_unit
-    convert_currency
+    # convert_currency (is now converted in simulator service)
     @q.unit_freight = @freight.round(4)
   end
 
@@ -29,6 +29,7 @@ class FreightService < PowerTypes::Service.new(:q)
     end
   end
 
+  # DEPRECATED
   def convert_currency
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
@@ -42,7 +43,7 @@ class FreightService < PowerTypes::Service.new(:q)
     if @subtype!=nil
       send("#{type}_#{subtype[/([a-z]+)/]}") 
       else
-        error('Subtipo fica vacio')
+        error('Subtipo frete fica vacio')
     end
   end
 
