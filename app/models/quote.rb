@@ -185,9 +185,29 @@ class Quote < ApplicationRecord
     (unit_price * pis_confins).round(2)
   end
 
+  def financial_cost
+    # TODO validate payment term range ( > 0? )
+    # TODO Handle Sys Var Unset
+    @financial_costs ||= begin
+      if payment_term.try(:zero?)
+        0
+      else
+        interest_sys_var = case payment_term
+                             when (0..30)
+                               :interest_2_30
+                             when (31..60)
+                               :interest_31_60
+                             else
+                               :interest_more_60
+                           end
+        interest = SystemVariable.get interest_sys_var
+        ((interest + 1.0)**(payment_term/30.0)) -1.0
+      end
+    end
+  end
+
   def encargos
-    return 0 if payment_term.zero?
-    (unit_price * final_freight)
+    (unit_price * financial_cost)
   end
 
   def encargos_amount
