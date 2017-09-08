@@ -79,6 +79,9 @@ ActiveAdmin.register Quote do
         # q.customer = Customer.take
         # q.product = Product.take
 
+        q.currency = :brl
+        q.unit = :kg
+
         q.brl_usd = GetExchangeRate.for(from: :USD, to: :BRL)
         q.brl_eur = GetExchangeRate.for(from: :EUR, to: :BRL)
 

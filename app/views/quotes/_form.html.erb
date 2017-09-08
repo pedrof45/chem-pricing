@@ -16,6 +16,18 @@
             <% end %>
           </div>
         </div>
+        <div class="inputs-middle">
+          <div class="currency-field fields-box">
+            <%= f.inputs name: 'Moeda' do %>
+                <%= f.input :currency, as: :radio, label: false %>
+            <% end %>
+          </div>
+          <div class="unit-field fields-box">
+            <%= f.inputs name: 'Unidade' do %>
+                <%= f.input :unit, as: :radio, label: false %>
+            <% end %>
+          </div>
+        </div>
         <div class="inputs-bottom">
           <div class="inputs-bottom-left">
             <div class="details-fields fields-box">

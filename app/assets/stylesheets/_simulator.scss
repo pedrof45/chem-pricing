@@ -39,6 +39,37 @@ $aaFontGray: #5E6469;
       }
   }
 
+  .inputs-middle {
+
+    .currency-field {
+      width: 55%;
+      float: left;
+    }
+
+    .unit-field {
+      width: 43%;
+      float: right;
+    }
+
+    fieldset.inputs {
+      height: 25px;
+      padding-top: 32px;
+      padding-bottom: 24px;
+    }
+
+    .choices-group {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+
+    .choice {
+      width: 50px;
+      display: inline-block;
+    }
+
+  }
+
   .inputs-bottom {
     width: 100%;
 
