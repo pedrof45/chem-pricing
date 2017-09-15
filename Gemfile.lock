@@ -133,7 +133,7 @@ GEM
     formtastic_i18n (0.6.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    google_currency (3.3.0)
+    google_currency (3.4.0)
       money (~> 6.7)
     guard (2.14.1)
       formatador (>= 0.2.4)
@@ -368,7 +368,7 @@ DEPENDENCIES
   enumerize
   factory_girl_rails
   faker
-  google_currency
+  google_currency (> 3.3.0)
   guard-rspec
   jbuilder (~> 2.5)
   money-rails
