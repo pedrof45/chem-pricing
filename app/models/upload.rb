@@ -12,6 +12,10 @@ class Upload < ApplicationRecord
   enumerize :model, in: [:quote,:optimal_markup, :sale, :cost, :customer, :product, :icms_tax, :city,
                          :normal_bulk_freight, :chopped_bulk_freight, :product_bulk_freight, :especial_packed_freight, :normal_packed_freight, :vehicle, :packaging]
 
+  def name
+    "id: #{id}"
+  end
+
   def granted_model
     return unless model
     errors.add(:model, "Não autorizado") unless Upload.granted_models_for(user.role).include? model.to_sym

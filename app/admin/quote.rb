@@ -8,7 +8,7 @@ ActiveAdmin.register Quote do
                 :brl_usd, :brl_eur, :quantity, :unit, :unit_price, :markup, :fixed_price,
                 :optimal_markup_id, :cost_id, :fob_net_price,
                 :final_freight, :comment, :dist_center_id, :city_id, :unit_freight,
-                :freight_base_type, :freight_subtype, :vehicle_id, :freight_padrao, :currency
+                :freight_base_type, :freight_subtype, :vehicle_id, :freight_padrao, :currency, :watched
 
   form partial: 'form', title: 'Simulador de Preço'
 

@@ -182,7 +182,7 @@ pt-BR:
         currency: Moeda
         markup: MarkUp Calculado (%)
         fixed_price: Preço Fixo?
-        quote_date: Data
+        quote_date: Data de Simulação
         city: Cidade Alternativa
         optimal_markup_amount: MarkUp Meta Semestre (%)
         unit_price_amount: Preço Final ($/UN)
@@ -208,7 +208,7 @@ pt-BR:
         freight_subtype: Subtipo
         vehicle: Veiculo
         table_value: MarkUp Tabela (%)
-        created_at: Data
+        created_at: Data de Simulação
         watched: Monitorada
         current: Vigente
       city:
@@ -306,6 +306,10 @@ pt-BR:
         kg: KG
         lt: L
     cost:
+      currency:
+        brl: BRL
+        usd: USD
+        eur: EUR
       on_demand:
         on_request: CONTRA PEDIDO
         discontinued: DESCONTINUADO

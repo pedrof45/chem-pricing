@@ -10,8 +10,9 @@ class Quote < ApplicationRecord
   belongs_to :optimal_markup, required: false
   belongs_to :vehicle, required: false
 
-  # TODO set quote_date
+  # TODO set quote_date (currently using created_at)
 
+  before_create :set_current
   after_validation :simulate!
 
   validates_presence_of :freight_condition, :quantity, :payment_term
@@ -77,6 +78,11 @@ class Quote < ApplicationRecord
     unless errors.any? || unit_freight.nil?
       simulator_service.run
     end
+  end
+
+
+  def set_current
+    self.current = true if watched
   end
 
   def quantity_format
