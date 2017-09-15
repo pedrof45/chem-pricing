@@ -168,10 +168,10 @@ pt-BR:
         customer: Cliente
         product: Produto
         payment_term: Prazo de Pagamento (dias)
-        icms_padrao: ICMS Padrao
+        icms_padrao: ICMS Padrão
         icms: ICMS
         ipi: IPI
-        pis_confins_padrao: Pis/Confins Padrao
+        pis_confins_padrao: Pis/Confins Padrão
         pis_confins: Pis/Confins
         freight_condition: Condiçoes de Frete
         brl_usd: BRL/USD
@@ -203,6 +203,7 @@ pt-BR:
         final_base_price: Preço Piso ($/UN)
         icms_amount: ICMS ($/UN)
         pis_confins_amount: PIS/CONFINS ($/UN)
+        freight_padrao: Frete Padrão
         freight_base_type: Tipo
         freight_subtype: Subtipo
         vehicle: Veiculo

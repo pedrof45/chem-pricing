@@ -55,7 +55,7 @@ class HeaderTranslatorService < PowerTypes::Service.new
   end
 
   def enum_field_to_pt(model, field, value)
-    I18n.t("enumerize.#{model}.#{field}.#{value}")
+    I18n.t("enumerize.#{model}.#{field}.#{value}") if value.present?
   end
 
   def enum_field_to_en(model, field, pt_value)
