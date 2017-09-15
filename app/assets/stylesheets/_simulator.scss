@@ -186,8 +186,8 @@ $aaFontGray: #5E6469;
   }
 
   .make-quote-button {
-    float: right;
-    margin-right: calc(50% - 60px);
+    float: left;
+    margin-left: calc(50% - 60px);
     background-color: $simulateButtonBlue;
     font-size: 18px;
     width: 116px;
@@ -207,6 +207,14 @@ $aaFontGray: #5E6469;
     margin-left: 56%;
     margin-top: -75px;
     font-size: 10px;
+  }
+
+  #quote_watched_input {
+    float: right;
+    margin-right: 19%;
+    margin-top: 25px;
+    margin-bottom: -33px;
+    padding-bottom: 5px;
   }
 }
 

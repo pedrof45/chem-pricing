@@ -80,6 +80,7 @@
               <%= f.input :fixed_price, as: :radio, collection: { "Preço Unitario ($/un)" => true, "Mark-up (%)" => false }, label:false %>
               <%= f.input :unit_price, label: false %>
               <%= f.input :markup, label: false %>
+              <%= f.input :watched, label: 'Monitorar' %>
               <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '....'}%>
               <span class="markup-default-msg">* Default é Mark-up Tabela</span>
         <% end %>

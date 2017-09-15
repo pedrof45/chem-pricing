@@ -209,6 +209,7 @@ pt-BR:
         vehicle: Veiculo
         table_value: MarkUp Tabela (%)
         created_at: Data
+        watched: Monitorada
       city:
         name: Nome
         state: Estado

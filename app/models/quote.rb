@@ -293,6 +293,8 @@ end
 #  upload_id          :integer
 #  currency           :string
 #  freight_padrao     :boolean
+#  watched            :boolean
+#  current            :boolean
 #
 # Indexes
 #
