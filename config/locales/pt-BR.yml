@@ -210,6 +210,7 @@ pt-BR:
         table_value: MarkUp Tabela (%)
         created_at: Data
         watched: Monitorada
+        current: Vigente
       city:
         name: Nome
         state: Estado
@@ -289,6 +290,10 @@ pt-BR:
         pt_model: Tabela
         user: Usuario
         created_at: Data
+    scopes:
+      quote:
+        all: Todas
+        watched_current: Monitorada - Vigente
   enumerize:
     user:
       role:

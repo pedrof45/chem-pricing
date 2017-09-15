@@ -26,6 +26,8 @@ class Quote < ApplicationRecord
   enumerize :currency, in: [:brl, :usd, :eur]
   enumerize :freight_base_type, in: [:bulk, :packed]
 
+  scope :watched_current, -> { where(watched: true, current: true) }
+
 
   def self.xls_mode
     :create

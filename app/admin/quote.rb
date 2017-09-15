@@ -12,8 +12,28 @@ ActiveAdmin.register Quote do
 
   form partial: 'form', title: 'Simulador de Preço'
 
+  scope 'Monitorada - Vigente', :watched_current, default: true
+  scope 'Todas', :all
+
+  filter :watched
+  filter :current
+  filter :user
+  filter :customer
+  filter :product
+  filter :dist_center
+  filter :icms_padrao
+  filter :pis_confins_padrao
+  filter :freight_condition
+  filter :fixed_price
+  filter :freight_base_type
+  filter :freight_subtype
+  filter :upload
+  filter :currency
+  filter :freight_padrao
 
   index do
+    column :watched
+    bool_column :current
     column :user
     column :customer
     column :product
