@@ -25,6 +25,7 @@ gem 'money-rails'
 gem 'google_currency', '> 3.3.0'
 gem 'roo', '~> 2.7.0'
 gem 'activerecord-import'
+gem 'sidekiq'
 
 
 group :production do
