@@ -6,7 +6,6 @@ class UploadParserService < PowerTypes::Service.new(:u)
     headers = hts.model_fields_to_pt(@u.model)
     hash_tables = build_hash_tables
     compare_headers(sheet, headers)
-
     new_entries = []
     accept_file = true
     sheet.parse(headers).each_with_index do |row, index|
@@ -14,7 +13,12 @@ class UploadParserService < PowerTypes::Service.new(:u)
       puts "Processing sheet row ##{row_n}" if (row_n % 100).zero?
       row_tr_enums = translate_enum_fields(row) if @klass.is_a?(Enumerize)
       row.merge!(row_tr_enums) if row_tr_enums.present?
+      # Chopped Bulk Freight Special Type
+      # if @u.model.to_s == 'quote'
+      #   # TODO Translate freight subtype
+      # end
       obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
+      # TODO fix simulate called twice, obj.valid? (L21) and @klass.import new_entries (L34)
       if !obj.errors.any? && obj.valid?
         new_entries << obj
       else
@@ -72,5 +76,10 @@ class UploadParserService < PowerTypes::Service.new(:u)
     row.select { |k,v| @enum_cols.include?(k.to_s)}.map do |k,v|
       [k, hts.enum_field_to_en(@u.model, k, v)]
     end.to_h
+  end
+
+  def tr_chopped_bulk_freight_subtype(pt_subtype)
+    cbf = ChoppedBulkFreight.find_by(operation: pt_subtype)
+    "chopped_#{cbf.id}".to_sym if cbf
   end
 end

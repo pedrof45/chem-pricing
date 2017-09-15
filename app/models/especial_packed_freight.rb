@@ -1,6 +1,12 @@
 class EspecialPackedFreight < ApplicationRecord
 	belongs_to :vehicle
 
+  after_save :update_watched_quotes
+
+  def update_watched_quotes
+    WatchedUpdateService.new.run_for_freight_obj(self)
+  end
+
 	def self.xls_mode
     :update
   end

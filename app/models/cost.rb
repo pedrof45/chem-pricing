@@ -9,17 +9,18 @@ class Cost < ApplicationRecord
   validates_presence_of :product_id, :dist_center_id, :base_price,
     :currency, :amount_for_price
 
+  after_save :update_watched_quotes
+
   enumerize :currency, in: [:brl, :usd, :eur]
   enumerize :on_demand, in: [:on_request, :discontinued, :regular]
 
-
+  def update_watched_quotes
+    return if upload.present?
+    WatchedUpdateService.new.run_for_cost(self)
+  end
 
   def lead_time_order?
-    if on_demand== 'CONTRA PEDIDO'
-      return true
-    else
-      return false
-    end
+    on_demand == 'CONTRA PEDIDO'
   end
 
 def self.xls_mode

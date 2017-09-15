@@ -2,6 +2,12 @@ class ProductBulkFreight < ApplicationRecord
   belongs_to :vehicle
   belongs_to :product
 
+  after_save :update_watched_quotes
+
+  def update_watched_quotes
+    WatchedUpdateService.new.run_for_freight_obj(self)
+  end
+
 def self.xls_mode
     :update
   end

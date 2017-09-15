@@ -4,7 +4,7 @@ class Upload < ApplicationRecord
   attr_accessor :file, :records
 
   after_validation :parse
-  after_create :associate_records
+  after_create :associate_records, :update_watched_quotes
 
   validates_presence_of :model, :file, :user
   validate :granted_model
@@ -52,6 +52,11 @@ class Upload < ApplicationRecord
 
   def associate_records
     klass.where(id: records).update_all(upload_id: self.id)
+  end
+
+  def update_watched_quotes
+    return unless model == 'quote' || model.include?('freight')
+    WatchedUpdateService.new.run_for_upload(self)
   end
 
   def records_count
