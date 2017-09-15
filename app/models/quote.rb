@@ -48,6 +48,7 @@ class Quote < ApplicationRecord
       brl_eur: :attr,
       freight_condition: :attr,
       'city.code': :f_key,
+      freight_padrao: :attr,
       freight_base_type: :attr,
       freight_subtype: :attr,
       'vehicle.name': :f_key,
@@ -205,7 +206,7 @@ class Quote < ApplicationRecord
                                :interest_more_60
                            end
         interest = SystemVariable.get interest_sys_var
-        ((interest + 1.0)**(payment_term/30.0)) -1.0
+        ((interest + 1.0)**(payment_term/ 30.0)) -1.0
       end
     end
   end
