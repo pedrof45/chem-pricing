@@ -245,6 +245,12 @@ $aaFontGray: #5E6469;
     color: $aaFontGray;
     margin-top: 10%;
     padding: 10px;
+
+    &.errors {
+      color: red;
+      margin-top: 10px;
+      text-align: left;
+    }
   }
 
   .row-unit_price_amount, .row-total_price, .row-mcb {

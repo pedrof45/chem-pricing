@@ -25,6 +25,10 @@ class QuotePolicy < ApplicationPolicy
       end
 	end
 
+	def unwatch?
+		update?
+	end
+
 	def update?
 		owner? || user.manager_or_more?
 	end

@@ -130,6 +130,10 @@ class Quote < ApplicationRecord
     self.brl_eur ||= GetExchangeRate.for(from: :EUR, to: :BRL)
   end
 
+  def watched_current?
+    watched && current
+  end
+
   def origin_state
     dist_center.city.state if dist_center
   end

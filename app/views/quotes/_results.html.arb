@@ -2,12 +2,15 @@ panel 'Resultado da Cotação', class: 'quote-results-panel' do
   attributes_table_for quote do
     if quote.new_record?
       para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'
+    elsif quote.errors.any?
+      para "Cotação inválida, não pode calcular o resultado:", class: 'simulate-msg'
+      para '&#8226; '.html_safe + quote.errors.full_messages.join('</br>&#8226; ').html_safe, class: 'simulate-msg errors'#, style: 'color: red; margin-top: 0px;'
     else
       row :optimal_markup_amount
       row(:table_value) { |q| 100 * q.optimal_markup.table_value.round(2) if q.optimal_markup.try(:table_value) }
       row :mark_up_porcentage
-      row(:unit) { |q| q.product.unit.upcase } 
-      row(:currency) { |q| q.cost.currency.upcase } 
+      row(:unit) { |q| q.product&.unit&.upcase }
+      row(:currency) { |q| q.cost&.currency&.upcase }
       row :final_base_price
       row :calculated_markup_amount
       row :fob_net_rounded

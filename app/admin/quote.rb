@@ -32,6 +32,7 @@ ActiveAdmin.register Quote do
   filter :freight_padrao
 
   index do
+    id_column
     column :watched
     bool_column :current
     column :user
@@ -62,7 +63,11 @@ ActiveAdmin.register Quote do
     column("Preço Piso") { |m| m.cost.base_price if m.cost }
     column :comment
     column :payment_term
-    actions
+    actions defaults: false do |quote|
+      item 'Editar', edit_quote_path(quote), class: 'member_link' if quote.watched_current?
+      item 'Não Monitorear', unwatch_quote_path(quote), method: :patch, class: 'member_link' if quote.watched_current?
+      item 'Use como base para novo', edit_quote_path(quote), class: 'member_link' unless quote.watched_current?
+    end
   end
 
     csv do
@@ -87,6 +92,12 @@ ActiveAdmin.register Quote do
             redirect_to edit_quote_path(resource), flash: { notice: "Cotaçao simulada com sucesso!" }
           end
         end
+      end
+    end
+
+    def update
+      super do
+        redirect_to(edit_quote_path(resource), flash: { notice: "Cotaçao atualizada com sucesso!" }) &&  return if resource.errors.empty?
       end
     end
 
@@ -154,5 +165,10 @@ ActiveAdmin.register Quote do
     resp = { icms: icms, origin: origin, destination: destination }
     puts "FETCH ICMS RESPONSE: #{resp}"
     render json: resp
+  end
+
+  member_action :unwatch, method: :patch do
+    resource.update_columns(watched: false, current: false)
+    redirect_to quotes_path(scope: 'todas'), notice: "Cotação não será mais monitorada"
   end
 end

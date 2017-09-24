@@ -1,5 +1,5 @@
 <div class="simulator-form">
-  <%= semantic_form_for resource, url: quotes_path, html: { method: :post }  do |f| %>
+  <%= semantic_form_for resource, url: (resource.watched_current? ? quote_path(resource) : quotes_path), html: { method: resource.watched_current? ? :patch : :post }  do |f| %>
       <div class="inputs-side">
         <div class="inputs-top">
           <div class="basic-fields fields-box">
@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="product-info-section">
-          <%= render partial: 'product_info' %>
+          <%= render(partial: 'product_info') if resource.product %>
         </div>
       </div>
       <div class="outputs-side">
@@ -81,7 +81,7 @@
               <%= f.input :unit_price, label: false %>
               <%= f.input :markup, label: false %>
               <%= f.input :watched, label: 'Monitorar' %>
-              <%= f.action :submit, button_html: { value: 'Cotar!', class: "make-quote-button", 'data-disable-with': '....'}%>
+              <%= f.action :submit, button_html: { value: (resource.watched_current? ? 'Atualizar' : 'Cotar!'), class: "make-quote-button", 'data-disable-with': '....'}%>
               <span class="markup-default-msg">* Default é Mark-up Tabela</span>
         <% end %>
         </div>
