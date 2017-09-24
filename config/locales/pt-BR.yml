@@ -166,6 +166,7 @@ pt-BR:
       quote:
         user: Usuario
         customer: Cliente
+        customer_id: Cliente
         product: Produto
         payment_term: Prazo de Pagamento (dias)
         icms_padrao: ICMS Padrão

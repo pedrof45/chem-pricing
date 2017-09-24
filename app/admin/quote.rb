@@ -122,7 +122,7 @@ ActiveAdmin.register Quote do
     end
   end
 
-  collection_action :fetch_markup, method: :get do
+  collection_action :fetch_data, method: :get do
       dist_center = DistCenter.find_by(id: params[:dist_center_id])
       product = Product.find_by(id: params[:product_id])
       customer = Customer.find_by(id: params[:customer_id])
@@ -130,8 +130,11 @@ ActiveAdmin.register Quote do
       unless o_mkup
         o_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: nil).last
       end
-      resp = { table_value: o_mkup.try(:table_value) }
-      puts "FETCH MARKUP RESPONSE: #{resp}"
+      cost = Cost.where(product: product, dist_center: dist_center).last
+      resp = { table_value: o_mkup.try(:table_value),
+               unit: product.try(:unit),
+               currency: cost.try(:currency) }
+      puts "FETCH DATA RESPONSE: #{resp}"
       render json: resp
   end
 

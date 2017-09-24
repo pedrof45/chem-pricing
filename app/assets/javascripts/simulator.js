@@ -32,11 +32,11 @@ function togglePriceMarkupInput() {
   $('#quote_markup').prop('disabled', priceFixed).toggleClass('disabled-input', priceFixed);
 }
 
-function fetchMarkup() {
+function fetchData() {
   var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
   var productId = ($('#quote_product_id').select2('data') || {}).id;
   var customerId = ($('#quote_customer_id').select2('data') || {}).id;
-  var url = '/quotes/fetch_markup.json';
+  var url = '/quotes/fetch_data.json';
   $.ajax({
     type: "GET",
     dataType: "script",
@@ -48,16 +48,31 @@ function fetchMarkup() {
     },
     complete: function(data, textStatus, jqXHR){
       if((data === undefined) || (data.responseText === undefined)) { return; }
-      var respObj = JSON.parse(data.responseText);
-      var tableValue = (respObj || {}).table_value
-      if(tableValue !== undefined) {
-        if(tableValue !== undefined && tableValue !== null && !isNaN(tableValue)) {
-          tableValue = 100 * Number(tableValue);
-        }
-        $('#quote_markup').val(tableValue)
-      }
+      var respObj = JSON.parse(data.responseText) || {};
+      processMarkup(respObj.tableValue);
+      processUnit(respObj.unit);
+      processCurrency(respObj.currency);
     }
   });
+}
+
+function processMarkup(tableValue) {
+  if(tableValue !== undefined) {
+    if(tableValue !== undefined && tableValue !== null && !isNaN(tableValue)) {
+      tableValue = 100 * Number(tableValue);
+    }
+    $('#quote_markup').val(tableValue)
+  }
+}
+
+function processUnit(unit) {
+  if(unit !== 'kg' && unit !== 'lt') return;
+  $('#quote_unit_' + unit).prop("checked",true);
+}
+
+function processCurrency(currency) {
+  if(currency !== 'brl' && currency !== 'usd' && currency !== 'eur') return;
+  $('#quote_currency_' + currency).prop("checked",true);
 }
 
 function fetchIcms() {
@@ -181,7 +196,7 @@ function convertPercentageFields(toPerc) {
 
 $(function () {
   $('.base-field-input').change(function () {
-    fetchMarkup();
+    fetchData();
   });
 
   $('#quote_product_id').change(function () {
