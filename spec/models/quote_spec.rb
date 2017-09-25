@@ -18,16 +18,16 @@ RSpec.describe Quote, type: :model do
   end
 
   # products
-  {'64320022-93' => 1,
-   '81510094-10' => 1,
-   '35410018-1' => 1,
-   '66740043-10' => 1,
-   '66740040-10' => 1,
-   '51010004-482' => 0.785,
-   '57010102-482' => 0.67,
-   '52060110-116' => 0.95,
-   '52050002-10' => 1.044604617 }.each_with_index do |(sku_code, density), i|
-    let!("p_#{i}") { create(:product, sku: sku_code, density: density) }
+  {'64320022-93' => [1, :kg],
+   '81510094-10' => [1, :kg],
+   '35410018-1' => [1, :kg],
+   '66740043-10' => [1, :kg],
+   '66740040-10' => [1, :kg],
+   '51010004-482' => [0.785, :lt],
+   '57010102-482' => [0.67, :lt],
+   '52060110-116' => [0.95, :kg],
+   '52050002-10' => [1.044604617, :kg] }.each_with_index do |(sku_code, data), i|
+    let!("p_#{i}") { create(:product, sku: sku_code, density: data.first, unit: data.last) }
   end
 
   # dist centers
@@ -61,6 +61,7 @@ RSpec.describe Quote, type: :model do
     # quotes
     QUOTE_EXPECTED_PRICES = {}
     CSV.foreach("spec/quotes.csv", headers: true) do |row|
+      # next if ($. - 1) != 10
       let!("q_#{$. - 1}") do
         params = row.to_h.reject { |k,v| k.starts_with?('n_') }
         customer = Customer.find_by!(code: row['customer_code'])
@@ -77,6 +78,7 @@ RSpec.describe Quote, type: :model do
   context 'with the quote list' do
 
     18.times do |i|
+      # i = 9 # i + 1 == 11
       it "quotes correctly quote ##{i + 1}" do
         quote = send("q_#{i + 1}")
         puts "Quote ##{i + 1} result #{quote.unit_price}, expected #{QUOTE_EXPECTED_PRICES[quote].to_f}"

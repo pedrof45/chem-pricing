@@ -22,15 +22,34 @@ class SimulatorService < PowerTypes::Service.new(:q)
     unit_freight = calc_unit_freight
     financial_cost = @q.financial_cost
 
-
-
     if @q.fixed_price
-      @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - unit_freight ) / base_price) - 1.0).round(2)
-      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(2)
+      @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - unit_freight ) / base_price) - 1.0).round(3)
+      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
     else
-      @q.unit_price = ((((base_price * (1.0 + @q.markup)+ unit_freight))/tax_d) * (1.0 + financial_cost)).round(2)
-      @q.fob_net_price = (base_price * (1.0 + @q.markup))
+      @q.unit_price = ((((base_price * (1.0 + @q.markup)+ unit_freight))/tax_d) * (1.0 + financial_cost)).round(3)
+      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
     end
+
+
+    aux_print = {
+        U_PRICE: @q.unit_price&.to_f,
+        MKUP: @q.markup&.to_f,
+        COST: base_price&.to_f,
+        U_FREIGHT_BRL: @q.unit_freight&.to_f,
+        U_FREIGHT_CONV: unit_freight&.to_f,
+        T_1_ICMS_PC: tax_d&.to_f,
+        PRAZO: financial_cost&.to_f,
+        QCURRENCY: @q.currency,
+        CST_CURRENCY: @q.cost.currency
+    }
+
+    # puts "QUOTE SIMULATION OUTPUT"
+    # pp aux_print
+    # puts "#{@q.numb}cost;#{aux_print[:COST]}"
+    # puts "#{@q.numb}freight;#{aux_print[:U_FREIGHT_CONV]}"
+    #puts "#{@q.numb}imp;#{aux_print[:T_1_ICMS_PC]}"
+    # puts @q.markup&.to_f
+    #puts unit_freight.to_f
   end
 
   def calc_base_price
@@ -40,9 +59,11 @@ class SimulatorService < PowerTypes::Service.new(:q)
   end
 
   def calc_unit_freight
-    return @q.unit_freight unless @q.freight_padrao
-    @q.unit_freight *= currency_conversor('brl', @q.currency)
-    @q.unit_freight *= unit_conversor(@q.product.unit, @q.unit) #freight service gives amount based on product's unit
+    #return @q.unit_freight unless @q.freight_padrao
+    # @q.unit_freight * currency_conversor('brl', @q.currency)
+    c_conversor = currency_conversor(@q.cost.currency, @q.currency)
+    u_conversor = unit_conversor(@q.product.unit, @q.unit) #freight service gives amount based on product's unit
+    @q.unit_freight * c_conversor * u_conversor
   end
 
   def currency_conversor(from, to)
@@ -67,9 +88,9 @@ class SimulatorService < PowerTypes::Service.new(:q)
   def unit_conversor(from, to)
     return 1.0 if from == to
     if from == 'kg'
-      1.0 / @q.product.density
-    else #lt
       @q.product.density
+    else #lt
+      1.0 / @q.product.density
     end
   end
 
