@@ -3,7 +3,7 @@ FactoryGirl.define do
     product nil
     dist_center nil
     base_price "9.99"
-    currency "MyString"
+    currency "brl"
     suggested_markup "9.99"
   end
 end
