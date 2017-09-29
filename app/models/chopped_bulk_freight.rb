@@ -1,4 +1,5 @@
 class ChoppedBulkFreight < ApplicationRecord
+  belongs_to :upload, required: false
 
   after_save :update_watched_quotes
 

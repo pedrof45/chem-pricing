@@ -1,6 +1,7 @@
 class ProductBulkFreight < ApplicationRecord
   belongs_to :vehicle
   belongs_to :product
+  belongs_to :upload, required: false
 
   after_save :update_watched_quotes
 
