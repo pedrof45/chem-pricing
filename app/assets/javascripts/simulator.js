@@ -33,9 +33,9 @@ function togglePriceMarkupInput() {
 }
 
 function fetchData() {
-  var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
-  var productId = ($('#quote_product_id').select2('data') || {}).id;
-  var customerId = ($('#quote_customer_id').select2('data') || {}).id;
+  var distCenterId = ($('#quote_dist_center_id').select2('data') || {})[0].id;
+  var productId = ($('#quote_product_id').select2('data') || {})[0].id;
+  var customerId = ($('#quote_customer_id').select2('data') || {})[0].id;
   var url = '/quotes/fetch_data.json';
   $.ajax({
     type: "GET",
@@ -49,7 +49,7 @@ function fetchData() {
     complete: function(data, textStatus, jqXHR){
       if((data === undefined) || (data.responseText === undefined)) { return; }
       var respObj = JSON.parse(data.responseText) || {};
-      processMarkup(respObj.tableValue);
+      processMarkup(respObj.table_value);
       processUnit(respObj.unit);
       processCurrency(respObj.currency);
     }
