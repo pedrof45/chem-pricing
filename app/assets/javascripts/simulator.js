@@ -33,9 +33,9 @@ function togglePriceMarkupInput() {
 }
 
 function fetchData() {
-  var distCenterId = ($('#quote_dist_center_id').select2('data') || {})[0].id;
-  var productId = ($('#quote_product_id').select2('data') || {})[0].id;
-  var customerId = ($('#quote_customer_id').select2('data') || {})[0].id;
+  var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
+  var productId = ($('#quote_product_id').select2('data') || {}).id;
+  var customerId = ($('#quote_customer_id').select2('data') || {}).id;
   var url = '/quotes/fetch_data.json';
   $.ajax({
     type: "GET",

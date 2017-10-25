@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_skin'
 gem 'activeadmin', github: 'activeadmin'
-gem 'activeadmin_addons'
+gem 'activeadmin_addons', '~> 0.12.0'
 gem 'aws-sdk', '~> 2.5'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
