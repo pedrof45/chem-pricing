@@ -152,15 +152,10 @@ ActiveAdmin.register Quote do
   collection_action :fetch_icms, method: :get do
     dist_center = DistCenter.find(params[:dist_center_id])
     customer = Customer.find_by(id: params[:customer_id])
-    redispatch = params[:redispatch].present? && params[:redispatch].to_s != 'false'
     city = City.find_by(id: params[:city_id])
 
     origin = dist_center.city.state
-    destination = if redispatch || customer.blank?
-                    city.state
-                  else
-                    customer.city.state
-                  end
+    destination = customer&.city&.state || city&.state
     icms = IcmsTax.tax_value_for(origin, destination)
     resp = { icms: icms, origin: origin, destination: destination }
     puts "FETCH ICMS RESPONSE: #{resp}"
