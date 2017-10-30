@@ -1,4 +1,4 @@
-panel 'Resultado da Cotação', class: 'quote-results-panel' do
+panel 'Resultado da Cotação', class: "quote-results-panel #{'warned-results' if !quote.new_record? && quote.below_markup?}" do
   attributes_table_for quote do
     if quote.new_record?
       para 'Primeiro você tem que simular uma cotação para ver os resultados!', class: 'simulate-msg'

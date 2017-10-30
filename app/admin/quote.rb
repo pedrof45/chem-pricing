@@ -89,7 +89,12 @@ ActiveAdmin.register Quote do
             flash.now[:error] = resource.errors.to_a.join("<br/>").html_safe
             render 'form'
           else
-            redirect_to edit_quote_path(resource), flash: { notice: "Cotaçao simulada com sucesso!" }
+            flash_obj = if resource.below_markup?
+                          { notice: 'Cotaçao simulada', error: 'Voce esta cotando embaixo do mark-up tabela!' }
+                        else
+                          { notice: "Cotaçao simulada com sucesso!" }
+                        end
+            redirect_to edit_quote_path(resource), flash: flash_obj
           end
         end
       end
@@ -97,7 +102,12 @@ ActiveAdmin.register Quote do
 
     def update
       super do
-        redirect_to(edit_quote_path(resource), flash: { notice: "Cotaçao atualizada com sucesso!" }) &&  return if resource.errors.empty?
+        flash_obj = if resource.below_markup?
+                      { notice: 'Cotaçao atualizada', error: 'Voce esta cotando embaixo do mark-up tabela!' }
+                    else
+                      { notice: "Cotaçao atualizada com sucesso!" }
+                    end
+        redirect_to(edit_quote_path(resource), flash: flash_obj) &&  return if resource.errors.empty?
       end
     end
 

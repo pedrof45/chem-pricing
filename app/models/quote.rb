@@ -245,6 +245,13 @@ class Quote < ApplicationRecord
     product.unit.kg? ? quantity : quantity * product.density
   end
 
+  def below_markup?
+    opt_mkup = OptimalMarkup.where(product: product, dist_center: dist_center, customer: customer).last
+    opt_mkup ||= OptimalMarkup.where(product: product, dist_center: dist_center, customer_id: nil).last
+    return unless opt_mkup
+    markup < opt_mkup.table_value
+  end
+
   def self.freight_subtype_options(type)
     if type.try(:to_sym) == :packed
       {

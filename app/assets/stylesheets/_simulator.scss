@@ -5,6 +5,7 @@ $simulateButtonBlue: #006699;
 $simulateButtonBlueHover: #0088cc;
 $productSectionBackgroundGray: #8c8c8c;
 $aaFontGray: #5E6469;
+$markupWarnedText: #ff0000;
 
 @mixin strong-label {
   font-size: 1.0em;
@@ -326,6 +327,18 @@ $aaFontGray: #5E6469;
       color: $aaFontGray;
       margin-top: 4px;
       padding: 10px;
+    }
+  }
+}
+
+.warned-results {
+
+  .row-table_value,
+  .row-mark_up_porcentage,
+  .row-unit_price_amount {
+
+    td, th {
+      color: $markupWarnedText;
     }
   }
 }
