@@ -17,7 +17,7 @@ ActiveAdmin.register Cost do
     column("Preço Piso") { |r| r.base_price.round(2) }
     column :suggested_markup
     column :updated_cost
-    column :on_demand
+    column(:on_demand) { |r| t("enumerize.cost.on_demand.#{r.on_demand}")}
     actions
   end
 
