@@ -90,7 +90,7 @@ ActiveAdmin.register Quote do
             render 'form'
           else
             flash_obj = if resource.below_markup?
-                          { notice: 'Cotaçao simulada', error: 'Voce esta cotando embaixo do mark-up tabela!' }
+                          { notice: 'Cotaçao simulada', error: 'Você está cotando abaixo do mark-up tabela!' }
                         else
                           { notice: "Cotaçao simulada com sucesso!" }
                         end
@@ -103,7 +103,7 @@ ActiveAdmin.register Quote do
     def update
       super do
         flash_obj = if resource.below_markup?
-                      { notice: 'Cotaçao atualizada', error: 'Voce esta cotando embaixo do mark-up tabela!' }
+                      { notice: 'Cotaçao atualizada', error: 'Você está cotando abaixo do mark-up tabela!' }
                     else
                       { notice: "Cotaçao atualizada com sucesso!" }
                     end
