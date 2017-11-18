@@ -4,12 +4,11 @@ class NormalPackedFreight < ApplicationRecord
   belongs_to :upload, required: false
 	enumerize :category, in: [:pharma, :chemical]
 
-  after_save :update_watched_quotes
-
-
-  def update_watched_quotes
-    WatchedUpdateService.new.run_for_freight_obj(self)
-  end
+  # removed
+  # after_save :update_watched_quotes
+  # def update_watched_quotes
+  #   WatchedUpdateService.new.run_for_freight_obj(self)
+  # end
 
 	def self.xls_mode
     :update

@@ -55,7 +55,7 @@ class Upload < ApplicationRecord
   end
 
   def update_watched_quotes
-    return unless model == 'cost' || model.include?('freight')
+    return unless model == 'cost'# || model.include?('freight')
     WatchedUpdateService.new.run_for_upload(self)
   end
 
