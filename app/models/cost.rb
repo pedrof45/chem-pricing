@@ -16,7 +16,7 @@ class Cost < ApplicationRecord
 
   def update_watched_quotes
     return if upload.present?
-    WatchedUpdateService.new.run_for_cost(self)
+    WatchedUpdateJob.perform_later('cost', id)
   end
 
   def lead_time_order?
