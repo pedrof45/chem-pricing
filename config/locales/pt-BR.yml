@@ -4,6 +4,9 @@ pt-BR:
       user:
         one: Usuario
         other: Usuarios
+      contact:
+        one: Contato
+        other: Contatos
       customer:
         one: Cliente
         other: Clientes
@@ -79,7 +82,7 @@ pt-BR:
         position: Cargo
         business_unit: Unidade de Negocio
         role: Permisso
-        active: Ativo    
+        active: Ativo
       customer:
         code: Codigo Cliente
         name: Nome Cliente
@@ -88,6 +91,12 @@ pt-BR:
         city: Cidade
         email: Email
         contact: Contacto
+      contact:
+        customer: Cliente
+        first_name: Primeiro Nome
+        last_name: Sobrenome
+        email: Email
+        position: Posição
       product:
         name: Nome
         sku: SKU
@@ -352,3 +361,14 @@ pt-BR:
         cif: CIF
         fob: FOB
         redispatch: Redespacho
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} criado/a exitosamente.'
+        alert: '%{resource_name} não conseguiu ser criado/a.'
+      update:
+        notice: '%{resource_name} atualizado/a exitosamente.'
+        alert: '%{resource_name} não conseguiu ser atualizado/a.'
+      destroy:
+        notice: '%{resource_name} eliminado/a exitosamente.'
+        alert: '%{resource_name} não conseguiu ser eliminado/a.'

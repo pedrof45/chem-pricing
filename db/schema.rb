@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915022823) do
+ActiveRecord::Schema.define(version: 20171126035011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20170915022823) do
     t.bigint "upload_id"
     t.index ["code"], name: "index_cities_on_code"
     t.index ["upload_id"], name: "index_cities_on_upload_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_contacts_on_customer_id"
   end
 
   create_table "costs", force: :cascade do |t|
@@ -349,6 +360,7 @@ ActiveRecord::Schema.define(version: 20170915022823) do
     t.index ["upload_id"], name: "index_vehicles_on_upload_id"
   end
 
+  add_foreign_key "contacts", "customers"
   add_foreign_key "costs", "dist_centers"
   add_foreign_key "costs", "products"
   add_foreign_key "especial_packed_freights", "vehicles"
