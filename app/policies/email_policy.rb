@@ -1,0 +1,2 @@
+class EmailPolicy < ApplicationPolicy
+end

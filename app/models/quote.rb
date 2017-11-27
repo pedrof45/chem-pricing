@@ -9,6 +9,7 @@ class Quote < ApplicationRecord
   belongs_to :cost, required: false
   belongs_to :optimal_markup, required: false
   belongs_to :vehicle, required: false
+  has_and_belongs_to_many :emails
 
   # TODO set quote_date (currently using created_at)
 

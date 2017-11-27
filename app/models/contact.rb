@@ -1,5 +1,13 @@
 class Contact < ApplicationRecord
   belongs_to :customer
+
+  def name_and_email
+    "#{full_name} <#{email}>"
+  end
+
+  def full_name
+    [first_name, last_name].join(' ')
+  end
 end
 
 # == Schema Information

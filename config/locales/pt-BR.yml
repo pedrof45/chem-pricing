@@ -1,4 +1,8 @@
 pt-BR:
+  active_admin:
+    batch_actions:
+      labels:
+        send_email: "Enviar Por Email"
   activerecord:
     models:
       user:
@@ -300,6 +304,13 @@ pt-BR:
         pt_model: Tabela
         user: Usuario
         created_at: Data
+      email:
+        customer: Cliente
+        recipient: Destinatários
+        subject: Assunto
+        message: Mensagem
+        quotes: Cotações
+        created_at: Data
     scopes:
       quote:
         all: Todas
@@ -372,3 +383,6 @@ pt-BR:
       destroy:
         notice: '%{resource_name} eliminado/a exitosamente.'
         alert: '%{resource_name} não conseguiu ser eliminado/a.'
+  helpers:
+      submit:
+        create: 'Hola'

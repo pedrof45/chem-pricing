@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126035011) do
+ActiveRecord::Schema.define(version: 20171126050713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,25 @@ ActiveRecord::Schema.define(version: 20171126035011) do
     t.bigint "city_id"
     t.index ["city_id"], name: "index_dist_centers_on_city_id"
     t.index ["code"], name: "index_dist_centers_on_code"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "customer_id"
+    t.string "recipient"
+    t.string "subject"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_emails_on_customer_id"
+    t.index ["user_id"], name: "index_emails_on_user_id"
+  end
+
+  create_table "emails_quotes", id: false, force: :cascade do |t|
+    t.bigint "email_id", null: false
+    t.bigint "quote_id", null: false
+    t.index ["email_id", "quote_id"], name: "index_emails_quotes_on_email_id_and_quote_id"
+    t.index ["quote_id", "email_id"], name: "index_emails_quotes_on_quote_id_and_email_id"
   end
 
   create_table "especial_packed_freights", force: :cascade do |t|
@@ -363,6 +382,8 @@ ActiveRecord::Schema.define(version: 20171126035011) do
   add_foreign_key "contacts", "customers"
   add_foreign_key "costs", "dist_centers"
   add_foreign_key "costs", "products"
+  add_foreign_key "emails", "customers"
+  add_foreign_key "emails", "users"
   add_foreign_key "especial_packed_freights", "vehicles"
   add_foreign_key "normal_bulk_freights", "vehicles"
   add_foreign_key "optimal_markups", "customers"

@@ -1,5 +1,5 @@
 ActiveAdmin.register Quote do
-  menu priority: 2, label: '1. Cotaçao'
+  menu priority: 2, label: '1. Cotações'
   before_action :set_user, only: [:create]
   actions :index, :new, :create, :edit, :update
 
@@ -32,6 +32,7 @@ ActiveAdmin.register Quote do
   filter :freight_padrao
 
   index do
+    selectable_column
     id_column
     column :watched
     bool_column :current
@@ -175,5 +176,27 @@ ActiveAdmin.register Quote do
   member_action :unwatch, method: :patch do
     resource.update_columns(watched: false, current: false)
     redirect_to quotes_path(scope: 'todas'), notice: "Cotação não será mais monitorada"
+  end
+
+  batch_action :send_email, label: 'blah' do |ids, input|
+    quotes = Quote.where(id: ids)
+    if quotes.empty?
+      error = 'Erro: Nenhuma cotaçao selecionada'
+    else
+      customers = quotes.map(&:customer).uniq
+      if customers.size > 1
+        error = 'Erro: Cotações devem ser do mesmo cliente para enviar email'
+      elsif customers.first.nil?
+        error = 'Erro: Cotaçao deve ter um cliente'
+      end
+    end
+
+    if error.present?
+      flash[:error] = error
+      redirect_back fallback_location: quotes_path
+    else
+      customer = customers.first
+      redirect_to new_email_path(customer_id: customer.id, quote_ids: quotes.map(&:id))
+    end
   end
 end
