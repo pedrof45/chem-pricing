@@ -34,15 +34,6 @@ ActiveAdmin.register Email do
     end
   end
 
-  # show do
-  #   attributes_table do
-  #     row :customer
-  #     row :recipient
-  #     row :subject
-  #     row :message
-  #   end
-  # end
-
   controller do
     def build_new_resource
       params[:email][:quotes] = params[:email][:quotes]&.split(',') if params[:email]
@@ -51,16 +42,7 @@ ActiveAdmin.register Email do
       em.customer ||= Customer.find_by(id: params[:customer_id])
       quote_ids = params[:quote_ids] || params[:email].try(:[], :quotes)
       em.quotes = Quote.where(id: quote_ids)# if em.quotes.blank?
-      #em.quote_ids = params[:quote_ids]
       em
     end
-
-    # def create
-    #
-    #   super do |w|
-    #     binding.pry
-    #   end
-    # end
   end
-
 end
