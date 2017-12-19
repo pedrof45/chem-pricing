@@ -146,7 +146,7 @@
                           <tbody>
                             <tr>
                               <td valign="middle" style="text-align: left; color: #404040;">
-                                  <%= 'Validade da cotação: ???' %>
+                                  <%= "Validade da cotação: #{l(@email.created_at, format: '%B %Y')}"%>
                                 </td>
                               </tr>
                               <tr>
@@ -177,7 +177,7 @@
                                 <td><%=q.product.name%></td>
                                 <td><%= number_to_currency q.unit_price%></td>
                                 <td style="text-transform: uppercase;"><%=[q.currency_text, q.unit_text].join('/')%></td>
-                                <td><%='???'%></td>
+                                <td><%=q.product.packaging&.name%></td>
                                 <td><%=q.freight_condition_text%></td>
                                 <td><%=number_to_percentage (100 * q.icms), precision: 0 %></td>
                                 <td><%=number_to_percentage (100 * q.ipi), precision: 0  %></td>
