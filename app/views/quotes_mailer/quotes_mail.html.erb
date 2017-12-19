@@ -21,11 +21,33 @@
     .email-body {
       margin: 10px 0 10px 0;
     }
+
     .app-title {
       color: #0092c3;
       font-size: 30px;
       text-transform: uppercase;
       font-weight: bold;
+    }
+
+    .quotes-email-table {
+      border:1px solid #C0C0C0;
+      border-collapse:collapse;
+      padding:5px;
+      width: 100%;
+      font-size: 13px;
+    }
+
+    .quotes-email-table th {
+      border: 1px solid #C0C0C0;
+      border-bottom: 3px solid #C0005C;
+      padding: 5px;
+      background: #F2F2F2;
+      text-align: center;
+    }
+
+    .quotes-email-table td {
+      border:1px solid #C0C0C0;
+      padding:5px;
     }
 
 
@@ -108,7 +130,7 @@
                           </p>
                         </td>
                         <td>
-                          <%= image_tag 'quantiq-email-logo1.png', style: 'flxoat: right;'%>
+                          <%= image_tag 'quantiq-email-logo1.png' %>
                         </td>
                       </tr>
                     </tbody>
@@ -135,28 +157,6 @@
                               </tr>
                             </tbody>
                           </table>
-
-
-                          <style>
-                            .quotes-email-table {
-                              border:1px solid #C0C0C0;
-                              border-collapse:collapse;
-                              padding:5px;
-                              width: 100%;
-                              font-size: 13px;
-                            }
-                            .quotes-email-table th {
-                              border: 1px solid #C0C0C0;
-                              border-bottom: 3px solid #C0005C;
-                              padding: 5px;
-                              background: #F2F2F2;
-                              text-align: center;
-                            }
-                            .quotes-email-table td {
-                              border:1px solid #C0C0C0;
-                              padding:5px;
-                            }
-                          </style>
                           <table class="quotes-email-table">
                             <thead>
                             <tr>
