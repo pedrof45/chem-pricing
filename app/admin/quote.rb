@@ -15,6 +15,7 @@ ActiveAdmin.register Quote do
   scope 'Monitorada - Vigente', :watched_current, default: true
   scope 'Todas', :all
 
+  filter :id
   filter :watched
   filter :current
   filter :user

@@ -54,3 +54,23 @@ $panelHeaderBck: #555;
 .index.emails .action_item {
   display: none;
 }
+
+#email-preview-container {
+  all: initial;
+  display: block;
+  max-width: 800px;
+}
+
+#email-show-back-button {
+  box-shadow: none;
+  border-radius: 0;
+  background: #888;
+  color: #fff;
+  border: none;
+  text-shadow: none;
+  padding: 11px 20px;
+  float: left;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  margin-left: 40%;
+}

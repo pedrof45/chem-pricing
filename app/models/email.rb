@@ -8,6 +8,8 @@ class Email < ApplicationRecord
 
   after_create :perform_send
 
+  validates_presence_of :recipient, :user
+
   def perform_send
     QuoteMailer.send_email(self).deliver_later
   end

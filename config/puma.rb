@@ -15,6 +15,7 @@
 workers Integer(ENV.fetch("WEB_CONCURRENCY", 1))
 threads_count = Integer(ENV.fetch("MAX_THREADS", 2))
 threads(threads_count, threads_count)
+worker_timeout 9999
 
 preload_app!
 

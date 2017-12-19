@@ -2,7 +2,7 @@ ActiveAdmin.register Email do
   menu parent: '6. Companhia'
   permit_params :customer_id, :recipient, :subject, :message, :quotes
 
-  actions :all, except: [:show, :destroy, :edit, :update]
+  actions :index, :new, :create, :show
 
   index do
     column :user if current_user.manager_or_more?
@@ -12,7 +12,7 @@ ActiveAdmin.register Email do
     column :message
     column('Cotações') do |email|
       quotes_count = email.quotes.count
-      "#{quotes_count} #{'Cotações'.pluralize(quotes_count)}"
+      link_to "#{quotes_count} #{'Fila'.pluralize(quotes_count)}", quotes_path(q: { id_in: email.quotes.map(&:id) }, scope: 'todas'),  target: '_blank'
     end
     column :created_at
     actions
@@ -24,12 +24,22 @@ ActiveAdmin.register Email do
       input :quotes, as: :tags, input_html: { value: resource.quotes&.map(&:id)&.join(','), readonly: true }
       input :recipient, as: :tags, collection: resource.customer&.contacts&.map(&:name_and_email)
       input :subject
-      input :message, as: :string, input_html: { rows: 5 }
+      input :message, as: :text, input_html: { rows:  7}
     end
     f.actions
 
     h3 'Previsualização:'
     div style: 'all: initial;font-family: Arial, Helvetica, sans-serif;' do
+      render file: 'quotes_mailer/quotes_mail.html.erb'
+    end
+  end
+
+  show do
+    span do
+      h3 'Previsualização:', style: 'float: left;'
+      button 'Volver', onclick: "history.back();", id: 'email-show-back-button'
+    end
+    div id: 'email-preview-container' do
       render file: 'quotes_mailer/quotes_mail.html.erb'
     end
   end
