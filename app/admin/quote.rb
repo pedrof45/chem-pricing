@@ -46,9 +46,9 @@ ActiveAdmin.register Quote do
     column :ipi
     column :pis_confins_padrao
     column :pis_confins
-    column :freight_condition
-    column :freight_base_type
-    column :freight_subtype
+    column :freight_condition, &:freight_condition_text
+    column :freight_base_type, &:freight_base_type_text
+    column :freight_subtype, &:freight_subtype_text
     column :city
     column :unit_freight
     column("Veiculo") { |m| m.vehicle.name if m.vehicle }

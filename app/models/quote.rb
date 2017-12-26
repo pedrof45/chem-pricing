@@ -253,24 +253,38 @@ class Quote < ApplicationRecord
     markup < opt_mkup.table_value
   end
 
-  def self.freight_subtype_options(type)
-    if type.try(:to_sym) == :packed
-      {
+
+  PACKED_SUBTYPES = {
         chemical: 'Quimico',
         pharma: 'Farma',
         special: 'Frete Especial'
-      }.invert
-    elsif type.try(:to_sym) == :bulk
-        basic_subtypes =
-        {
-            normal: 'Normal',
-            #product: 'Produto'
-        }
-        chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
-          ["chopped_#{cbf.id}".to_sym, cbf.operation]
-      end.to_h
-        basic_subtypes.merge(chopped_subtypes).invert
+    }
+
+  BULK_BASIC_SUBTYPES =    {
+      normal: 'Normal',
+      #product: 'Produto'
+    }
+
+  def freight_subtype_text
+    return unless freight_subtype.present?
+    basic_subtypes = PACKED_SUBTYPES.merge(BULK_BASIC_SUBTYPES)
+    if freight_subtype.in?(basic_subtypes.keys.to_s)
+      basic_subtypes[freight_subtype]
+    elsif freight_subtype.starts_with?('chopped_')
+      ChoppedBulkFreight.find(freight_subtype.remove('chopped_')).operation
+    else
+      raise "Unhandled Freight Subtype: #{freight_subtype}"
     end
+  end
+
+  def self.freight_subtype_options(type = nil)
+    return PACKED_SUBTYPES if type.try(:to_sym) == :packed
+    bulk_chopped_subtypes = ChoppedBulkFreight.all.map do |cbf|
+        ["chopped_#{cbf.id}".to_sym, cbf.operation]
+    end.to_h
+    bulk_subtypes = BULK_BASIC_SUBTYPES.merge(bulk_chopped_subtypes)
+    return bulk_subtypes if type.try(:to_sym) == :bulk
+    PACKED_SUBTYPES.merge(bulk_subtypes)
   end
 end
 
