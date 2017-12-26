@@ -1,5 +1,4 @@
 require_relative 'boot'
-
 require 'rails/all'
 Bundler.require(*Rails.groups)
 
@@ -34,5 +33,7 @@ module ChemPricing
         port: ENV["SMTP_PORT"],
         user_name: ENV["SMTP_USERNAME"]
     }
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
   end
 end
