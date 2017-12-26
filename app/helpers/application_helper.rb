@@ -15,11 +15,19 @@ module ApplicationHelper
 
       if field.to_s.include? '.'
         f_model, f_field = field.to_s.split '.'
-        proc = Proc.new { |r| r.send(f_model).try(f_field)  }
+        proc = Proc.new do |r|
+          val = r.send(f_model).try(f_field)
+          val = val.to_s.gsub('.',',') if val.is_a?(Numeric)
+          val
+        end
       elsif enum_cols && enum_cols.include?(field.to_s)
         proc = Proc.new { |r|  hts.enum_field_to_pt(model, field, r.send(field)) }
       else
-        proc = Proc.new { |r| r.send(field) }
+        proc = Proc.new do |r|
+          val = r.send(field)
+          val = val.to_s.gsub('.',',') if val.is_a?(Numeric)
+          val
+        end
       end
       [label, proc]
     end.to_h

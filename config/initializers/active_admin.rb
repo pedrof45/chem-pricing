@@ -209,7 +209,7 @@ ActiveAdmin.setup do |config|
   #
   # Force the use of quotes
   # config.csv_options = { force_quotes: true }
-  config.csv_options = { byte_order_mark: false }
+  config.csv_options = { col_sep: ';', byte_order_mark: false }
 
   # == Menu System
   #
