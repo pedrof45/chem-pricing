@@ -322,7 +322,7 @@ pt-BR:
         admin: Admin
         manager: Gerente
         agent: Vendedor
-    products:
+    product:
       unit:
         kg: KG
         lt: L
