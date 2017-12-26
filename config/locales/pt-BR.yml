@@ -299,6 +299,7 @@ pt-BR:
         ct_e: CT_e
         min: Minimo
       upload:
+        file: Arquivo
         filename: Arquivo
         model: Tabela
         pt_model: Tabela

@@ -39,7 +39,9 @@ class Upload < ApplicationRecord
 
   def parse
     unless file.blank?
-      if file.respond_to?(:read)
+      if !File.extname(file.original_filename).in?(['.xls', '.xlsx'])
+        errors.add(:file, "Deve salvar com o formato '.xls' ou '.xlsx' para executar o upload") and return
+      elsif file.respond_to?(:read)
         UploadParserService.new(u: self).run unless file.blank?
       else
         errors.add(:file, "Não é possível ler o arquivo") and return
