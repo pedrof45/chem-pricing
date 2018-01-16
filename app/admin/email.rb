@@ -37,7 +37,7 @@ ActiveAdmin.register Email do
   show do
     span do
       h3 'Previsualização:', style: 'float: left;'
-      button 'Volver', onclick: "history.back();", id: 'email-show-back-button'
+      span link_to 'Volver', emails_path, id: 'email-show-back-button'
     end
     div id: 'email-preview-container' do
       render file: 'quotes_mailer/quotes_mail.html.erb'
