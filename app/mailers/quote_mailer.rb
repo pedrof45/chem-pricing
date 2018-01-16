@@ -13,7 +13,7 @@ class QuoteMailer < ApplicationMailer
     set_subject(email.subject)
     set_content(render('quotes_mailer/quotes_mail'), 'text/html')
     set_sender(email.user.name_and_email)
-    set_recipients(:to, email.recipient)
+    set_recipients(:to, email.recipient.to_s.split(','))
     mail
   end
 end
