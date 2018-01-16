@@ -384,6 +384,10 @@ pt-BR:
       destroy:
         notice: '%{resource_name} eliminado/a exitosamente.'
         alert: '%{resource_name} não conseguiu ser eliminado/a.'
+    emails:
+      create:
+        notice: 'Email foi enviado com sucesso'
+        alert: 'Email teve um problema, não pode ser enviado'
   helpers:
       submit:
         create: 'Hola'
