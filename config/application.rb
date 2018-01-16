@@ -24,6 +24,11 @@ module ChemPricing
     config.action_controller.asset_host = ENV['APPLICATION_HOST']
     config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }
     config.action_mailer.asset_host = ENV['MAILER_HOST'] || ENV['APPLICATION_HOST']
+
+    config.action_mailer.delivery_method = :sendgrid
+    config.action_mailer.sendgrid_settings = {
+        api_key: ENV['SENDGRID_API_KEY']
+    }
     # config.action_mailer.smtp_settings = {
     #     address: ENV["SMTP_ADDRESS"],
     #     authentication: :plain,

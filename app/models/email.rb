@@ -11,7 +11,7 @@ class Email < ApplicationRecord
   validates_presence_of :recipient, :user
 
   def perform_send
-    QuoteMailer.send_email(self).deliver_later
+    QuoteMailer.send_with_sendgrid(self).deliver_later
   end
 end
 

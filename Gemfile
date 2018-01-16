@@ -26,6 +26,7 @@ gem 'google_currency', '> 3.3.0'
 gem 'roo', '~> 2.7.0'
 gem 'activerecord-import'
 gem 'sidekiq'
+gem 'send_grid_mailer'
 
 
 group :production do
