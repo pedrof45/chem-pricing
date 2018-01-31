@@ -17,6 +17,10 @@ class UploadParserService < PowerTypes::Service.new(:u)
       # if @u.model.to_s == 'quote'
       #   # TODO Translate freight subtype
       # end
+      # Set Current if watched
+      if @u.model.to_s == 'quote'
+        row[:current] = !!row[:watched]
+      end
       obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
       # TODO fix simulate called twice, obj.valid? (L21) and @klass.import new_entries (L34)
       if !obj.errors.any? && obj.valid?

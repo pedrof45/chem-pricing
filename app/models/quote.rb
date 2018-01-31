@@ -64,7 +64,9 @@ class Quote < ApplicationRecord
       'product.unit': :nil,
       'cost.currency': :nil,
       fob_net_price: :attr,
-      unit_freight: :attr
+      unit_freight: :attr,
+      watched: :attr,
+      current: :attr
     }
   end
 
