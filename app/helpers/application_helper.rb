@@ -22,6 +22,8 @@ module ApplicationHelper
         end
       elsif enum_cols && enum_cols.include?(field.to_s)
         proc = Proc.new { |r|  hts.enum_field_to_pt(model, field, r.send(field)) }
+      elsif field.to_s == 'freight_subtype'
+        proc = Proc.new { |r| r.freight_subtype_text }
       else
         proc = Proc.new do |r|
           val = r.send(field)

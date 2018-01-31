@@ -264,14 +264,14 @@ class Quote < ApplicationRecord
 
   BULK_BASIC_SUBTYPES =    {
       normal: 'Normal',
-      #product: 'Produto'
+      product: 'Produto'
     }
 
   def freight_subtype_text
     return unless freight_subtype.present?
     basic_subtypes = PACKED_SUBTYPES.merge(BULK_BASIC_SUBTYPES)
     if freight_subtype.in?(basic_subtypes.keys.to_s)
-      basic_subtypes[freight_subtype]
+      basic_subtypes[freight_subtype.to_sym]
     elsif freight_subtype.starts_with?('chopped_')
       ChoppedBulkFreight.find(freight_subtype.remove('chopped_')).operation
     else

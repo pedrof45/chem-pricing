@@ -13,12 +13,10 @@ class UploadParserService < PowerTypes::Service.new(:u)
       puts "Processing sheet row ##{row_n}" if (row_n % 100).zero?
       row_tr_enums = translate_enum_fields(row) if @klass.is_a?(Enumerize)
       row.merge!(row_tr_enums) if row_tr_enums.present?
-      # Chopped Bulk Freight Special Type
-      # if @u.model.to_s == 'quote'
-      #   # TODO Translate freight subtype
-      # end
-      # Set Current if watched
       if @u.model.to_s == 'quote'
+        # Freight Subtype
+        row[:freight_subtype] = tr_freight_subtype row[:freight_subtype]
+        # Set Current if watched
         row[:current] = !!row[:watched]
       end
       obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
@@ -82,8 +80,9 @@ class UploadParserService < PowerTypes::Service.new(:u)
     end.to_h
   end
 
-  def tr_chopped_bulk_freight_subtype(pt_subtype)
-    cbf = ChoppedBulkFreight.find_by(operation: pt_subtype)
-    "chopped_#{cbf.id}".to_sym if cbf
+  def tr_freight_subtype(pt_subtype)
+    @cbf_translations ||=
+      Quote::PACKED_SUBTYPES.merge(Quote::BULK_BASIC_SUBTYPES).merge(ChoppedBulkFreight.translations).invert
+    @cbf_translations[pt_subtype].to_s
   end
 end

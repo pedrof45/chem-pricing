@@ -7,6 +7,12 @@ class ChoppedBulkFreight < ApplicationRecord
   #   WatchedUpdateService.new.run_for_freight_obj(self)
   # end
 
+  def self.translations
+    all.map do |cbf|
+      ["chopped_#{cbf.id}", cbf.operation]
+    end.to_h
+  end
+
   def self.xls_mode
     :update
   end
