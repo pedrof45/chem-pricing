@@ -32,7 +32,7 @@ ActiveAdmin.register Quote do
   filter :currency
   filter :freight_padrao
 
-  index do
+  index(download_links: [:json, :csv, :xlsx]) do
     selectable_column
     id_column
     column :watched
@@ -83,6 +83,17 @@ ActiveAdmin.register Quote do
   end
 
   controller do
+    def index
+      respond_to do |format|
+      format.xlsx {
+        path = BuildXlsx.for(quotes: collection)
+        send_file(path) && return
+      }
+      format.html { super }
+      format.csv { super }
+      format.json { super }
+      end
+    end
 
     def create
       create! do |format|

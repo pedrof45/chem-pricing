@@ -3,6 +3,9 @@ class City < ApplicationRecord
 
   validates_presence_of :name, :code
 
+  def full_name
+    [name, state].join(' - ')
+  end
 
   def state
     code[0..1] if code

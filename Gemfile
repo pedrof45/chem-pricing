@@ -27,6 +27,7 @@ gem 'roo', '~> 2.7.0'
 gem 'activerecord-import'
 gem 'sidekiq'
 gem 'send_grid_mailer'
+gem 'rubyXL'
 
 
 group :production do

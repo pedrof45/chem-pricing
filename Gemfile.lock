@@ -306,6 +306,9 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    rubyXL (3.3.26)
+      nokogiri (>= 1.4.4)
+      rubyzip (>= 1.1.6)
     ruby_dep (1.5.0)
     ruby_http_client (3.2.0)
     rubyzip (1.2.1)
@@ -407,6 +410,7 @@ DEPENDENCIES
   roo (~> 2.7.0)
   rspec-nc
   rspec-rails
+  rubyXL
   sass-rails (~> 5.0)
   send_grid_mailer
   sentry-raven
