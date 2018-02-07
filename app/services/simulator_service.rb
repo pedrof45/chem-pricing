@@ -93,9 +93,9 @@ class SimulatorService < PowerTypes::Service.new(:q)
 
   def unit_conversor(from, to)
     return 1.0 if from == to
-    if from == 'kg'
+    if from == 'lt' # to == kg
       @q.product.density
-    else #lt
+    else # from == kg && to == lt
       1.0 / @q.product.density
     end
   end
