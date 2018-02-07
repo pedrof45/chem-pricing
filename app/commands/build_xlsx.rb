@@ -87,7 +87,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_encargos: 65,
       quote_observation: 65,
       quote_current: 65,
-      quote_city: 65,
+      quote_city: 180,
       quote_freight_type: 110,
       quote_vehicle: 90,
       customer_city: 150
