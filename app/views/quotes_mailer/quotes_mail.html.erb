@@ -168,7 +168,7 @@
                               <th>Frete</th>
                               <th>ICMS</th>
                               <th>IPI</th>
-                              <th>Pagamento</th>
+                              <!--<th>Pagamento</th>-->
                               <th>Local de Faturamento</th>
                             </tr>
                             </thead>
@@ -182,7 +182,7 @@
                                 <td><%=q.freight_condition_text%></td>
                                 <td><%=number_to_percentage (100 * q.icms), precision: 0 %></td>
                                 <td><%=number_to_percentage (100 * q.ipi), precision: 0  %></td>
-                                <td><%=q.payment_term%></td>
+                                <!--<td><%=q.payment_term%></td>-->
                                 <td><%=q.dist_center&.name%></td>
                               </tr>
                               <% end %>
