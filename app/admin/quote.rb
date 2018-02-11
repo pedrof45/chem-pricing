@@ -86,7 +86,7 @@ ActiveAdmin.register Quote do
     def index
       respond_to do |format|
       format.xlsx {
-        path = BuildXlsx.for(quotes: collection)
+        path = BuildXlsx.for(quotes: batch_action_collection)
         send_file(path) && return
       }
       format.html { super }
