@@ -33,8 +33,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       markup_table_value: "MarkUp Tabela - Politica de MarkUp",
       quote_markup: "MarkUp Calculado (%)",
       quote_fob_net_price: "Preco Fob Net ($/UN)", # formula
-      quote: "Cotação",
-      product_density: "Densidade",
+      ptax: "PTAX",
+      conversion: "Conversão kg-lt",
       quote_unit_price: "Preco Unitario ($)",
       quote_currency_unit: "Moeda/Unidade",
       quote_last_month_price: "PREÇO Mês Anterior",
@@ -46,6 +46,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_ipi: "IPI",
       quote_payment_term: "Prazo de Pagamento (dias)",
       quote_encargos: "ENCARGO",
+      product_density: "Densidade",
       quote_observation: "Observação",
       quote_current: "Custo atual.",
       quote_city: "Itinerario - Municipio",
@@ -72,8 +73,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       markup_table_value: 80,
       quote_markup: 80,
       quote_fob_net_price: 80,
-      quote: 65,
-      product_density: 65,
+      ptax: 65,
+      conversion: 70,
       quote_unit_price: 85,
       quote_currency_unit: 65,
       quote_last_month_price: 65,
@@ -85,6 +86,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_ipi: 65,
       quote_payment_term: 65,
       quote_encargos: 65,
+      product_density: 65,
       quote_observation: 65,
       quote_current: 65,
       quote_city: 180,
@@ -221,24 +223,26 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   end
 
   def quote_fob_net_price_column(_q, row_num)
+    r = row_num
     {
-      formula: "IFERROR((J#{row_num}*(1+N#{row_num})),\"-\")",
+      formula: "=IFERROR(IF(AND(P#{r}=\"\",Q#{r}=\"\"),(J#{r}/1000*(1+N#{r})),IF(AND(P#{r}<>\"\",Q#{r}=\"\"),(J#{r}*P#{r}/1000*(1+N#{r})),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"KG\"),(J#{r}*AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),(J#{r}/AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"KG\"),(J#{r}*P#{r}*AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}<=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),(J#{r}*P#{r}/AC#{r}/1000*(1+N#{r})),\"-\")))))),\"-\")",
       format: '$###,###.00'
     }
   end
 
-  def quote_column(q, _row_num)
-    # TODO ???
+  def ptax_column(q, _row_num)
+    nil # leave blank!
   end
 
-  def product_density_column(q, _row_num)
-    q.product.density.round(4)
+  def conversion_column(q, _row_num)
+    nil # leave blank!
   end
 
   def quote_unit_price_column(_q, row_num)
+    r = row_num
     {
       formula:
-        "=((O#{row_num}+W#{row_num})/(1-X#{row_num}-Y#{row_num}))*(1+AB#{row_num})",
+      "=IF(AND(P#{r}=\"\",Q#{r}=\"\"),((O#{r}+W#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}=\"\"),((O#{r}+W#{r}*P#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"KG\"),((O#{r}+W#{r}*AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),((O#{r}+W#{r}/AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"KG\"),((O#{r}+W#{r}*P#{r}*AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"LT\"),((O#{r}+W#{r}*P#{r}/AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),\"-\"))))))",
       format: '$###,###.00'
     }
   end
@@ -293,6 +297,10 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     "=IF(AA#{r}=\"\",\"-\",IFERROR((1+IF(AA#{r}<=30,2%,IF(AA#{r}<=60,2.5%,3.5%)))^(AA#{r}/30)-1,0))",
       format: '0%'
     }
+  end
+
+  def product_density_column(q, _row_num)
+    q.product.density.round(4)
   end
 
   def quote_observation_column(q, _row_num)
