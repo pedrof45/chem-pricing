@@ -46,12 +46,19 @@ ActiveAdmin.register Email do
 
   controller do
     def build_new_resource
-      params[:email][:quotes] = params[:email][:quotes]&.split(',') if params[:email]
+      if params[:email]
+        params[:email][:quotes] = params[:email][:quotes]&.split(',')
+        params[:email][:message] = params[:email][:message]&.gsub("\r\n", '<br>')
+      end
       em = super
       em.user = current_user
       em.customer ||= Customer.find_by(id: params[:customer_id])
       quote_ids = params[:quote_ids] || params[:email].try(:[], :quotes)
-      em.quotes = Quote.where(id: quote_ids)# if em.quotes.blank?
+      em.quotes = if current_user.manager_or_more?
+                    Quote.where(id: quote_ids)# if em.quotes.blank?
+                  else
+                    current_user.quotes.where(id: quote_ids)
+                  end
       em
     end
   end

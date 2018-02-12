@@ -153,7 +153,6 @@
                               <tr>
                                 <td valign="middle" style="text-align: left; color: #404040;">
                                   <br>
-                                  <%= 'OBS:' %>
                                 </td>
                               </tr>
                             </tbody>
@@ -176,7 +175,7 @@
                             <% @email.quotes.each do |q|%>
                               <tr>
                                 <td><%=q.product.name%></td>
-                                <td><%= number_to_currency q.unit_price%></td>
+                                <td><%= number_to_currency(q.unit_price, unit: '')&.strip %></td>
                                 <td style="text-transform: uppercase;"><%=[q.currency_text, q.unit_text].join('/')%></td>
                                 <td><%=q.product.packaging&.name%></td>
                                 <td><%=q.freight_condition_text%></td>
