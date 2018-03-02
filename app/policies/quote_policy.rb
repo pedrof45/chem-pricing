@@ -9,7 +9,7 @@ class QuotePolicy < ApplicationPolicy
 	    end
 
 	    def resolve
-	      if user.sysadmin_or_more?
+	      if user.manager_or_more?
 	        scope.all
 	      else
 	        scope.where(:user_id => user.id)
