@@ -373,6 +373,13 @@ pt-BR:
         cif: CIF
         fob: FOB
         redispatch: Redespacho
+      currency:
+        brl: BRL
+        usd: USD
+        eur: EUR
+      unit:
+        kg: KG
+        lt: L
   flash:
     actions:
       create:
