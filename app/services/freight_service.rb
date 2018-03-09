@@ -56,15 +56,16 @@ class FreightService < PowerTypes::Service.new(:q)
 
   def bulk_normal
     freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
+    capacity = @q.vehicle&.capacity
     if freight_obj!=nil
-       unless freight_obj
-      return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
-        end
+      unless freight_obj
+        return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
+      end
       amount = freight_obj.amount
       toll = freight_obj.toll
       weight = @q.quantity_kgs
 
-      @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
+      @freight = (((amount / 1000) * capacity) + toll) / weight
     else  
       freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
       unless freight_obj
@@ -72,10 +73,9 @@ class FreightService < PowerTypes::Service.new(:q)
       end
       amount = freight_obj.amount
       toll = freight_obj.toll
-      capacity = @q.vehicle.capacity
       volume = @q.quantity_lts
 
-      @freight = (((amount / 1000) * (volume)) + (toll * volume/1000)) / volume
+      @freight = (((amount / 1000) * capacity) + toll) / volume
     end
   end
 
