@@ -46,7 +46,7 @@ ActiveAdmin.register Email do
 
   controller do
     def build_new_resource
-      if params[:email]
+      if params[:email] # when validation fails
         params[:email][:quotes] = params[:email][:quotes]&.split(',')
         params[:email][:message] = params[:email][:message]&.gsub("\r\n", '<br>')
       end
@@ -59,6 +59,9 @@ ActiveAdmin.register Email do
                   else
                     current_user.quotes.where(id: quote_ids)
                   end
+      em.subject ||= "Tabela de preços quantiQ - #{em.customer.name}"
+      current_month_name_br = I18n.t("date.month_names")[Time.current.month]&.downcase
+      em.message ||= "Prezado cliente,\nSegue abaixo as cotações para o mês de #{current_month_name_br}.\nTodos os itens estão sujeitos à disponibilidade de estoque."
       em
     end
   end
