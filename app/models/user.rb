@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   extend Enumerize
   has_many :quotes
-  belongs_to :business_unit , required: false
+  belongs_to :business_unit, required: false
+  has_many :supervised, class_name: 'User', foreign_key: 'supervisor_id'
+  belongs_to :supervisor, class_name: 'User', required: false
   validates_presence_of :email, :encrypted_password, :role
   enumerize :role, in: [:sysadmin, :admin, :manager, :agent]
   # Include default devise modules. Others available are:
@@ -62,10 +64,12 @@ end
 #  role                   :string
 #  active                 :boolean
 #  business_unit_id       :integer
+#  supervisor_id          :integer
 #
 # Indexes
 #
 #  index_users_on_business_unit_id      (business_unit_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_supervisor_id         (supervisor_id)
 #

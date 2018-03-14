@@ -87,6 +87,7 @@ pt-BR:
         business_unit: Unidade de Negocio
         role: Permisso
         active: Ativo
+        supervisor: Apoio
       customer:
         code: Codigo Cliente
         name: Nome Cliente
