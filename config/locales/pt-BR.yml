@@ -183,6 +183,7 @@ pt-BR:
         customer_id: Cliente
         product: Produto
         payment_term: Prazo de Pagamento (dias)
+        payment_term_description: Descrição do prazo
         icms_padrao: ICMS Padrão
         icms: ICMS
         ipi: IPI

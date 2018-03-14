@@ -33,8 +33,9 @@
             <div class="details-and-exchange-rates-inputs">
               <div class="details-fields fields-box">
                 <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
-                    <%= f.input :payment_term %>
                     <%= f.input :quantity %>
+                    <%= f.input :payment_term %>
+                    <%= f.input :payment_term_description %>
                 <% end %>
               </div>
               <div class="exchange-rate-fields fields-box">

@@ -42,6 +42,7 @@ class Quote < ApplicationRecord
       'product.sku': :f_key,
       'dist_center.code': :f_key,
       payment_term: :attr,
+      payment_term_description: :attr,
       quantity: :attr,
       icms_padrao: :attr,
       icms: :attr,
@@ -162,6 +163,14 @@ class Quote < ApplicationRecord
       city.try(:full_name)
     elsif customer
       customer.city.try(:full_name)
+    end
+  end
+
+  def payment_term_description
+    if read_attribute(:payment_term_description).present?
+      read_attribute(:payment_term_description)
+    else
+      payment_term
     end
   end
 
@@ -302,43 +311,44 @@ end
 #
 # Table name: quotes
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  customer_id        :integer
-#  product_id         :integer
-#  quote_date         :datetime
-#  icms_padrao        :boolean
-#  icms               :decimal(, )
-#  ipi                :decimal(, )
-#  pis_confins_padrao :boolean
-#  pis_confins        :decimal(, )
-#  freight_condition  :string
-#  brl_usd            :decimal(, )
-#  brl_eur            :decimal(, )
-#  quantity           :decimal(, )
-#  unit               :string
-#  unit_price         :decimal(, )
-#  markup             :decimal(, )
-#  fixed_price        :boolean
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  dist_center_id     :integer
-#  city_id            :integer
-#  optimal_markup_id  :integer
-#  cost_id            :integer
-#  fob_net_price      :decimal(, )
-#  final_freight      :decimal(, )
-#  comment            :string
-#  unit_freight       :decimal(, )
-#  payment_term       :integer
-#  freight_base_type  :string
-#  freight_subtype    :string
-#  vehicle_id         :integer
-#  upload_id          :integer
-#  currency           :string
-#  freight_padrao     :boolean
-#  watched            :boolean
-#  current            :boolean
+#  id                       :integer          not null, primary key
+#  user_id                  :integer
+#  customer_id              :integer
+#  product_id               :integer
+#  quote_date               :datetime
+#  icms_padrao              :boolean
+#  icms                     :decimal(, )
+#  ipi                      :decimal(, )
+#  pis_confins_padrao       :boolean
+#  pis_confins              :decimal(, )
+#  freight_condition        :string
+#  brl_usd                  :decimal(, )
+#  brl_eur                  :decimal(, )
+#  quantity                 :decimal(, )
+#  unit                     :string
+#  unit_price               :decimal(, )
+#  markup                   :decimal(, )
+#  fixed_price              :boolean
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  dist_center_id           :integer
+#  city_id                  :integer
+#  optimal_markup_id        :integer
+#  cost_id                  :integer
+#  fob_net_price            :decimal(, )
+#  final_freight            :decimal(, )
+#  comment                  :string
+#  unit_freight             :decimal(, )
+#  payment_term             :integer
+#  freight_base_type        :string
+#  freight_subtype          :string
+#  vehicle_id               :integer
+#  upload_id                :integer
+#  currency                 :string
+#  freight_padrao           :boolean
+#  watched                  :boolean
+#  current                  :boolean
+#  payment_term_description :string
 #
 # Indexes
 #

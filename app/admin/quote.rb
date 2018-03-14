@@ -8,7 +8,8 @@ ActiveAdmin.register Quote do
                 :brl_usd, :brl_eur, :quantity, :unit, :unit_price, :markup, :fixed_price,
                 :optimal_markup_id, :cost_id, :fob_net_price,
                 :final_freight, :comment, :dist_center_id, :city_id, :unit_freight,
-                :freight_base_type, :freight_subtype, :vehicle_id, :freight_padrao, :currency, :watched
+                :freight_base_type, :freight_subtype, :vehicle_id, :freight_padrao, :currency, :watched,
+                :payment_term_description
 
   form partial: 'form', title: 'Simulador de Preço'
 
@@ -65,6 +66,7 @@ ActiveAdmin.register Quote do
     column("Preço Piso") { |m| m.cost.base_price if m.cost }
     column :comment
     column :payment_term
+    column :payment_term_description
     actions defaults: false do |quote|
       item 'Editar', edit_quote_path(quote), class: 'member_link' if quote.watched_current?
       item 'Não Monitorear', unwatch_quote_path(quote), method: :patch, class: 'member_link' if quote.watched_current?

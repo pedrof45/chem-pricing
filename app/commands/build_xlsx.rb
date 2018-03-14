@@ -45,6 +45,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_pis_confins: "Pis/Confins",
       quote_ipi: "IPI",
       quote_payment_term: "Prazo de Pagamento (dias)",
+      quote_payment_term_description: "Descrição do prazo",
       quote_encargos: "ENCARGO",
       product_density: "Densidade",
       quote_observation: "Observação",
@@ -85,6 +86,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_pis_confins: 65,
       quote_ipi: 65,
       quote_payment_term: 65,
+      quote_payment_term_description: 90,
       quote_encargos: 65,
       product_density: 65,
       quote_observation: 65,
@@ -119,7 +121,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     end
   end
 
-  BLUE_HEADER_INDEXES = [14, 17, 18, 27]
+  BLUE_HEADER_INDEXES = [14, 17, 18, 28]
 
   def set_styles
     sheet.change_row_height(0, 30)
@@ -288,6 +290,10 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def quote_payment_term_column(q, _row_num)
     q.payment_term
+  end
+
+  def quote_payment_term_description_column(q, _row_num)
+    q.read_attribute(:quote_payment_term_description)
   end
 
   def quote_encargos_column(_q, row_num)
