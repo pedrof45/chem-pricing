@@ -65,7 +65,7 @@ class FreightService < PowerTypes::Service.new(:q)
       toll = freight_obj.toll
       weight = @q.quantity_kgs
 
-      @freight = (((amount / 1000) * capacity) + toll) / weight
+      @freight = ((amount / 1000) + toll) * capacity / weight
     else  
       freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
       unless freight_obj
@@ -75,7 +75,7 @@ class FreightService < PowerTypes::Service.new(:q)
       toll = freight_obj.toll
       volume = @q.quantity_lts
 
-      @freight = (((amount / 1000) * capacity) + toll) / volume
+      @freight = ((amount / 1000) + toll) * capacity / volume
     end
   end
 
