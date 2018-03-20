@@ -29,14 +29,17 @@ class User < ApplicationRecord
   end
 
   def sysadmin_or_more?
+    return false unless role
     role.sysadmin?
   end
 
   def admin_or_more?
+    return false unless role
     role.admin? || role.sysadmin?
   end
 
   def manager_or_more?
+    return false unless role
     role.manager? || role.admin? || role.sysadmin?
   end
 end
