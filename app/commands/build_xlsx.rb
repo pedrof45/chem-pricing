@@ -293,7 +293,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   end
 
   def quote_payment_term_description_column(q, _row_num)
-    q.read_attribute(:quote_payment_term_description)
+    q.read_attribute(:payment_term_description)
   end
 
   def quote_encargos_column(_q, row_num)
