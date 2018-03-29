@@ -15,21 +15,35 @@ class FreightService < PowerTypes::Service.new(:q)
     end
 
     convert_unit
-    # convert_currency (is now converted in simulator service)
+    convert_currency
     @q.unit_freight = @freight.round(4)
   end
 
   private
 
-  def convert_unit
+  def freight_original_unit
     if @q.freight_base_type.bulk? && @subtype == 'normal'
-      @freight *= @q.product.density if @q.product.unit.kg?
+      'lt'
     else
-      @freight /= @q.product.density if @q.product.unit.lt?
+      'kg'
     end
   end
 
-  # DEPRECATED
+  def convert_unit
+    from = freight_original_unit
+    to = @q.unit
+    @freight *= unit_conversor(from, to)
+  end
+
+  def unit_conversor(from, to)
+    return 1.0 if from == to
+    if from == 'lt' # to == kg
+      1.0 / @q.product.density
+    else # from == kg && to == lt
+      @q.product.density
+    end
+  end
+
   def convert_currency
     if @q.product && @q.dist_center
       error("Não for encontrada para o produto/CD selecionado", :cost) unless @q.cost
@@ -49,49 +63,47 @@ class FreightService < PowerTypes::Service.new(:q)
 
   def bulk_chopped
     freight_obj = ChoppedBulkFreight.find(@op_id)
-    # TODO handle obj not found
+    # TODO handle obj not found with error instead of just find!
     amount = freight_obj.amount
     @freight = amount * 0.001
   end
 
-  def bulk_normal
+  def bulk_product
     freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
-    if freight_obj!=nil
-       unless freight_obj
+    # if freight_obj.nil?
+    #   freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
+    # end
+    if freight_obj.nil?
       return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
-        end
-      amount = freight_obj.amount
-      toll = freight_obj.toll
-      weight = @q.quantity_kgs
-
-      @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
-    else  
-      freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
-      unless freight_obj
-        return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
-      end
-      amount = freight_obj.amount
-      toll = freight_obj.toll
-      capacity = @q.vehicle.capacity
-      volume = @q.quantity_lts
-
-      @freight = (((amount / 1000) * (volume)) + (toll * volume/1000)) / volume
     end
+    process_bulk(freight_obj)
   end
 
+  def bulk_normal
+    freight_obj = NormalBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
+    if freight_obj.nil?
+      return error('Frete Granel - Normal não foi encontrado pelo origem/destino/veiculo dado')
+    end
+    process_bulk(freight_obj)
+  end
 
-  #eliminé porque lo detecta solo ahora
-  # def bulk_product
-  #   freight_obj = ProductBulkFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary, vehicle: @q.vehicle, product: @q.product).last
-  #   unless freight_obj
-  #     return error('Frete Granel - Produto não foi encontrado pelo origem/destino/veiculo/produto dado')
-  #   end
-  #   amount = freight_obj.amount
-  #   toll = freight_obj.toll
-  #   weight = @q.quantity_kgs
-
-  #   @freight = (((amount / 1000) * (weight)) + (toll * weight/1000)) / weight
-  # end
+  def process_bulk(freight_obj)
+    amount = freight_obj.amount
+    toll = freight_obj.toll
+    vehicle = freight_obj.vehicle
+    capacity = vehicle.capacity
+    weight = @q.quantity_kgs
+    volume = @q.quantity_lts
+    quantity = if freight_obj.class.name == 'ProductBulkFreight'
+                 weight
+               elsif freight_obj.class.name == 'NormalBulkFreight'
+                 volume
+               else
+                 raise("Wrong Bulk Freight Class #{freight_obj.class.name}")
+               end
+    # @freight = (((amount / 1000) * (quantity)) + (toll * quantity/1000)) / quantity
+    @freight = ((amount + toll) * capacity) / quantity
+  end
 
   def packed_special
     freight_obj = EspecialPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , vehicle: @q.vehicle).last
