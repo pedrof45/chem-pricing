@@ -227,6 +227,7 @@ pt-BR:
         created_at: Data de Simulação
         watched: Monitorada
         current: Vigente
+        product_alias: Produto Nome Comercial
       city:
         name: Nome
         state: Estado

@@ -175,7 +175,7 @@
                             <tbody>
                             <% @email.quotes.each do |q|%>
                               <tr>
-                                <td><%=q.product.name%></td>
+                                <td><%=q.product_alias_or_name%></td>
                                 <td><%= number_to_currency(q.unit_price, unit: '')&.strip %></td>
                                 <td style="text-transform: uppercase;"><%=[q.currency_text, q.unit_text].join('/')%></td>
                                 <td><%=q.product.packaging&.name%></td>

@@ -3,6 +3,7 @@ FactoryGirl.define do
     user nil
     customer nil
     product nil
+    product_alias 'Your Favorite Product'
     quote_date "2017-06-06 22:53:44"
     payment_term "MyString"
     icms_padrao false

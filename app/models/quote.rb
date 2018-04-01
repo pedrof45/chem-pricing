@@ -40,6 +40,7 @@ class Quote < ApplicationRecord
       'user.email': :f_key,
       'customer.code': :f_key,
       'product.sku': :f_key,
+      'product_alias': :attr,
       'dist_center.code': :f_key,
       payment_term: :attr,
       payment_term_description: :attr,
@@ -164,6 +165,10 @@ class Quote < ApplicationRecord
     elsif customer
       customer.city.try(:full_name)
     end
+  end
+
+  def product_alias_or_name
+    product_alias || product&.name
   end
 
   def payment_term_description
@@ -349,6 +354,7 @@ end
 #  watched                  :boolean
 #  current                  :boolean
 #  payment_term_description :string
+#  product_alias            :string
 #
 # Indexes
 #
