@@ -18,35 +18,38 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def fields
     {
+      id: "Id",
       user_email: "Email - Usuario",
       customer_code: "Codigo Cliente",
       customer_name: "Nome Cliente",
       dist_center_code: "Codigo - CD",
       product_sku: "SKU - Produto",
       product_name: "Nome Produto",
+      product_alias: "Nome Comercial Produto",
+      quantity: "Quantidade Cotação",
       packaging: "Embalagem",
       cost_currency: "Moeda - Preco Piso",
       product_unit: "Unidade - Produto",
       cost_value: "Preço Piso",
-      cost_suggested_markup: "Política",
       markup_value: "MarkUp Meta - Politica de MarkUp",
-      markup_table_value: "MarkUp Tabela - Politica de MarkUp",
       quote_markup: "MarkUp Calculado (%)",
       quote_fob_net_price: "Preco Fob Net ($/UN)", # formula
       ptax: "PTAX",
       conversion: "Conversão kg-lt",
-      quote_unit_price: "Preco Unitario ($)",
-      quote_currency_unit: "Moeda/Unidade",
+      quote_unit_price: "Preco Unitario ($)", # formula
+      quote_currency_unit: "Moeda/Unidade", # formula
       quote_last_month_price: "PREÇO Mês Anterior",
-      quote_last_month_delta: "Varia. Mês%",
+      quote_last_month_delta: "Varia. Mês%", # formula
       quote_freight_conditions: "Condicoes de Frete",
       quote_unit_freight: "Frete ($/UN)",
       quote_icms: "ICMS",
       quote_pis_confins: "Pis/Confins",
       quote_ipi: "IPI",
       quote_payment_term: "Prazo de Pagamento (dias)",
-      quote_payment_term_description: "Descrição do prazo",
-      quote_encargos: "ENCARGO",
+      quote_payment_term_description: "Descrição Prazo",
+      quote_encargos: "ENCARGO", # formula
+      cost_suggested_markup: "Política",
+      markup_table_value: "MarkUp Tabela - Politica de MarkUp",
       product_density: "Densidade",
       quote_observation: "Observação",
       quote_current: "Custo atual.",
@@ -59,19 +62,20 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def column_widths
     {
+      id: 30,
       user_email: 125,
       customer_code: 87,
-      customer_name: 73,
+      customer_name: 87,
       dist_center_code: 65,
       product_sku: 87,
       product_name: 90,
+      product_alias: 90,
+      quantity: 65,
       packaging: 65,
       cost_currency: 65,
       product_unit: 65,
       cost_value: 65,
-      cost_suggested_markup: 65,
       markup_value: 80,
-      markup_table_value: 80,
       quote_markup: 80,
       quote_fob_net_price: 80,
       ptax: 65,
@@ -82,19 +86,21 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_last_month_delta: 65,
       quote_freight_conditions: 65,
       quote_unit_freight: 65,
-      quote_icms: 65,
-      quote_pis_confins: 65,
-      quote_ipi: 65,
+      quote_icms: 35,
+      quote_pis_confins: 55,
+      quote_ipi: 35,
       quote_payment_term: 65,
       quote_payment_term_description: 90,
       quote_encargos: 65,
+      cost_suggested_markup: 65,
+      markup_table_value: 80,
       product_density: 65,
       quote_observation: 65,
       quote_current: 65,
       quote_city: 180,
       quote_freight_type: 110,
       quote_vehicle: 90,
-      customer_city: 150
+      customer_city: 170
     }
   end
 
@@ -121,12 +127,14 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     end
   end
 
-  BLUE_HEADER_INDEXES = [14, 17, 18, 28]
+  BLUE_HEADER_COLUMNS = [:quote_markup, :quote_fob_net_price, :quote_unit_price, :quote_currency_unit,
+    :quote_last_month_delta, :quote_encargos]
 
-  def set_styles
+      def set_styles
+    blue_header_indexes = BLUE_HEADER_COLUMNS.map { |col_name| fields.keys.find_index(col_name) }
     sheet.change_row_height(0, 30)
     fields.count.times do |col_i|
-      fill_color = col_i.in?(BLUE_HEADER_INDEXES) ? '0073BB' : 'E6005B'
+      fill_color = col_i.in?(blue_header_indexes) ? '0073BB' : 'E6005B'
       sheet.sheet_data[0][col_i].change_fill(fill_color)
       sheet.sheet_data[0][col_i].change_font_bold(true)
       sheet.sheet_data[0][col_i].change_font_color('FFFFFF')
@@ -167,6 +175,10 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   # columns values methods
 
+  def id_column(q, _row_num)
+    q.id
+  end
+
   def user_email_column(q, _row_num)
     q.user.email
   end
@@ -191,6 +203,14 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     q.product.name
   end
 
+  def product_alias_column(q, _row_num)
+    q.product_alias
+  end
+
+  def quantity_column(q, _row_num)
+    q.quantity
+  end
+
   def packaging_column(q, _row_num)
     p_code = q.product.packaging_code
     packaging_hash[p_code.to_i]
@@ -208,16 +228,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     to_money q.cost.base_price
   end
 
-  def cost_suggested_markup_column(q, _row_num)
-    to_percentage q.cost.suggested_markup
-  end
-
   def markup_value_column(q, _row_num)
     to_percentage q.optimal_markup&.value
-  end
-
-  def markup_table_value_column(q, _row_num)
-    to_percentage q.optimal_markup&.table_value
   end
 
   def quote_markup_column(q, _row_num)
@@ -227,16 +239,16 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   def quote_fob_net_price_column(_q, row_num)
     r = row_num
     {
-      formula: "=IFERROR(IF(AND(P#{r}=\"\",Q#{r}=\"\"),(J#{r}/1000*(1+N#{r})),IF(AND(P#{r}<>\"\",Q#{r}=\"\"),(J#{r}*P#{r}/1000*(1+N#{r})),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"KG\"),(J#{r}*AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),(J#{r}/AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"KG\"),(J#{r}*P#{r}*AC#{r}/1000*(1+N#{r})),IF(AND(P#{r}<=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),(J#{r}*P#{r}/AC#{r}/1000*(1+N#{r})),\"-\")))))),\"-\")",
+      formula: "=IFERROR(IF(AND(Q#{r}=\"\",R#{r}=\"\"),(M#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<>\"\",R#{r}=\"\"),(M#{r}*Q#{r}/1000*(1+O#{r})),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"LT\"),(M#{r}/AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*Q#{r}*AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<=\"\",R#{r}<>\"\",L#{r}=\"LT\"),(M#{r}*Q#{r}/AG#{r}/1000*(1+O#{r})),\"-\")))))),\"-\")",
       format: '$###,###.00'
     }
   end
 
-  def ptax_column(q, _row_num)
+  def ptax_column(_q, _row_num)
     nil # leave blank!
   end
 
-  def conversion_column(q, _row_num)
+  def conversion_column(_q, _row_num)
     nil # leave blank!
   end
 
@@ -244,7 +256,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-      "=IF(AND(P#{r}=\"\",Q#{r}=\"\"),((O#{r}+W#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}=\"\"),((O#{r}+W#{r}*P#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"KG\"),((O#{r}+W#{r}*AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}=\"\",Q#{r}<>\"\",I#{r}=\"LT\"),((O#{r}+W#{r}/AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"KG\"),((O#{r}+W#{r}*P#{r}*AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),IF(AND(P#{r}<>\"\",Q#{r}<>\"\",I#{r}=\"LT\"),((O#{r}+W#{r}*P#{r}/AC#{r})/(1-X#{r}-Y#{r}))*(1+AB#{r}),\"-\"))))))",
+        "=IF(AND(Q#{r}=\"\",R#{r}=\"\"),((P#{r}+X#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}=\"\"),((P#{r}+X#{r}*Q#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"KG\"),((P#{r}+X#{r}*AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"LT\"),((P#{r}+X#{r}/AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"KG\"),((P#{r}+X#{r}*Q#{r}*AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"LT\"),((P#{r}+X#{r}*Q#{r}/AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),\"-\"))))))",
       format: '$###,###.00'
     }
   end
@@ -253,10 +265,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-      (
-  "=IF(AND(P#{r}=\"\",Q#{r}=\"\"),H#{r}&\"/\"&I#{r},IF(AND(P#{r}<>\"\",Q#{r}=\"\"),\"BRL\"&\"/\"&I#{r}," +
-  "IF(AND(P#{r}=\"\",Q#{r}<>\"\"),H#{r}&\"/\"&(IF(I#{r}=\"kg\",\"lt\",\"kg\")),\"BRL\"&\"/\"&(IF(I#{r}=\"kg\",\"lt\",\"kg\")))))"
-      )
+          "=IF(AND(Q#{r}=\"\",R#{r}=\"\"),K#{r}&\"/\"&L#{r},IF(AND(Q#{r}<>\"\",R#{r}=\"\"),\"BRL\"&\"/\"&L#{r},IF(AND(Q#{r}=\"\",R#{r}<>\"\"),K#{r}&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")),\"BRL\"&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")))))"
     }
   end
 
@@ -264,8 +273,9 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     nil # leave blank!
   end
 
-  def quote_last_month_delta_column(q, _row_num)
-    nil # leave blank!
+  def quote_last_month_delta_column(_q, row_num)
+    r = row_num
+    { formula: "=IFERROR((S#{r}/U#{r})-1,\"-\")", format: '0%' }
   end
 
   def quote_freight_conditions_column(q, _row_num)
@@ -300,9 +310,17 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-    "=IF(AA#{r}=\"\",\"-\",IFERROR((1+IF(AA#{r}<=30,2%,IF(AA#{r}<=60,2.5%,3.5%)))^(AA#{r}/30)-1,0))",
+        "=IF(AB#{r}=\"\",\"-\",IFERROR((1+IF(AB#{r}<=30,#{r}%,IF(AB#{r}<=60,#{r}.5%,3.5%)))^(AB#{r}/30)-1,0))",
       format: '0%'
     }
+  end
+
+  def cost_suggested_markup_column(q, _row_num)
+    to_percentage q.cost.suggested_markup
+  end
+
+  def markup_table_value_column(q, _row_num)
+    to_percentage q.optimal_markup&.table_value
   end
 
   def product_density_column(q, _row_num)
