@@ -310,7 +310,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-        "=IF(AB#{r}=\"\",\"-\",IFERROR((1+IF(AB#{r}<=30,#{r}%,IF(AB#{r}<=60,#{r}.5%,3.5%)))^(AB#{r}/30)-1,0))",
+        "=IF(AB#{r}=\"\",\"-\",IFERROR((1+IF(AB#{r}<=30,2%,IF(AB#{r}<=60,2.5%,3.5%)))^(AB#{r}/30)-1,0))",
       format: '0%'
     }
   end
