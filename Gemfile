@@ -32,6 +32,7 @@ gem 'rubyXL'
 
 group :production do
   gem 'rack-timeout'
+  gem 'whacamole'
 end
 
 group :development do
