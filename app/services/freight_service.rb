@@ -22,7 +22,7 @@ class FreightService < PowerTypes::Service.new(:q)
   private
 
   def freight_original_unit
-    if @q.freight_base_type.bulk? && @subtype == 'normal'
+    if @q.freight_base_type.bulk? && (@subtype == 'normal' || @subtype.to_s.starts_with?('chopped'))
       'lt'
     else
       'kg'
