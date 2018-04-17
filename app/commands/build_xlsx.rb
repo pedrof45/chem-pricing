@@ -184,11 +184,11 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   end
 
   def customer_code_column(q, _row_num)
-    q.customer.code
+    q.customer&.code
   end
 
   def customer_name_column(q, _row_num)
-    q.customer.name
+    q.customer&.name
   end
 
   def dist_center_code_column(q, _row_num)
