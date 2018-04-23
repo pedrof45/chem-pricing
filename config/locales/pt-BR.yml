@@ -204,7 +204,8 @@ pt-BR:
         unit_price_amount: Preço Final CIF ($/UN)
         unit_freight_amount: Frete ($/UN)
         encargos_amount: Encargos ($/un)
-        fob_net_rounded: Preço Final Fob ($/un)
+        fob_net_rounded: Preço Fob Net ($/UN)
+        fob_final_price: Preço Final Fob ($/UN)
         taxed_charged_freight: Frete ($/UN)
         calculated_markup_amount: MarkUp ($/UN)
         cost: Preço Piso

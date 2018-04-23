@@ -195,6 +195,10 @@ class Quote < ApplicationRecord
     fob_net_price.round(2)
   end
 
+  def fob_final_price
+    unit_price - taxed_charged_freight
+  end
+
   def unit_freight_amount
     unit_freight.round(2)
   end
