@@ -179,15 +179,21 @@ ActiveAdmin.register Quote do
     customer = Customer.find_by(id: params[:customer_id])
     city = City.find_by(id: params[:city_id])
     product = Product.find_by(id: params[:product_id])
-    origin = dist_center.city.state
-    destination = customer&.city&.state || city&.state
+    redispatch = params[:redispatch]
+    origin_state = dist_center.city.state
+    destination_state =
+      if customer.blank? || redispatch.to_s == 'true'
+        city&.state
+      elsif customer
+        customer&.city&.state
+      end
     icms =
-      if product&.resolution13 && origin != destination
+      if product&.resolution13 && origin_state && destination_state && (origin_state != destination_state)
         0.04
       else
-        IcmsTax.tax_value_for(origin, destination)
+        IcmsTax.tax_value_for(origin_state, destination_state)
       end
-    resp = { icms: icms, origin: origin, destination: destination }
+    resp = { icms: icms, origin: origin_state, destination: destination_state }
     puts "FETCH ICMS RESPONSE: #{resp}"
     render json: resp
   end
