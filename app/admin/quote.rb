@@ -178,10 +178,15 @@ ActiveAdmin.register Quote do
     dist_center = DistCenter.find(params[:dist_center_id])
     customer = Customer.find_by(id: params[:customer_id])
     city = City.find_by(id: params[:city_id])
-
+    product = Product.find_by(id: params[:product_id])
     origin = dist_center.city.state
     destination = customer&.city&.state || city&.state
-    icms = IcmsTax.tax_value_for(origin, destination)
+    icms =
+      if product&.resolution13 && origin != destination
+        0.04
+      else
+        IcmsTax.tax_value_for(origin, destination)
+      end
     resp = { icms: icms, origin: origin, destination: destination }
     puts "FETCH ICMS RESPONSE: #{resp}"
     render json: resp

@@ -79,6 +79,7 @@ function fetchIcms() {
   var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
   var customerId = ($('#quote_customer_id').select2('data') || {}).id;
   var cityId = ($('#quote_city_id').select2('data') || {}).id;
+  var productId = ($('#quote_product_id').select2('data') || {}).id;
   var redispatchSelected = $('#quote_freight_condition_redispatch').is(':checked');
   var originPresent = distCenterId !== undefined;
   var destPresent;
@@ -99,7 +100,8 @@ function fetchIcms() {
           dist_center_id: distCenterId,
           customer_id: customerId,
           redispatch: redispatchSelected,
-          city_id: cityId
+          city_id: cityId,
+          product_id: productId
         },
         complete: function(data, textStatus, jqXHR){
           if((data === undefined) || (data.responseText === undefined)) { return; }
@@ -197,6 +199,8 @@ function convertPercentageFields(toPerc) {
 $(function () {
   $('.base-field-input').change(function () {
     fetchData();
+    var icmsPadrao = $('#quote_icms_padrao').is(":checked");
+    if(icmsPadrao) fetchIcms();
   });
 
   $('#quote_product_id').change(function () {
