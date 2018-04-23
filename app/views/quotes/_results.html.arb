@@ -13,11 +13,12 @@ panel 'Resultado da Cotação', class: "quote-results-panel #{'warned-results' i
       row(:currency) { |q| q.cost&.currency&.upcase }
       row :final_base_price
       row :calculated_markup_amount
-      row :fob_net_rounded
       row :unit_freight_amount
       row :icms_amount
       row :pis_confins_amount
       row :encargos_amount
+      row :fob_net_rounded
+      row :taxed_charged_freight
       row :unit_price_amount
       row :total_price
       row :mcb

@@ -1,18 +1,20 @@
 class SimulatorService < PowerTypes::Service.new(:q)
 
   def run
-    tax_d = calc_taxes
+    calc_taxes
     base_price = calc_base_price
     # DEPRECATED freight conversion now done on freight service
     # unit_freight = calc_unit_freight
     financial_cost = @q.financial_cost
 
     if @q.fixed_price
-      @q.markup = (((((@q.unit_price * tax_d)/(1.0 + financial_cost)) - @q.unit_freight ) / base_price) - 1.0).round(3)
-      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
+      @q.markup = (((((@q.unit_price * @q.tax_discount)/(1.0 + financial_cost)) - @q.unit_freight ) / base_price) - 1.0).round(3)
+      # @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
+      @q.fob_net_price = @q.unit_price - @q.taxed_charged_freight
     else
-      @q.unit_price = ((((base_price * (1.0 + @q.markup) + @q.unit_freight))/tax_d) * (1.0 + financial_cost)).round(3)
-      @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
+      @q.unit_price = ((((base_price * (1.0 + @q.markup) + @q.unit_freight))/@q.tax_discount) * (1.0 + financial_cost)).round(3)
+      # @q.fob_net_price = (base_price * (1.0 + @q.markup)).round(3)
+      @q.fob_net_price = (((base_price * (1.0 + @q.markup)) / @q.tax_discount) * (1.0 + financial_cost)).round(3)
     end
 
 
@@ -21,7 +23,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
         MKUP: @q.markup&.to_f,
         COST: base_price&.to_f,
         U_FREIGHT: @q.unit_freight&.to_f,
-        T_1_ICMS_PC: tax_d&.to_f,
+        T_1_ICMS_PC: @q.tax_discount&.to_f,
         PRAZO: financial_cost&.to_f,
         QCURRENCY: @q.currency,
         CST_CURRENCY: @q.cost.currency
@@ -53,7 +55,8 @@ class SimulatorService < PowerTypes::Service.new(:q)
       # TODO Handle Sys Var Unset
       @q.pis_confins = SystemVariable.get :pis_confins
     end
-    1 - @q.icms - @q.pis_confins
+    # 1 - @q.icms - @q.pis_confins
+    @q.tax_discount # use new method better
   end
 
   def calc_base_price

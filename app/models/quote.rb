@@ -199,6 +199,18 @@ class Quote < ApplicationRecord
     unit_freight.round(2)
   end
 
+  def total_taxes
+    icms + pis_confins
+  end
+
+  def tax_discount
+    1 - total_taxes
+  end
+
+  def taxed_charged_freight
+    ((unit_freight / tax_discount) * (1.0 + financial_cost)).round(3)
+  end
+
   def final_base_price
     (cost.base_price / cost.amount_for_price).round(2)
   end

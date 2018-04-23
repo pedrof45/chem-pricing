@@ -201,10 +201,11 @@ pt-BR:
         quote_date: Data de Simulação
         city: Cidade Alternativa
         optimal_markup_amount: MarkUp Meta Semestre (%)
-        unit_price_amount: Preço Final ($/UN)
+        unit_price_amount: Preço Final CIF ($/UN)
         unit_freight_amount: Frete ($/UN)
         encargos_amount: Encargos ($/un)
-        fob_net_rounded: Preço Fob Net ($/un)
+        fob_net_rounded: Preço Final Fob ($/un)
+        taxed_charged_freight: Frete ($/UN)
         calculated_markup_amount: MarkUp ($/UN)
         cost: Preço Piso
         fob_net_price: Preço Fob Net ($/UN)

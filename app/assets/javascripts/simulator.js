@@ -262,5 +262,8 @@ $(function () {
   if($('#page_title').html() === 'Simulador de Preço') {
     fakeSimulatorSelect();
   }
-
+  // Append sub-label to this row in result's table
+  $('.row-taxed_charged_freight th').append(
+    '<p style="font-size: 10px; font-weight: normal; text-transform: none; white-space: nowrap">(Com impostos e encargos)</p>'
+  )
 });

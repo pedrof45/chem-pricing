@@ -254,7 +254,8 @@ $markupWarnedText: #ff0000;
     }
   }
 
-  .row-unit_price_amount, .row-total_price, .row-mcb {
+  .row-unit_price_amount, .row-total_price, .row-mcb,
+    .row-fob_net_rounded, .row-taxed_charged_freight {
     td, th {
      font-weight: bold;
 
