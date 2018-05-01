@@ -191,7 +191,8 @@ ActiveAdmin.register Quote do
       if product&.resolution13 && origin_state && destination_state && (origin_state != destination_state)
         0.04
       else
-        IcmsTax.tax_value_for(origin_state, destination_state)
+        icms_destination_state = customer&.city&.state || city&.state
+        IcmsTax.tax_value_for(origin_state, icms_destination_state)
       end
     resp = { icms: icms, origin: origin_state, destination: destination_state }
     puts "FETCH ICMS RESPONSE: #{resp}"
