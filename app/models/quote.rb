@@ -68,7 +68,8 @@ class Quote < ApplicationRecord
       fob_net_price: :attr,
       unit_freight: :attr,
       watched: :attr,
-      current: :attr
+      current: :attr,
+      id_if_watched: :nil
     }
   end
 
@@ -137,6 +138,10 @@ class Quote < ApplicationRecord
 
   def watched_current?
     watched && current
+  end
+
+  def id_if_watched
+    id if watched
   end
 
   def origin_state

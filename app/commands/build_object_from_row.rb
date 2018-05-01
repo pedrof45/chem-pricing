@@ -10,12 +10,24 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
   end
 
   def build_obj
+    return build_for_watched_quote if @model == 'quote' && @row[:watched] && @row[:id_if_watched]
     case @klass.xls_mode
       when :create
         build_for_create_mode
       when :update
         build_for_update_mode
     end
+  end
+
+  def build_for_watched_quote
+    aux = { id: @row[:id_if_watched] }
+    aux.merge!(@foreign_fields.except(:vehicle, :dist_center))
+    quote = Quote.find_by(aux)
+    unless quote
+      raise "Não foi encontrada monitoreada correspondente (id ##{id_if_watched})"
+    end
+    quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields))
+    quote
   end
 
   def build_for_update_mode

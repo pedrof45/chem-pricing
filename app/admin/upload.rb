@@ -31,7 +31,9 @@ ActiveAdmin.register Upload do
             render 'active_admin/resource/new.html.arb' and return
           else
             msg = "Arquivo importado com sucesso! Foram afetadas #{resource.records_count} filas"
-            redirect_to send("#{resource.model.pluralize}_path", { 'q[upload_id_eq]': resource.id}), flash: { notice: msg }
+            route_params = { 'q[upload_id_eq]': resource.id }
+            route_params[:scope] = 'todas' if resource.model == 'quote'
+            redirect_to send("#{resource.model.pluralize}_path", route_params), flash: { notice: msg }
           end
         end
       end
