@@ -21,10 +21,10 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
 
   def build_for_watched_quote
     aux = { id: @row[:id_if_watched] }
-    aux.merge!(@foreign_fields.except(:vehicle, :dist_center))
+    aux.merge!(@foreign_fields.except(:vehicle, :dist_center, :city))
     quote = Quote.find_by(aux)
     unless quote
-      raise "Não foi encontrada monitoreada correspondente (id ##{id_if_watched})"
+      raise "Não foi encontrada monitoreada id ##{@row[:id_if_watched]} para usuário/produto/cliente indicado"
     end
     quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields))
     quote
