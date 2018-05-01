@@ -7,6 +7,8 @@ ActiveAdmin.register Cost do
     :competition_adjustment, :commentary, :on_demand
 
   actions :all
+  preserve_default_filters!
+  remove_filter :quotes
 
   index title: 'Preço Piso por Produto e CD' do
     column("CD") { |r| r.dist_center.code }
