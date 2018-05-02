@@ -2,11 +2,13 @@ class HeaderTranslatorService < PowerTypes::Service.new
 
   def model_fields_to_pt(model)
     klass = class_from(model)
-    if klass.respond_to?(:xls_fields)
-      klass.xls_fields.map { |k, _v| [k, field_to_pt(model, k) ] }.to_h
-    else
-      klass.attribute_names.map { |attr| [attr, field_to_pt(model, attr) ] }.to_h
-    end
+    klass.xls_fields.map { |k, _v| [k, field_to_pt(model, k) ] }.to_h
+    # Now all classes respond to xls_fields
+    # if klass.respond_to?(:xls_fields)
+    #   klass.xls_fields.map { |k, _v| [k, field_to_pt(model, k) ] }.to_h
+    # else
+    #   klass.attribute_names.map { |attr| [attr, field_to_pt(model, attr) ] }.to_h
+    # end
   end
 
   def model_fields_xls_hash_to_pt(model)

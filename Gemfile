@@ -28,7 +28,7 @@ gem 'activerecord-import'
 gem 'sidekiq'
 gem 'send_grid_mailer'
 gem 'rubyXL'
-
+gem 'sidekiq-scheduler'
 
 group :production do
   gem 'rack-timeout'

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>*| [QPRICING] Notificação de mudanças |*</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <style type="text/css">
+
+    /* CLIENT-SPECIFIC STYLES
+    * ---------------------------------------------------- */
+    /* Force Outlook to provide a "view in browser" menu link. */
+    #outlook a {padding:0;}
+    /* Force Hotmail to display emails at full width */
+    .ReadMsgBody {width: 100%; background-color: #e6f9ff;}
+    /* Force Hotmail to display emails at full width */
+    .ExternalClass {width: 100%; background-color: #e6f9ff;}
+    /* Force Hotmail to display normal line spacing */
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;
+    }
+    .email-body {
+      margin: 10px 0 10px 0;
+    }
+
+    .app-title {
+      color: #0092c3;
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .quotes-email-table {
+      border:1px solid #C0C0C0;
+      border-collapse:collapse;
+      padding:5px;
+      width: 100%;
+      font-size: 13px;
+    }
+
+    .quotes-email-table th {
+      border: 1px solid #C0C0C0;
+      border-bottom: 3px solid #C0005C;
+      padding: 5px;
+      background: #F2F2F2;
+      text-align: center;
+    }
+
+    .quotes-email-table td {
+      border:1px solid #C0C0C0;
+      padding:5px;
+    }
+
+
+    /* STYLE RESETS
+    * ---------------------------------------------------- */
+
+    body{margin:0; padding:0;}
+    img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+    table{border-collapse:collapse !important;}
+    body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+
+    /* IMAGES STYLES
+    * ---------------------------------------------------- */
+
+    /* Some sensible defaults for images  */
+    img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+    a img {border:none; vertical-align: middle;padding-right: 10px;}
+    p img {border:none; vertical-align: middle;padding-right: 10px;}
+    .image_fix {display:block;}
+
+    /* TEMPLATE STYLES
+    * ---------------------------------------------------- */
+
+    body, #main-quote-email-table {
+      width: 100%;
+      background-color: #f0f0f0;
+      margin:0; padding:0;
+      -webkit-text-size-adjust:100%;
+      -ms-text-size-adjust:100%;
+      -webkit-font-smoothing: antialiased;
+      font-family: "Source Sans Pro", sans-serif;
+      font-weight: 200;
+    }
+
+    body p {margin-bottom:0; margin:0}
+    body table {border-collapse: collapse;}
+
+
+    /* MOBILE STYLES
+    * ---------------------------------------------------- */
+
+    @media only screen and (max-width: 640px)  {
+      body[yahoo] .deviceWidth {width:440px!important; padding:0;}
+      body[yahoo] .center {text-align: center!important;}
+    }
+    @media only screen and (max-width: 479px) {
+      body[yahoo] .deviceWidth {width:280px!important; padding:0;}
+      body[yahoo] .center {text-align: center!important;}
+    }
+
+  </style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" yahoo="fix">
+<table id="main-quote-email-table" width="100% !important" cellpadding="0" cellspacing="0" border="0" style="font-size: 15px; color: #fff;">
+  <tbody><tr>
+    <td width="100%" valign="top" bgcolor="#fff">
+      <!-- BEGIN TEMPLATE -->
+      <table width="750" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" bgcolor="#fff">
+        <tbody style=""><tr>
+          <td width="100%">
+            <!-- BEGIN HEADER -->
+            <!-- END HEADER -->
+            <!-- BEGIN MAIN CONTENT -->
+            <table cellpadding="0" cellspacing="0" border="0" align="center" class="deviceWidth">
+              <tbody><tr>
+                <td class="center">
+                  <table width="710" cellpadding="0" cellspacing="0" border="0" align="center" class="deviceWidth">
+                    <tbody>
+                    <tr>
+                      <td valign="bottom" rowspan="2" style="color: #595959; font-weight: normal; text-align: left; vertical-align: bottom; margin: 0.1em 0;">
+                        <p style="margin: 0; font-size: 15px; line-height: 36px; text-align: justify; color: #000;">
+                          <%=Time.current.strftime('%p') == 'AM' ? 'Bom dia,' : 'Boa tarde,'%>
+                        </p>
+                        <p style="margin: 0; font-size: 15px; line-height: 36px; text-align: justify; color: #000;">
+                          Nós notificamos as seguintes modificações no banco de dados da plataforma:
+                        </p>
+                      </td>
+                      <td>
+                        <%= image_tag 'quantiq-email-logo1.png' %>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <!-- BEGIN INFO PANEL -->
+                  <table width="700" cellpadding="0" cellspacing="0" border="0" align="center" class="deviceWidth" style="margin: 0;">
+                    <tbody>
+                    <tr>
+                      <td valign="top" style="color: #000; font-weight: normal; text-align: left; vertical-align: top; margin: 0 0 1em 0; background-color: #fff;">
+                        <div style="margin: 0 0 1em 0;">
+                          <table class="quotes-email-table">
+                            <thead>
+                            <tr>
+                              <th>Data</th>
+                              <th>Tipo</th>
+                              <th>Objeto</th>
+                              <th>Id</th>
+                              <th>Valores</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% @objects.each do |obj|%>
+                                <tr>
+                                  <td><%= obj.updated_at.strftime('%d/%m/%y %H:%M') %></td>
+                                  <td><%= obj.has_been_updated? ? 'Atualizado' : 'Criado' %></td>
+                                  <td><b><%= obj.model_name.human %></b></td>
+                                  <td><%= obj.id %></td>
+                                  <td><%= pretty_csv_row(obj) %></td>
+                                </tr>
+                            <% end %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </tr></tbody>
+                  </table>
+                  <!-- END INFO PANEL -->
+                </td>
+              </tr></tbody>
+            </table>
+            <!-- END MAIN CONTENT -->
+            <!-- BEGIN PRE FOOTER -->
+            <div class="footer deviceWidth">
+              <table class="deviceWidth" cellpadding="0" cellspacing="0" border="0" style="font-size: 15px; color: #000; margin-top: 20px; margin-left: 5%">
+                <tbody>
+                <tr>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td rowspan="3" style="padding-right: 30px;">
+                    <%= image_tag 'quantiq-email-logo2.png', class: 'deviceWidth' %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Este é um email automático. Não responda
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- END PRE FOOTER  -->
+          </td>
+        </tr></table>
+</table>
+<!-- END TEMPLATE -->
+</body></html>

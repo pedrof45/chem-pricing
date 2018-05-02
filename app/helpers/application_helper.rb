@@ -34,4 +34,11 @@ module ApplicationHelper
       [label, proc]
     end.to_h
   end
+
+  def pretty_csv_row(obj)
+    res = build_csv_columns obj.class.name.underscore
+    res.map do |k, v|
+      "<b>#{k}</b>: #{v.call(obj)}, "
+    end.join.html_safe
+  end
 end
