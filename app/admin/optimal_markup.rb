@@ -3,6 +3,9 @@ ActiveAdmin.register OptimalMarkup do
   permit_params :metodology, :customer_id, :product_id, :dist_center_id, :value, :business_unit_id, :table_value
   actions :all
 
+  preserve_default_filters!
+  remove_filter :quotes
+
   index title: 'Markups por Cliente e Produto' do
     column :metodology
     column("Codigo Cliente") { |m| m.customer.code if m.customer }
