@@ -2,6 +2,7 @@ production:
   :concurrency: 5
 :queues:
   - default
+  - mailers
 :schedule:
     costs_update_notifier:
       cron: '0 0 9,16 ? * TUE-FRI *'  # Runs twice every week day

@@ -1,3 +1,3 @@
 web: bundle exec puma -C ./config/puma.rb
-worker: bundle exec sidekiq
+worker: bundle exec sidekiq -e production -C config/sidekiq.yml
 whacamole: bundle exec whacamole -c ./config/whacamole.rb
