@@ -4,7 +4,9 @@ ActiveAdmin.register Cost do
     :suggested_markup, :amount_for_price, :updated_cost,
     :last_month_base_price, :last_month_fob_net, :product_analyst,
     :lead_time, :min_order_quantity, :frac_emb, :source_adjustment,
-    :competition_adjustment, :commentary, :on_demand
+    :competition_adjustment, :commentary, :on_demand, :upload_id
+
+  before_action :remove_upload, only: [:update]
 
   actions :all
   preserve_default_filters!
@@ -26,6 +28,12 @@ ActiveAdmin.register Cost do
   csv do
     build_csv_columns(:cost).each do |k, v|
       column(k, humanize_name: false, &v)
+    end
+  end
+
+  controller do
+    def remove_upload
+      params[:cost][:upload_id] = nil
     end
   end
 
