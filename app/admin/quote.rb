@@ -179,20 +179,14 @@ ActiveAdmin.register Quote do
     customer = Customer.find_by(id: params[:customer_id])
     city = City.find_by(id: params[:city_id])
     product = Product.find_by(id: params[:product_id])
-    redispatch = params[:redispatch]
+    # redispatch = params[:redispatch] NOT USED ANYMORE
     origin_state = dist_center.city.state
-    destination_state =
-      if customer.blank? || redispatch.to_s == 'true'
-        city&.state
-      elsif customer
-        customer&.city&.state
-      end
+    destination_state = customer&.city&.state || city&.state
     icms =
       if product&.resolution13 && origin_state && destination_state && (origin_state != destination_state)
         0.04
       else
-        icms_destination_state = customer&.city&.state || city&.state
-        IcmsTax.tax_value_for(origin_state, icms_destination_state)
+        IcmsTax.tax_value_for(origin_state, destination_state)
       end
     resp = { icms: icms, origin: origin_state, destination: destination_state }
     puts "FETCH ICMS RESPONSE: #{resp}"
