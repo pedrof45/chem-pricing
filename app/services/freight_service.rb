@@ -128,6 +128,10 @@ class FreightService < PowerTypes::Service.new(:q)
     packed_normal_calc
   end
 
+  def packed_cosmetic
+    packed_normal_calc
+  end
+
   def packed_normal_calc
     freight_obj = NormalPackedFreight.where(origin: @q.dist_center.city.code, destination: @q.destination_itinerary , category: @subtype).last
     unless freight_obj

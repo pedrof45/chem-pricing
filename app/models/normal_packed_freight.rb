@@ -2,7 +2,7 @@ class NormalPackedFreight < ApplicationRecord
 	extend Enumerize
 
   belongs_to :upload, required: false
-	enumerize :category, in: [:pharma, :chemical]
+	enumerize :category, in: [:pharma, :chemical, :cosmetic]
 
   # removed
   # after_save :update_watched_quotes

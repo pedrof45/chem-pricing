@@ -304,6 +304,7 @@ class Quote < ApplicationRecord
   PACKED_SUBTYPES = {
         chemical: 'Quimico',
         pharma: 'Farma',
+        cosmetic: 'Cosmético',
         special: 'Frete Especial'
     }
 
