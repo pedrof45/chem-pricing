@@ -36,6 +36,9 @@ class UploadParserService < PowerTypes::Service.new(:u)
       attr_fields << :display_name if @klass.method_defined?(:set_display_name)
       @klass.import new_entries, on_duplicate_key_update: { conflict_target: [:id], columns: attr_fields }
       @u.records = new_entries
+      if @u.model.to_s == 'quote'
+        Quote.where(id: new_entries.map(&:ancestor_quote_id).compact).update_all(current: false)
+      end
       true
     else
       false

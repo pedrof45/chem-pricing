@@ -11,6 +11,8 @@ class Quote < ApplicationRecord
   belongs_to :vehicle, required: false
   has_and_belongs_to_many :emails
 
+  attr_accessor :ancestor_quote_id
+
   # TODO set quote_date (currently using created_at)
 
   before_create :set_current

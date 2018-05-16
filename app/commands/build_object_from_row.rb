@@ -26,7 +26,7 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
     unless quote
       raise "Não foi encontrada monitoreada id ##{@row[:id_if_watched]} para usuário/produto/cliente indicado"
     end
-    quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields))
+    quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields).merge(ancestor_quote_id: @row[:id_if_watched]))
     quote
   end
 
