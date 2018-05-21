@@ -1,6 +1,8 @@
 class Vehicle < ApplicationRecord
   has_many :quotes
 
+  scope :active, -> { where(active: true) }
+
 def self.xls_mode
     :update
   end
@@ -8,7 +10,8 @@ def self.xls_mode
   def self.xls_fields
     {
       name: :key,
-      capacity: :attr
+      capacity: :attr,
+      active: :attr
     }
   end
 
@@ -24,6 +27,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  upload_id  :integer
+#  active     :boolean          default(TRUE)
 #
 # Indexes
 #

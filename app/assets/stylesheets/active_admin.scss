@@ -74,3 +74,15 @@ $panelHeaderBck: #555;
   margin-top: -10px;
   margin-left: 40%;
 }
+
+.toggle-bool-switches-container {
+  text-align: center;
+
+  .toggle-bool-switch {
+    cursor: pointer;
+
+    &.hidden-switch {
+      display: none;
+    }
+  }
+}

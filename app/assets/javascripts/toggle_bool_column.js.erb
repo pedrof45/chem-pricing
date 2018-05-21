@@ -1,0 +1,35 @@
+$(function() {
+  $('.toggle-bool-switch').click(function (e) {
+    var boolSwitch = $(e.target);
+    var model = boolSwitch.data('model');
+    var objectId = boolSwitch.data('object_id');
+    var field = boolSwitch.data('field');
+    var value = boolSwitch.data('value');
+    var otherValue = String(value)!=='true';
+    var switchId = boolSwitch.attr('id');
+    var otherSwitch = $('#' + switchId.substr(0, switchId.lastIndexOf("-") + 1) + otherValue);
+    var url = boolSwitch.data('url');
+    data = { id: objectId };
+    data[model] = {};
+    data[model][field] = otherValue;
+    $.ajax({
+      url: url,
+      data: data,
+      error: function() {
+        var errorMsg = 'Erro Atualizando!';
+        alert(errorMsg);
+      },
+      dataType: 'json',
+      success: function(data) {
+        boolSwitch.hide();
+        otherSwitch.show();
+          //Disabled success alert pop-up
+          //$(function() {
+          //   var successMsg = 'Atualizado com sucesso!';
+          //  setTimeout(alert(successMsg), 500)
+          //});
+      },
+      type: 'PATCH'
+    });
+  });
+});

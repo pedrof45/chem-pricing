@@ -257,6 +257,7 @@ pt-BR:
       vehicle:
         name: Nome
         capacity: Capacidade
+        active: Ativo
       packaging:
         code: Codigo
         name: Nome
