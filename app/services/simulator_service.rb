@@ -46,7 +46,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
       raise "No ICMS destination" unless icms_destination_state
       icms_origin_city_code = @q.dist_center.city.code
       icms_destination_city_code = @q.customer&.city&.code || @q.city&.code
-      @q.icms = TaxService.icms_for(@q.customer, @q.product, icms_origin_city_code, icms_destination_city_code)
+      @q.icms = TaxService.new.icms_for(@q.customer, @q.product, icms_origin_city_code, icms_destination_city_code)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
@@ -55,7 +55,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
     if @q.pis_confins_padrao
       # TODO QM validate presence when not padrao.
       # TODO Handle Sys Var Unset
-      @q.pis_confins = SystemVariable.get :pis_confins
+      @q.pis_confins = TaxService.new.pis_confins_for(@q.customer, @q.product)
     end
     # 1 - @q.icms - @q.pis_confins
     @q.tax_discount # use new method better
