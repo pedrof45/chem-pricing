@@ -74,6 +74,9 @@ pt-BR:
       normal_packed_freight:
         one: Frete Embalado Normal
         other: Frete Embalado Normal
+      tax_rule:
+        one:  Exceção Impostos
+        other: Exceções Impostos
       upload:
         one: Upload
         other: Uploads
@@ -305,6 +308,15 @@ pt-BR:
         toll: Pedagio
         ct_e: CT_e
         min: Minimo
+      tax_rule:
+        tax_type: Imposto
+        customer: Cliente
+        product: Produto
+        origin: Origem (Cidade o Estado)
+        destination: Destino (Cidade o Estado)
+        value: Valor
+        created_at: Data Criado
+        updated_at: Data Atualizado
       upload:
         file: Arquivo
         filename: Arquivo

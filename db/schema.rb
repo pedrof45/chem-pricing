@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521224330) do
+ActiveRecord::Schema.define(version: 20180523035858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,6 +338,19 @@ ActiveRecord::Schema.define(version: 20180521224330) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tax_rules", force: :cascade do |t|
+    t.string "tax_type"
+    t.bigint "customer_id"
+    t.bigint "product_id"
+    t.string "origin"
+    t.string "destination"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_tax_rules_on_customer_id"
+    t.index ["product_id"], name: "index_tax_rules_on_product_id"
+  end
+
   create_table "uploads", force: :cascade do |t|
     t.string "filename"
     t.string "model"
@@ -403,4 +416,6 @@ ActiveRecord::Schema.define(version: 20180521224330) do
   add_foreign_key "sales", "customers"
   add_foreign_key "sales", "dist_centers"
   add_foreign_key "sales", "products"
+  add_foreign_key "tax_rules", "customers"
+  add_foreign_key "tax_rules", "products"
 end

@@ -1,0 +1,2 @@
+class TaxRulePolicy < IcmsTaxPolicy
+end

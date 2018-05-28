@@ -44,7 +44,9 @@ class SimulatorService < PowerTypes::Service.new(:q)
       @q.icms = 0.04
     elsif @q.icms_padrao
       raise "No ICMS destination" unless icms_destination_state
-      @q.icms = IcmsTax.tax_value_for(@q.origin_state, icms_destination_state)
+      icms_origin_city_code = @q.dist_center.city.code
+      icms_destination_city_code = @q.customer&.city&.code || @q.city&.code
+      @q.icms = TaxService.icms_for(@q.customer, @q.product, icms_origin_city_code, icms_destination_city_code)
       error("Não encontrado para esta origem/destino", :icms) if @q.icms.nil?
     end
 
