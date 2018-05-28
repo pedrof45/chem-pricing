@@ -8,7 +8,8 @@ class Product < ApplicationRecord
 
   before_save :set_display_name
 
-  validates_presence_of :sku, :unit, :density
+  validates_presence_of :unit, :density
+  validates :sku,  uniqueness: true, presence: true
   validates :density, :numericality => { greater_than_or_equal_to: 0 }
 
   scope :with_cost, -> { joins(:costs).distinct }

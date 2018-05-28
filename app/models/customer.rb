@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
   belongs_to :city
   belongs_to :country , required: false
 
-  validates_presence_of :code
+  validates :code,  uniqueness: true, presence: true
   before_save :set_display_name
 
   def set_display_name
