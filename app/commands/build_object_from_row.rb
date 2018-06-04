@@ -31,9 +31,8 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
   end
 
   def build_for_update_mode
-    aux=fields_of_type(:key).merge(@foreign_fields)
-    obj = @klass.find_or_initialize_by(aux)
-    obj.assign_attributes(fields_of_type(:attr).merge(aux))
+    obj = @klass.find_or_initialize_by(fields_of_type(:key))
+    obj.assign_attributes(fields_of_type(:attr).merge(@foreign_fields))
     obj
   end
 
