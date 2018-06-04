@@ -3,7 +3,9 @@ ActiveAdmin.register DistCenter do
   permit_params :code, :name, :city_id
   actions :all
 
-  
+  preserve_default_filters!
+  remove_filter :quotes
+
   index do
     column :code
     column :name

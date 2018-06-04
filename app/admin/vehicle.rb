@@ -3,6 +3,9 @@ ActiveAdmin.register Vehicle do
   permit_params :name, :capacity, :active
   actions :all
 
+  preserve_default_filters!
+  remove_filter :quotes
+
   index do
     column :name
     column :capacity

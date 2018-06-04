@@ -3,6 +3,7 @@ class DistCenter < ApplicationRecord
   has_many :optimal_markups
   has_many :sales
   belongs_to :city
+  has_many :quotes
 
   validates_presence_of :code
 
