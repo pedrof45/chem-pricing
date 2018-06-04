@@ -4,6 +4,9 @@ ActiveAdmin.register Email do
 
   actions :index, :new, :create, :show
 
+  preserve_default_filters!
+  remove_filter :quotes
+
   index do
     column :user if current_user.manager_or_more?
     column :customer
