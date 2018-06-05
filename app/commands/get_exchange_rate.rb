@@ -12,5 +12,10 @@ class GetExchangeRate < PowerTypes::Command.new(:from, :to)
       ExchangeRate.create(from: @from, to: @to, rate_date: Date.today, value: rate)
     end
     rate
+    # TEMP DUE TO EXCHANGE GEM ISSUES 05/06/2018
+  rescue StandardError => ex
+    Raven.capture_exception(ex)
+    puts "Error fetching exchange rate at #{Time.current}"
+    ExchangeRate.where(from: @from, to: @to).last.try(:value)
   end
 end
