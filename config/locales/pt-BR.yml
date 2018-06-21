@@ -232,8 +232,9 @@ pt-BR:
         created_at: Data de Simulação
         watched: Monitorada
         current: Vigente
-        id_if_watched: Id Monitorada
+        code_if_watched: Codigo Monitorada
         product_alias: Produto Nome Comercial
+        code: Codigo
       city:
         name: Nome
         state: Estado

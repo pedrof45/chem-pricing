@@ -36,6 +36,7 @@ ActiveAdmin.register Quote do
   index(download_links: [:json, :csv, :xlsx]) do
     selectable_column
     id_column
+    column :code
     column :watched
     bool_column :current
     column :user
@@ -105,9 +106,9 @@ ActiveAdmin.register Quote do
             render 'form'
           else
             flash_obj = if resource.below_markup?
-                          { notice: 'Cotaçao simulada', error: 'Você está cotando abaixo do mark-up tabela!' }
+                          { notice: "Cotaçao simulada! id: ##{resource.id} / codigo: #{resource.code}", error: 'Você está cotando abaixo do mark-up tabela!' }
                         else
-                          { notice: "Cotaçao simulada com sucesso!" }
+                          { notice: "Cotaçao simulada com sucesso! id: ##{resource.id} / codigo: #{resource.code}" }
                         end
             redirect_to edit_quote_path(resource), flash: flash_obj
           end
@@ -118,9 +119,9 @@ ActiveAdmin.register Quote do
     def update
       super do
         flash_obj = if resource.below_markup?
-                      { notice: 'Cotaçao atualizada', error: 'Você está cotando abaixo do mark-up tabela!' }
+                      { notice: "Cotaçao atualizada! id: ##{resource.id} / codigo: #{resource.code}", error: 'Você está cotando abaixo do mark-up tabela!' }
                     else
-                      { notice: "Cotaçao atualizada com sucesso!" }
+                      { notice: "Cotaçao atualizada com sucesso! id: ##{resource.id} / codigo: #{resource.code}" }
                     end
         redirect_to(edit_quote_path(resource), flash: flash_obj) &&  return if resource.errors.empty?
       end

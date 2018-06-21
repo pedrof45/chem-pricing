@@ -15,7 +15,7 @@ class Quote < ApplicationRecord
 
   # TODO set quote_date (currently using created_at)
 
-  before_create :set_current
+  before_create :set_current, :create_code
   after_validation :simulate!
 
   validates_presence_of :freight_condition, :quantity, :payment_term
@@ -71,7 +71,7 @@ class Quote < ApplicationRecord
       unit_freight: :attr,
       watched: :attr,
       current: :attr,
-      id_if_watched: :nil
+      code_if_watched: :nil
     }
   end
 
@@ -88,6 +88,9 @@ class Quote < ApplicationRecord
     end
   end
 
+  def create_code
+    self.code ||= SecureRandom.hex(4).upcase
+  end
 
   def set_current
     self.current = true if watched
@@ -142,8 +145,8 @@ class Quote < ApplicationRecord
     watched && current
   end
 
-  def id_if_watched
-    id if watched
+  def code_if_watched
+    code if watched
   end
 
   def origin_state
@@ -379,6 +382,7 @@ end
 #  current                  :boolean
 #  payment_term_description :string
 #  product_alias            :string
+#  code                     :string
 #
 # Indexes
 #

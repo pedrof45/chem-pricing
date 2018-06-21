@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :quote do
     user nil
+    code SecureRandom.hex(4).upcase
     customer nil
     product nil
     product_alias 'Your Favorite Product'
