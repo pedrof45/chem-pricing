@@ -20,6 +20,7 @@ class UploadParserService < PowerTypes::Service.new(:u)
         row[:current] = !!row[:watched]
       end
       obj = BuildObjectFromRow.for(model: @u.model, row: row, hash_tables: hash_tables)
+      obj.set_code if obj.class.name == 'Quote'
       # TODO fix simulate called twice, obj.valid? (L21) and @klass.import new_entries (L34)
       if !obj.errors.any? && obj.valid?
         new_entries << obj
@@ -36,9 +37,7 @@ class UploadParserService < PowerTypes::Service.new(:u)
       attr_fields << :display_name if @klass.method_defined?(:set_display_name)
       @klass.import new_entries, on_duplicate_key_update: { conflict_target: [:id], columns: attr_fields }
       @u.records = new_entries
-      if @u.model.to_s == 'quote'
-        Quote.where(id: new_entries.map(&:ancestor_quote_id).compact).update_all(current: false)
-      end
+      deprecate_ex_currents(new_entries) if @u.model.to_s == 'quote'
       true
     else
       false
@@ -87,5 +86,12 @@ class UploadParserService < PowerTypes::Service.new(:u)
     @cbf_translations ||=
       Quote::PACKED_SUBTYPES.merge(Quote::BULK_BASIC_SUBTYPES).merge(ChoppedBulkFreight.translations).invert
     @cbf_translations[pt_subtype].to_s
+  end
+
+  def deprecate_ex_currents(new_quotes)
+    codes_to_update = new_quotes.select(&:watched).map(&:code).compact
+    Quote.where(current: true, code: codes_to_update)
+        .where.not(id: new_quotes.map(&:id))
+        .update_all(current: false)
   end
 end

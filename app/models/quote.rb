@@ -15,7 +15,7 @@ class Quote < ApplicationRecord
 
   # TODO set quote_date (currently using created_at)
 
-  before_create :set_current, :create_code
+  before_create :set_current, :set_code
   after_validation :simulate!
 
   validates_presence_of :freight_condition, :quantity, :payment_term
@@ -88,8 +88,8 @@ class Quote < ApplicationRecord
     end
   end
 
-  def create_code
-    self.code ||= SecureRandom.hex(4).upcase
+  def set_code
+    self.code = SecureRandom.hex(4).upcase if code.blank?
   end
 
   def set_current

@@ -10,7 +10,7 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
   end
 
   def build_obj
-    return build_for_watched_quote if @model == 'quote' && @row[:watched] && @row[:id_if_watched]
+    return build_for_watched_quote if @model == 'quote' && @row[:watched] && @row[:code_if_watched].present?
     case @klass.xls_mode
       when :create
         build_for_create_mode
@@ -20,13 +20,13 @@ class BuildObjectFromRow < PowerTypes::Command.new(:model, :row, :hash_tables)
   end
 
   def build_for_watched_quote
-    aux = { id: @row[:id_if_watched] }
+    aux = { code: @row[:code_if_watched] }
     aux.merge!(@foreign_fields.except('vehicle', 'dist_center', 'city'))
-    quote = Quote.find_by(aux)&.dup
+    quote = Quote.where(aux).order('id ASC').last&.dup
     unless quote
-      raise "Não foi encontrada monitoreada id ##{@row[:id_if_watched]} para usuário/produto/cliente indicado"
+      raise "Não foi encontrada monitoreada codigo ##{@row[:code_if_watched]} para usuário/produto/cliente indicado"
     end
-    quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields).merge(ancestor_quote_id: @row[:id_if_watched]))
+    quote.assign_attributes(fields_of_type(:attr).merge(@foreign_fields).merge(ancestor_quote_id: quote.id))
     quote
   end
 
