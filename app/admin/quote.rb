@@ -17,6 +17,7 @@ ActiveAdmin.register Quote do
   scope 'Todas', :all
 
   filter :id
+  filter :code
   filter :watched
   filter :current
   filter :user
