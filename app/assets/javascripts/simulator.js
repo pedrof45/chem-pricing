@@ -75,6 +75,25 @@ function processCurrency(currency) {
   $('#quote_currency_' + currency).prop("checked",true);
 }
 
+function fetchFinancialCost() {
+  var paymentTerm = $('#quote_payment_term').val();
+  var url = '/quotes/fetch_financial_cost.json';
+  $.ajax({
+    type: "GET",
+    dataType: "script",
+    url: url,
+    data: {
+      payment_term: paymentTerm
+    },
+    complete: function(data, textStatus, jqXHR){
+      if((data === undefined) || (data.responseText === undefined)) { return; }
+      var respObj = JSON.parse(data.responseText) || {};
+      var financialCostValue = respObj.value;
+      $('#financial-cost-percentage').val(financialCostValue);
+    }
+  });
+}
+
 function fetchIcms() {
   var distCenterId = ($('#quote_dist_center_id').select2('data') || {}).id;
   var customerId = ($('#quote_customer_id').select2('data') || {}).id;
@@ -240,6 +259,10 @@ $(function () {
 
   $('[id="quote_freight_subtype_input"]').change(function () {
     toggleVehicleInput();
+  });
+
+  $('#quote_payment_term').change(function () {
+    fetchFinancialCost();
   });
 
   $('form.quote').submit(function () {

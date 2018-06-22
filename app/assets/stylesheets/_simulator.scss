@@ -343,3 +343,22 @@ $markupWarnedText: #ff0000;
     }
   }
 }
+
+li#quote_payment_term_input {
+  width: calc(5px + 70%);
+  display: inline-block;
+
+  input#quote_payment_term {
+    width: 12% !important;
+    float: right;
+  }
+}
+
+#financial-cost-percentage {
+  width: 10% !important;
+  float: right;
+  margin-right: 7%;
+  margin-top: 10px;
+  margin-left: -20px;
+  background-color: #f2f2f2;
+}

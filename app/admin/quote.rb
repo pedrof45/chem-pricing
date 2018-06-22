@@ -196,6 +196,14 @@ ActiveAdmin.register Quote do
     render json: resp
   end
 
+  collection_action :fetch_financial_cost, method: :get do
+    payment_term = params[:payment_term].to_i
+    value = 100 * CalcFinancialCost.for(payment_term: payment_term)
+    resp = { value: "#{value.round(3)}%" }
+    puts "FETCH FINANCIAL COST RESPONSE: #{resp}"
+    render json: resp
+  end
+
   member_action :unwatch, method: :patch do
     resource.update_columns(watched: false, current: false)
     redirect_to quotes_path(scope: 'todas'), notice: "Cotação não será mais monitorada"

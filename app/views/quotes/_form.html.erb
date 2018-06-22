@@ -34,7 +34,8 @@
               <div class="details-fields fields-box">
                 <%= f.inputs name: 'Detalhes', class: 'inputs details-fieldset' do %>
                     <%= f.input :quantity %>
-                    <%= f.input :payment_term %>
+                    <%= f.input :payment_term, as: :string %>
+                    <%= text_field_tag 'financial-cost-percentage', number_to_percentage(100 * resource.financial_cost), disabled: 1 %>
                     <%= f.input :payment_term_description %>
                 <% end %>
               </div>
