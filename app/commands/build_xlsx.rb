@@ -31,6 +31,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       cost_currency: "Moeda - Preco Piso",
       product_unit: "Unidade - Produto",
       cost_value: "Preço Piso",
+      cost_suggested_markup: "Política",
       markup_value: "MarkUp Meta - Politica de MarkUp",
       quote_markup: "MarkUp Calculado (%)",
       quote_fob_net_price: "Preco Fob Net ($/UN)", # formula
@@ -48,7 +49,6 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_payment_term: "Prazo de Pagamento (dias)",
       quote_payment_term_description: "Descrição Prazo",
       quote_encargos: "ENCARGO", # formula
-      cost_suggested_markup: "Política",
       markup_table_value: "MarkUp Tabela - Politica de MarkUp",
       product_density: "Densidade",
       quote_observation: "Observação",
@@ -56,7 +56,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_city: "Itinerario - Municipio",
       quote_freight_type: "Tipo", # include subtype
       quote_vehicle: "Nome - Veiculo",
-      customer_city: "Cidade/Estado do Cliente (Itinerario - Municipio)"
+      customer_city: "Cidade/Estado do Cliente (Itinerario - Municipio)",
+      quote_code_if_watched: "Código Monitorada"
     }
   end
 
@@ -75,6 +76,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       cost_currency: 65,
       product_unit: 65,
       cost_value: 65,
+      cost_suggested_markup: 65,
       markup_value: 80,
       quote_markup: 80,
       quote_fob_net_price: 80,
@@ -92,7 +94,6 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_payment_term: 65,
       quote_payment_term_description: 90,
       quote_encargos: 65,
-      cost_suggested_markup: 65,
       markup_table_value: 80,
       product_density: 65,
       quote_observation: 65,
@@ -100,7 +101,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_city: 180,
       quote_freight_type: 110,
       quote_vehicle: 90,
-      customer_city: 170
+      customer_city: 170,
+      quote_code_if_watched: 87
     }
   end
 
@@ -239,7 +241,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   def quote_fob_net_price_column(_q, row_num)
     r = row_num
     {
-      formula: "=IFERROR(IF(AND(Q#{r}=\"\",R#{r}=\"\"),(M#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<>\"\",R#{r}=\"\"),(M#{r}*Q#{r}/1000*(1+O#{r})),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"LT\"),(M#{r}/AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*Q#{r}*AG#{r}/1000*(1+O#{r})),IF(AND(Q#{r}<=\"\",R#{r}<>\"\",L#{r}=\"LT\"),(M#{r}*Q#{r}/AG#{r}/1000*(1+O#{r})),\"-\")))))),\"-\")",
+      formula: "=IFERROR(IF(AND(R#{r}=\"\",S#{r}=\"\"),(M#{r}/1000*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}=\"\"),(M#{r}*R#{r}/1000*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"LT\"),(M#{r}/AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),(M#{r}*R#{r}*AG#{r}/1000*(1+P#{r})),IF(AND(R#{r}<=\"\",S#{r}<>\"\",L#{r}=\"LT\"),(M#{r}*R#{r}/AG#{r}/1000*(1+P#{r})),\"-\")))))),\"-\")",
       format: '$###,###.00'
     }
   end
@@ -256,7 +258,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-        "=IF(AND(Q#{r}=\"\",R#{r}=\"\"),((P#{r}+X#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}=\"\"),((P#{r}+X#{r}*Q#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"KG\"),((P#{r}+X#{r}*AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}=\"\",R#{r}<>\"\",L#{r}=\"LT\"),((P#{r}+X#{r}/AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"KG\"),((P#{r}+X#{r}*Q#{r}*AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),IF(AND(Q#{r}<>\"\",R#{r}<>\"\",L#{r}=\"LT\"),((P#{r}+X#{r}*Q#{r}/AG#{r})/(1-Y#{r}-Z#{r}))*(1+AD#{r}),\"-\"))))))",
+        "=IF(AND(R#{r}=\"\",S#{r}=\"\"),((Q#{r}+Y#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}=\"\"),((Q#{r}+Y#{r}*R#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"LT\"),((Q#{r}+Y#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),((Q#{r}+Y#{r}*R#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"LT\"),((Q#{r}+Y#{r}*R#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r}),\"-\"))))))",
       format: '$###,###.00'
     }
   end
@@ -265,7 +267,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-          "=IF(AND(Q#{r}=\"\",R#{r}=\"\"),K#{r}&\"/\"&L#{r},IF(AND(Q#{r}<>\"\",R#{r}=\"\"),\"BRL\"&\"/\"&L#{r},IF(AND(Q#{r}=\"\",R#{r}<>\"\"),K#{r}&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")),\"BRL\"&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")))))"
+        "=IF(AND(R#{r}=\"\",S#{r}=\"\"),K#{r}&\"/\"&L#{r},IF(AND(R#{r}<>\"\",S#{r}=\"\"),\"BRL\"&\"/\"&L#{r},IF(AND(R#{r}=\"\",S#{r}<>\"\"),K#{r}&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")),\"BRL\"&\"/\"&(IF(L#{r}=\"KG\",\"LT\",\"KG\")))))"
     }
   end
 
@@ -275,7 +277,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def quote_last_month_delta_column(_q, row_num)
     r = row_num
-    { formula: "=IFERROR((S#{r}/U#{r})-1,\"-\")", format: '0%' }
+    { formula: "=IFERROR((T#{r}/V#{r})-1,\"-\")", format: '0%' }
   end
 
   def quote_freight_conditions_column(q, _row_num)
@@ -310,7 +312,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     r = row_num
     {
       formula:
-        "=IF(AB#{r}=\"\",\"-\",IFERROR((1+IF(AB#{r}<=30,2%,IF(AB#{r}<=60,2.5%,3.5%)))^(AB#{r}/30)-1,0))",
+        "=IF(AC#{r}=\"\",\"-\",IFERROR((1+IF(AC#{r}<=30,2%,IF(AC#{r}<=60,2.5%,3.5%)))^(AC#{r}/30)-1,0))",
       format: '0%'
     }
   end
@@ -353,6 +355,10 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def customer_city_column(q, _row_num)
     q.customer&.city&.name
+  end
+
+  def quote_code_if_watched_column(q, _row_num)
+    q.code_if_watched
   end
 
   # query helpers
