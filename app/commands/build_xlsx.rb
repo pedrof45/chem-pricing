@@ -57,6 +57,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_freight_type: "Tipo", # include subtype
       quote_vehicle: "Nome - Veiculo",
       customer_city: "Cidade/Estado do Cliente (Itinerario - Municipio)",
+      freight_plus_taxes: 'Frete + Impostos ($/UN)', # formula
+      quote_fob_final_price: 'Preço Final FOB ($/UN)', # formula
       quote_code_if_watched: "Código Monitorada"
     }
   end
@@ -102,6 +104,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       quote_freight_type: 110,
       quote_vehicle: 90,
       customer_city: 170,
+      freight_plus_taxes: 80,# formula
+      quote_fob_final_price: 80,# formula
       quote_code_if_watched: 87
     }
   end
@@ -130,7 +134,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
   end
 
   BLUE_HEADER_COLUMNS = [:quote_markup, :quote_fob_net_price, :quote_unit_price, :quote_currency_unit,
-    :quote_last_month_delta, :quote_encargos]
+    :quote_last_month_delta, :quote_encargos, :freight_plus_taxes, :quote_fob_final_price]
 
       def set_styles
     blue_header_indexes = BLUE_HEADER_COLUMNS.map { |col_name| fields.keys.find_index(col_name) }
@@ -355,6 +359,23 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
 
   def customer_city_column(q, _row_num)
     q.customer&.city&.name
+  end
+
+  def freight_plus_taxes_column(_q, row_num)
+    r = row_num
+    {
+        formula:
+          "=IF(AND(R#{r}=\"\",S#{r}=\"\"),((Y#{r}/(1-Z#{r}-AA#{r}))*(1+AE#{r})),IF(AND(R#{r}<>\"\",S#{r}=\"\"),(((Y#{r}*R#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"KG\"),(((Y#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r})),IF(AND(R#{r}=\"\",S#{r}<>\"\",L#{r}=\"L\"),(((Y#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r})),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"KG\"),(((Y#{r}*R#{r}*AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r})),IF(AND(R#{r}<>\"\",S#{r}<>\"\",L#{r}=\"L\"),(((Y#{r}*R#{r}/AG#{r})/(1-Z#{r}-AA#{r}))*(1+AE#{r})),\"-\"))))))",
+        format: '$###,###.00'
+    }
+  end
+
+  def quote_fob_final_price_column(_q, row_num)
+    r = row_num
+    {
+        formula: "=T#{r}-AN#{r}",
+        format: '$###,###.00'
+    }
   end
 
   def quote_code_if_watched_column(q, _row_num)
