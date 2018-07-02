@@ -9,8 +9,8 @@ panel 'Resultado da Cotação', class: "quote-results-panel #{'warned-results' i
       row :optimal_markup_amount
       row(:table_value) { |q| 100 * q.optimal_markup.table_value.round(2) if q.optimal_markup.try(:table_value) }
       row :mark_up_porcentage
-      row(:unit) { |q| q.product&.unit&.upcase }
-      row(:currency) { |q| q.cost&.currency&.upcase }
+      row(:unit) { |q| q.unit_text }
+      row(:currency) { |q| q.currency_text }
       row(:converted_base_price) { |q| q.converted_base_price.try(:round, 2) }
       row(:calculated_markup_amount) { |q| q.calculated_markup_amount.try(:round, 2) }
       row :fob_net_rounded
