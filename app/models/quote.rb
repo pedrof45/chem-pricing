@@ -225,16 +225,8 @@ class Quote < ApplicationRecord
     ((unit_freight / tax_discount) * (1.0 + financial_cost)).round(3)
   end
 
-  def final_base_price
-    (cost.base_price / cost.amount_for_price).round(2)
-  end
-
   def unit_price_amount
     unit_price.round(2)
-  end
-
-  def calculated_markup_amount
-      markup * final_base_price
   end
 
   def optimal_markup_amount
@@ -290,6 +282,10 @@ class Quote < ApplicationRecord
     c_conversor = ConversorUtils.currency_factor(cost.currency, currency, brl_usd, brl_eur)
     u_conversor = ConversorUtils.unit_factor(product.unit, unit, product.density)
     cost.base_price * c_conversor * u_conversor / cost.amount_for_price
+  end
+
+  def calculated_markup_amount
+    markup * converted_base_price
   end
 
   PACKED_SUBTYPES = {

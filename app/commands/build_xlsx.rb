@@ -30,7 +30,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       packaging: "Embalagem",
       cost_currency: "Moeda - Preco Piso",
       product_unit: "Unidade - Produto",
-      cost_value: "Preço Piso",
+      converted_base_price: "Preço Piso",
       cost_suggested_markup: "Política",
       markup_value: "MarkUp Meta - Politica de MarkUp",
       quote_markup: "MarkUp Calculado (%)",
@@ -77,7 +77,7 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
       packaging: 65,
       cost_currency: 65,
       product_unit: 65,
-      cost_value: 65,
+      converted_base_price: 65,
       cost_suggested_markup: 65,
       markup_value: 80,
       quote_markup: 80,
@@ -230,8 +230,8 @@ class BuildXlsx < PowerTypes::Command.new(:quotes)
     q.product.unit_text
   end
 
-  def cost_value_column(q, _row_num)
-    to_money q.cost.base_price
+  def converted_base_price_column(q, _row_num)
+    to_money q.converted_base_price
   end
 
   def markup_value_column(q, _row_num)

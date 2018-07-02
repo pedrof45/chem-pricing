@@ -221,7 +221,7 @@ pt-BR:
         unit_freight: Frete ($/UN)
         total_price: Receita ($)
         mcb: MCB Estimado ($)
-        final_base_price: Preço Piso ($/UN)
+        converted_base_price: Preço Piso ($/UN)
         icms_amount: ICMS ($/UN)
         pis_confins_amount: PIS/CONFINS ($/UN)
         freight_padrao: Frete Padrão
