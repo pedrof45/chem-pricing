@@ -32,16 +32,7 @@ class FreightService < PowerTypes::Service.new(:q)
   def convert_unit
     from = freight_original_unit
     to = @q.unit
-    @freight *= unit_conversor(from, to)
-  end
-
-  def unit_conversor(from, to)
-    return 1.0 if from == to
-    if from == 'lt' # to == kg
-      1.0 / @q.product.density
-    else # from == kg && to == lt
-      @q.product.density
-    end
+    @freight *= ConversorUtils.unit_factor(from, to, @q.product.density)
   end
 
   def convert_currency

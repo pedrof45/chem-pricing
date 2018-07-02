@@ -2,7 +2,7 @@ class SimulatorService < PowerTypes::Service.new(:q)
 
   def run
     calc_taxes
-    base_price = calc_base_price
+    base_price = @q.converted_base_price
     # DEPRECATED freight conversion now done on freight service
     # unit_freight = calc_unit_freight
     financial_cost = @q.financial_cost
@@ -61,12 +61,6 @@ class SimulatorService < PowerTypes::Service.new(:q)
     @q.tax_discount # use new method better
   end
 
-  def calc_base_price
-    c_conversor = currency_conversor(@q.cost.currency, @q.currency)
-    u_conversor = unit_conversor(@q.product.unit, @q.unit)
-    @q.cost.base_price * c_conversor * u_conversor / @q.cost.amount_for_price
-  end
-
   # DEPRECATED 2018-03-28 freight comes converted from freight service
   # def calc_unit_freight
   #   return @q.unit_freight unless @q.freight_padrao
@@ -81,34 +75,6 @@ class SimulatorService < PowerTypes::Service.new(:q)
   #   u_conversor = unit_conversor(@q.product.unit, @q.unit) #freight service gives amount based on product's unit
   #   @q.unit_freight * c_conversor * u_conversor
   # end
-
-  def currency_conversor(from, to)
-    case [from, to]
-    when ['brl', 'usd']
-      1.0 / @q.brl_usd
-    when ['brl', 'eur']
-      1.0 / @q.brl_eur
-    when ['usd', 'brl']
-      @q.brl_usd
-    when ['usd', 'eur']
-      @q.brl_usd / @q.brl_eur
-    when ['eur', 'brl']
-      @q.brl_eur
-    when ['eur', 'usd']
-      @q.brl_eur / @q.brl_usd
-    else
-      1.0
-    end
-  end
-
-  def unit_conversor(from, to)
-    return 1.0 if from == to
-    if from == 'lt' # to == kg
-      1.0 / @q.product.density
-    else # from == kg && to == lt
-      @q.product.density
-    end
-  end
 
   def setup_cost_and_markup
     @q.cost = Cost.where(product: @q.product, dist_center: @q.dist_center).last

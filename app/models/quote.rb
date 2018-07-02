@@ -286,6 +286,11 @@ class Quote < ApplicationRecord
     markup < opt_mkup.table_value
   end
 
+  def converted_base_price
+    c_conversor = ConversorUtils.currency_factor(cost.currency, currency, brl_usd, brl_eur)
+    u_conversor = ConversorUtils.unit_factor(product.unit, unit, product.density)
+    cost.base_price * c_conversor * u_conversor / cost.amount_for_price
+  end
 
   PACKED_SUBTYPES = {
         chemical: 'Quimico',
